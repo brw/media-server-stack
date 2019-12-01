@@ -8,14 +8,16 @@ x-all: &all
   networks:
     - traefik
 services:
+  # Use Docker Compose instead of Swarm for device support
   plex:
-    <<: *all
+    # <<: *all
     image: linuxserver/plex
+    hostname: ${HOSTNAME}
     volumes:
       - ${ROOT}/docker/plex/config:/config
       - ${ROOT}/docker/plex/transcode:/transcode
       - ${ROOT}/data:/data:rslave
-      - /dev/dri:/dev/dri
+      # - /dev/dri:/dev/dri # why it no work
     ports:
       - "10000:32400/tcp"
       - "3005:3005/tcp"
@@ -32,6 +34,8 @@ services:
       PUID: ${PUID}
       PGID: ${PGID}
       TZ: ${TZ}
+    devices:
+      - /dev/dri:/dev/dri
   deluge:
     <<: *all
     image: linuxserver/deluge:5b398f77-ls22 # Pin Deluge version until 2.x runs properly on USB
@@ -39,9 +43,13 @@ services:
       - ${ROOT}/docker/deluge/config:/config
       - ${ROOT}/data:/data:rslave
       - ${ROOT}/docker/shared/blackhole:/blackhole
+    ports:
+      - "58846:58846"
+      - "54794:54794"
+      - "54795:58846"
     deploy:
       labels:
-        # traefik.enable: "true"
+        traefik.enable: "true"
         traefik.docker.network: traefik
         traefik.http.routers.deluge-web.entrypoints: https
         traefik.http.routers.deluge-web.tls.certresolver: cloudflare
@@ -114,6 +122,8 @@ services:
     image: pannal/kitana
     volumes:
       - ${ROOT}/docker/kitana:/app/data
+    command:
+      - "-P"
     deploy:
       labels:
         traefik.enable: "true"
@@ -121,7 +131,7 @@ services:
         traefik.http.routers.kitana.entrypoints: https
         traefik.http.routers.kitana.tls.certresolver: cloudflare
         traefik.http.routers.kitana.rule: Host(`kitana.bas.sh`)
-        traefik.http.services.kitana.loadbalancer.server.port: 8181
+        traefik.http.services.kitana.loadbalancer.server.port: 31337
   thelounge:
     <<: *all
     image: linuxserver/thelounge
@@ -133,7 +143,7 @@ services:
         traefik.docker.network: traefik
         traefik.http.routers.thelounge.entrypoints: https
         traefik.http.routers.thelounge.tls.certresolver: cloudflare
-        traefik.http.routers.thelounge.rule: Host(`thelounge.bas.sh`)
+        traefik.http.routers.thelounge.rule: Host(`irc.bas.sh`)
         traefik.http.services.thelounge.loadbalancer.server.port: 9000
   traefik:
     <<: *all
