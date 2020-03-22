@@ -152,7 +152,7 @@ services:
       - ${ROOT}/docker/resilio:/config
       - ${ROOT}/data/resilio/sync:/sync
       - ${ROOT}/data/resilio/downloads:/downloads
-      - ${ROOT}/data:/data
+      - ${ROOT}/data:/sync
     ports:
       - "5555:5555"
     deploy:
