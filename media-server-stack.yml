@@ -149,8 +149,12 @@ services:
     <<: *all
     image: linuxserver/resilio-sync
     volumes:
-      - ${ROOT}/docker/resilio-sync:/config
-      - ${ROOT}/data/sync:/sync
+      - ${ROOT}/docker/resilio:/config
+      - ${ROOT}/data/resilio/sync:/sync
+      - ${ROOT}/data/resilio/downloads:/downloads
+    deploy:
+      labels:
+        traefik.enable: "true"
   rubytaco:
     <<: *all
     image: linuxserver/nginx
