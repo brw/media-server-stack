@@ -147,7 +147,7 @@ services:
         traefik.http.services.thelounge.loadbalancer.server.port: 9000
   resilio:
     <<: *all
-    image: linuxserver
+    image: linuxserver/resilio-sync
   rubytaco:
     <<: *all
     image: linuxserver/nginx
