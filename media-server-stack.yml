@@ -150,6 +150,7 @@ services:
     image: linuxserver/resilio-sync
     volumes:
       - ${ROOT}/docker/resilio-sync
+      
   rubytaco:
     <<: *all
     image: linuxserver/nginx
