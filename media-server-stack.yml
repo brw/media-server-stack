@@ -150,7 +150,6 @@ services:
     image: linuxserver/resilio-sync
     volumes:
       - ${ROOT}/docker/resilio:/config
-      - ${ROOT}/data/resilio/sync:/sync
       - ${ROOT}/data/resilio/downloads:/downloads
       - ${ROOT}/data:/sync
     ports:
