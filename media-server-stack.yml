@@ -149,8 +149,8 @@ services:
     <<: *all
     image: linuxserver/resilio-sync
     volumes:
-      - ${ROOT}/docker/resilio-sync
-      
+      - ${ROOT}/docker/resilio-sync:/config
+      - ${ROOT}/data/sync:/sync
   rubytaco:
     <<: *all
     image: linuxserver/nginx
