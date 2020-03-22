@@ -145,6 +145,9 @@ services:
         traefik.http.routers.thelounge.tls.certresolver: cloudflare
         traefik.http.routers.thelounge.rule: Host(`irc.bas.sh`)
         traefik.http.services.thelounge.loadbalancer.server.port: 9000
+  resilio:
+    <<: *all
+    image: linuxserver
   rubytaco:
     <<: *all
     image: linuxserver/nginx
