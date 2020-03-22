@@ -152,6 +152,8 @@ services:
       - ${ROOT}/docker/resilio:/config
       - ${ROOT}/data/resilio/sync:/sync
       - ${ROOT}/data/resilio/downloads:/downloads
+    ports:
+      - "5555:5555"
     deploy:
       labels:
         traefik.enable: "true"
@@ -159,7 +161,7 @@ services:
         traefik.http.routers.resilio.entrypoints: https
         traefik.http.routers.resilio.tls.certresolver: cloudflare
         traefik.http.routers.resilio.rule: Host(`sync.bas.sh`)
-        traefik.http.services.resilio.loadbalancer.server.port: 80
+        traefik.http.services.resilio.loadbalancer.server.port: 8888
   rubytaco:
     <<: *all
     image: linuxserver/nginx
