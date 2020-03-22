@@ -148,6 +148,8 @@ services:
   resilio:
     <<: *all
     image: linuxserver/resilio-sync
+    volumes:
+      - ${ROOT}/
   rubytaco:
     <<: *all
     image: linuxserver/nginx
