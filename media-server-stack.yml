@@ -153,7 +153,7 @@ services:
       - ${ROOT}/data/resilio/downloads:/downloads
       - ${ROOT}/data:/sync
     ports:
-      - "5555:5555"
+      - "55555:55555"
     deploy:
       labels:
         traefik.enable: "true"
