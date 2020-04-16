@@ -196,7 +196,7 @@ services:
     volumes:
       - ${ROOT}/data/web/files.bas.sh:/www
     command:
-      
+      - ""
     deploy:
       labels:
         traefik.enable: "true"
