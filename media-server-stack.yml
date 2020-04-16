@@ -203,12 +203,12 @@ services:
         traefik.http.routers.bas-files.tls.certresolver: cloudflare
         traefik.http.routers.bas-files.rule: Host(`files.bas.sh`)
         traefik.http.services.bas-files.loadbalancer.server.port: 8080
-  bas:
+  tofuzoom-nginx:
     <<: *all
     image: linuxserver/nginx
     volumes:
-      - ${ROOT}/docker/nginx/config:/config
-      - ${ROOT}/data/web/bas.sh:/config/www
+      - ${ROOT}/docker/tofuzoom-nginx/config:/config
+      - ${ROOT}/data/tofuzoom-nginx/bas.sh:/config/www
     deploy:
       labels:
         traefik.enable: "true"
