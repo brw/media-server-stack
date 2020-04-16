@@ -233,6 +233,7 @@ services:
       MOTD: ":tofuZoom:"
       USE_AIKAR_FLAGS: "true"
       USE_LARGE_PAGES: "true"
+      CONSOLE: "false"
   traefik:
   <<: *all
   image: traefik
