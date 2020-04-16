@@ -252,7 +252,6 @@ services:
     - "--entrypoints.http.address=:80"
     - "--entrypoints.https.address=:443"
     - "--entrypoints.uno.address=:69"
-    - "--entrypoints.minecraft.address=:25565"
     - "--certificatesresolvers.cloudflare.acme.dnschallenge=true"
     - "--certificatesresolvers.cloudflare.acme.dnschallenge.provider=cloudflare"
     - "--certificatesresolvers.cloudflare.acme.storage=/etc/traefik/acme.json"
