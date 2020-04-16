@@ -208,7 +208,7 @@ services:
     image: linuxserver/nginx
     volumes:
       - ${ROOT}/docker/tofuzoom-nginx/config:/config
-      - ${ROOT}/data/tofuzoom-nginx/bas.sh:/config/www
+      - ${ROOT}/data/web/tofuzoom.com:/config/www
     deploy:
       labels:
         traefik.enable: "true"
