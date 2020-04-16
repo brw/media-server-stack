@@ -298,6 +298,9 @@ services:
         traefik.http.routers.httpbas.entrypoints: http
         traefik.http.routers.httpbas.rule: Host(`bas.sh`)
         traefik.http.routers.httpbas.middlewares: httpsredirect
+        traefik.http.routers.httptofuzoom.entrypoints: http
+        traefik.http.routers.httptofuzoom.rule: Host(`tofuzoom.com`)
+        traefik.http.routers.httptofuzoom.middlewares: httpsredirect
         traefik.http.middlewares.httpsredirect.redirectscheme.scheme: https
 
 volumes:
