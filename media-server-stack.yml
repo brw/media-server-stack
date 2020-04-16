@@ -225,6 +225,7 @@ services:
     environment:
       TYPE: "PAPER"
       EULA: "true"
+      OVERRIDE_SERVER_PROPERTIES: "true"
       SERVER_NAME: "tofuZoom"
       DIFFICULTY: "normal"
       OPS: "basvdw"
