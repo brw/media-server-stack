@@ -203,6 +203,20 @@ services:
         traefik.http.routers.bas-files.tls.certresolver: cloudflare
         traefik.http.routers.bas-files.rule: Host(`files.bas.sh`)
         traefik.http.services.bas-files.loadbalancer.server.port: 8080
+  bas:
+    <<: *all
+    image: linuxserver/nginx
+    volumes:
+      - ${ROOT}/docker/nginx/config:/config
+      - ${ROOT}/data/web/bas.sh:/config/www
+    deploy:
+      labels:
+        traefik.enable: "true"
+        traefik.docker.network: traefik
+        traefik.http.routers.bas.entrypoints: https
+        traefik.http.routers.bas.tls.certresolver: cloudflare
+        traefik.http.routers.bas.rule: Host(`bas.sh`)
+        traefik.http.services.bas.loadbalancer.server.port: 80
   unoforbash:
     <<: *all
     image: unoforbash
