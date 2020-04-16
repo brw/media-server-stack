@@ -227,8 +227,8 @@ services:
       ENABLE_QUERY: "true"
       MAX_PLAYERS: 100
       ENABLE_COMMAND_BLOCK: true
-SPAWN_PROTECTION: 0
-  traefik:
+      SPAWN_PROTECTION: 0
+    traefik:
     <<: *all
     image: traefik
     environment:
