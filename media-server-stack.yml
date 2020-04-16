@@ -221,6 +221,8 @@ services:
     environment:
       SERVER_NAME: "tofuZoom"
       DIFFICULTY: "normal"
+      OPS: "basvdwollenberg",
+      
   traefik:
     <<: *all
     image: traefik
