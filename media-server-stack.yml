@@ -219,7 +219,7 @@ services:
     <<: *all
     image: itzg/minecraft-server
     environment:
-    - ""
+      
   traefik:
     <<: *all
     image: traefik
