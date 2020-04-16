@@ -221,6 +221,7 @@ services:
     volumes:
       - ${ROOT}/data/mc-tofuzoom:/data
     environment:
+      TYPE: "paper"
       SERVER_NAME: "tofuZoom"
       DIFFICULTY: "normal"
       OPS: "basvdwollenberg"
