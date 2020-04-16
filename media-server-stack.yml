@@ -229,50 +229,50 @@ services:
       ENABLE_COMMAND_BLOCK: true
       SPAWN_PROTECTION: 0
       MOTD: ":tofuZoom:"
-    traefik:
-    <<: *all
-    image: traefik
-    environment:
-      CF_API_EMAIL: hi@bas.sh
-      CF_API_KEY: ${CF_API_KEY}
-    command:
-      - "--api.insecure=true"
-      - "--providers.docker.endpoint=unix:///var/run/docker.sock"
-      - "--providers.docker.swarmMode=true"
-      - "--providers.docker.exposedbydefault=false"
-      - "--entrypoints.http.address=:80"
-      - "--entrypoints.https.address=:443"
-      - "--entrypoints.uno.address=:69"
-      - "--certificatesresolvers.cloudflare.acme.dnschallenge=true"
-      - "--certificatesresolvers.cloudflare.acme.dnschallenge.provider=cloudflare"
-      - "--certificatesresolvers.cloudflare.acme.storage=/etc/traefik/acme.json"
-      - "--certificatesresolvers.cloudflare.acme.email=hi@bas.sh"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - traefik:/etc/traefik
-    ports:
-      - "80:80"
-      - "443:443"
-      - "69:69"
-    deploy:
-      labels:
-        traefik.enable: "true"
-        traefik.docker.network: traefik
-        traefik.http.routers.traefik.entrypoints: https
-        traefik.http.routers.traefik.service: api@internal
-        traefik.http.routers.traefik.tls.certresolver: cloudflare
-        traefik.http.routers.traefik.rule: Host(`traefik.bas.sh`)
-        traefik.http.services.traefik.loadbalancer.server.port: 8080
-        traefik.http.routers.http.entrypoints: http
-        traefik.http.routers.http.rule: HostRegexp(`{subdomain:[a-z0-9\-]+}.bas.sh`)
-        traefik.http.routers.http.middlewares: httpsredirect
-        traefik.http.routers.httprubytaco.entrypoints: http
-        traefik.http.routers.httprubytaco.rule: Host(`rubyta.co`)
-        traefik.http.routers.httprubytaco.middlewares: httpsredirect
-        traefik.http.routers.httpbas.entrypoints: http
-        traefik.http.routers.httpbas.rule: Host(`bas.sh`)
-        traefik.http.routers.httpbas.middlewares: httpsredirect
-        traefik.http.middlewares.httpsredirect.redirectscheme.scheme: https
+  traefik:
+  <<: *all
+  image: traefik
+  environment:
+    CF_API_EMAIL: hi@bas.sh
+    CF_API_KEY: ${CF_API_KEY}
+  command:
+    - "--api.insecure=true"
+    - "--providers.docker.endpoint=unix:///var/run/docker.sock"
+    - "--providers.docker.swarmMode=true"
+    - "--providers.docker.exposedbydefault=false"
+    - "--entrypoints.http.address=:80"
+    - "--entrypoints.https.address=:443"
+    - "--entrypoints.uno.address=:69"
+    - "--certificatesresolvers.cloudflare.acme.dnschallenge=true"
+    - "--certificatesresolvers.cloudflare.acme.dnschallenge.provider=cloudflare"
+    - "--certificatesresolvers.cloudflare.acme.storage=/etc/traefik/acme.json"
+    - "--certificatesresolvers.cloudflare.acme.email=hi@bas.sh"
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock:ro
+    - traefik:/etc/traefik
+  ports:
+    - "80:80"
+    - "443:443"
+    - "69:69"
+  deploy:
+    labels:
+      traefik.enable: "true"
+      traefik.docker.network: traefik
+      traefik.http.routers.traefik.entrypoints: https
+      traefik.http.routers.traefik.service: api@internal
+      traefik.http.routers.traefik.tls.certresolver: cloudflare
+      traefik.http.routers.traefik.rule: Host(`traefik.bas.sh`)
+      traefik.http.services.traefik.loadbalancer.server.port: 8080
+      traefik.http.routers.http.entrypoints: http
+      traefik.http.routers.http.rule: HostRegexp(`{subdomain:[a-z0-9\-]+}.bas.sh`)
+      traefik.http.routers.http.middlewares: httpsredirect
+      traefik.http.routers.httprubytaco.entrypoints: http
+      traefik.http.routers.httprubytaco.rule: Host(`rubyta.co`)
+      traefik.http.routers.httprubytaco.middlewares: httpsredirect
+      traefik.http.routers.httpbas.entrypoints: http
+      traefik.http.routers.httpbas.rule: Host(`bas.sh`)
+      traefik.http.routers.httpbas.middlewares: httpsredirect
+      traefik.http.middlewares.httpsredirect.redirectscheme.scheme: https
 
 volumes:
   traefik:
