@@ -221,7 +221,7 @@ services:
     environment:
       SERVER_NAME: "tofuZoom"
       DIFFICULTY: "normal"
-      OPS: "basvdwollenberg",
+      OPS: "basvdwollenberg"
       
   traefik:
     <<: *all
