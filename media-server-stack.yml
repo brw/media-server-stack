@@ -260,6 +260,7 @@ services:
         traefik.enable: "true"
         traefik.docker.network: traefik
         traefik.http.routers.tofuzoom-dynmap.entrypoints: https
+        traefik.http.routers.tofuzoom-dynmap.tls.certresolver: cloudflare
         traefik.http.routers.tofuzoom-dynmap.rule: Host(`map.tofuzoom.com`)
         traefik.http.services.tofuzoom-dynmap.loadbalancer.server.port: 8123
   traefik:
