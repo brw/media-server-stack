@@ -224,6 +224,7 @@ services:
       - "25565:25565"
     environment:
       TYPE: "PAPER"
+      EULA: "true"
       SERVER_NAME: "tofuZoom"
       DIFFICULTY: "normal"
       OPS: "basvdwollenberg"
