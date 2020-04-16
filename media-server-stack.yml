@@ -236,6 +236,13 @@ services:
       USE_AIKAR_FLAGS: "true"
       USE_LARGE_PAGES: "true"
       CONSOLE: "false"
+    deploy:
+      labels:
+        traefik.enable: "true"
+        traefik.docker.network: traefik
+        traefik.tcp.routers.mc-tofuzoom.entrypoints: uno
+        traefik.tcp.routers.mc-tofuzoom.rule: HostSNI(`*`)
+        traefik.tcp.services.mc-tofuzoom.loadbalancer.server.port: 25565
   traefik:
   <<: *all
   image: traefik
