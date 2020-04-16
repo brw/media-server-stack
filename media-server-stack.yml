@@ -234,7 +234,7 @@ services:
       MAX_PLAYERS: 100
       ENABLE_COMMAND_BLOCK: "true"
       SPAWN_PROTECTION: 0
-      MOTD: ":tofuZoom:"
+      MOTD: ":\u00A76tofuZoom:"
       MEMORY: "12G"
       USE_AIKAR_FLAGS: "true"
       USE_LARGE_PAGES: "true"
