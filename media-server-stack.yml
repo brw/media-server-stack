@@ -215,9 +215,11 @@ services:
         traefik.tcp.services.unoforbash.loadbalancer.server.port: 4321
     ports:
       - "4321:4321"
-  tofuzoom:
+  mc-tofuzoom:
     <<: *all
     image: itzg/minecraft-server
+    volumes:
+      - ${ROOT}/data/mc-tofuzoom:/data
     environment:
       SERVER_NAME: "tofuZoom"
       DIFFICULTY: "normal"
