@@ -228,6 +228,7 @@ services:
       MAX_PLAYERS: 100
       ENABLE_COMMAND_BLOCK: true
       SPAWN_PROTECTION: 0
+      MOTD: ":tofuZoom:"
     traefik:
     <<: *all
     image: traefik
