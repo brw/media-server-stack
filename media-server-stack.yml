@@ -226,7 +226,7 @@ services:
       RCON_PASSWORD: ${RCON_PASSWORD}
       ENABLE_QUERY: "true"
       MAX_PLAYERS: 100
-      
+      ENABLE_COMMAND_BLOCK: true
   traefik:
     <<: *all
     image: traefik
