@@ -180,7 +180,7 @@ services:
     <<: *all
     image: linuxserver/nginx
     volumes:
-      - ${ROOT}/docker/nginx/config:/config
+      - ${ROOT}/docker/nginx/bas.sh/config:/config
       - ${ROOT}/data/web/bas.sh:/config/www
     deploy:
       labels:
@@ -207,7 +207,7 @@ services:
     <<: *all
     image: linuxserver/nginx
     volumes:
-      - ${ROOT}/docker/tofuzoom-nginx/config:/config
+      - ${ROOT}/docker/nginx/tofuzoom.com/config:/config
       - ${ROOT}/data/web/tofuzoom.com:/config/www
     deploy:
       labels:
