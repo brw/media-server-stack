@@ -228,9 +228,10 @@ services:
       RCON_PASSWORD: ${RCON_PASSWORD}
       ENABLE_QUERY: "true"
       MAX_PLAYERS: 100
-      ENABLE_COMMAND_BLOCK: true
+      ENABLE_COMMAND_BLOCK: "true"
       SPAWN_PROTECTION: 0
       MOTD: ":tofuZoom:"
+      USE_AIKAR_FLAGS: "true"
   traefik:
   <<: *all
   image: traefik
