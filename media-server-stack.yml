@@ -224,8 +224,9 @@ services:
       OPS: "basvdwollenberg"
       SERVER_ICON: "https://cdn.discordapp.com/emojis/699625083219738654.png"
       RCON_PASSWORD: ${RCON_PASSWORD}
-      MAX_PLAYERS: 100
       ENABLE_QUERY: "true"
+      MAX_PLAYERS: 100
+      
   traefik:
     <<: *all
     image: traefik
