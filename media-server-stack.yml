@@ -259,9 +259,9 @@ services:
       labels:
         traefik.enable: "true"
         traefik.docker.network: traefik
-        traefik.tcp.routers.mc-tofuzoom-dynmap.entrypoints: https
-        traefik.tcp.routers.mc-tofuzoom-dynmap.rule: Host(`map.tofuzoom.com`)
-        traefik.tcp.services.mc-tofuzoom-dynmap.loadbalancer.server.port: 8123
+        traefik.http.routers.tofuzoom-dynmap.entrypoints: https
+        traefik.http.routers.tofuzoom-dynmap.rule: Host(`map.tofuzoom.com`)
+        traefik.http.services.tofuzoom-dynmap.loadbalancer.server.port: 8123
   traefik:
     <<: *all
     image: traefik
@@ -308,6 +308,9 @@ services:
         traefik.http.routers.httptofuzoom.entrypoints: http
         traefik.http.routers.httptofuzoom.rule: Host(`tofuzoom.com`)
         traefik.http.routers.httptofuzoom.middlewares: httpsredirect
+        traefik.http.routers.httptofuzoom-dynmap.entrypoints: http
+        traefik.http.routers.httptofuzoom-dynmap.rule: Host(`map.tofuzoom.com`)
+        traefik.http.routers.httptofuzoom-dynmap.middlewares: httpsredirect
         traefik.http.middlewares.httpsredirect.redirectscheme.scheme: https
 
 volumes:
