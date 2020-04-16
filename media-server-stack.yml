@@ -232,6 +232,7 @@ services:
       SPAWN_PROTECTION: 0
       MOTD: ":tofuZoom:"
       USE_AIKAR_FLAGS: "true"
+      USE_LARGE_PAGES: "true"
   traefik:
   <<: *all
   image: traefik
