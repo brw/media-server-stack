@@ -222,7 +222,7 @@ services:
       SERVER_NAME: "tofuZoom"
       DIFFICULTY: "normal"
       OPS: "basvdwollenberg"
-      SERVER_ICON: "https://cdn.discordapp.com/emojis/699625083219738654.png?v=1"
+      SERVER_ICON: "https://cdn.discordapp.com/emojis/699625083219738654.png"
   traefik:
     <<: *all
     image: traefik
