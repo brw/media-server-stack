@@ -261,7 +261,7 @@ services:
         traefik.docker.network: traefik
         traefik.tcp.routers.mc-tofuzoom-dynmap.entrypoints: https
         traefik.tcp.routers.mc-tofuzoom-dynmap.rule: Host(`map.tofuzoom.com`)
-        traefik.tcp.services.mc-tofuzoom-dynmap.loadbalancer.server.port:
+        traefik.tcp.services.mc-tofuzoom-dynmap.loadbalancer.server.port: 8123
   traefik:
     <<: *all
     image: traefik
