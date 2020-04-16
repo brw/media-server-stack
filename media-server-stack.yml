@@ -217,7 +217,9 @@ services:
       - "4321:4321"
   tofumc:
     <<: *all
-    image: 
+    image: itzg/minecraft-server
+    environment:
+    - ""
   traefik:
     <<: *all
     image: traefik
