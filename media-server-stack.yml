@@ -216,7 +216,7 @@ services:
         traefik.http.routers.tofuzoom.entrypoints: https
         traefik.http.routers.tofuzoom.tls.certresolver: cloudflare
         traefik.http.routers.tofuzoom.rule: Host(`tofuzoom.com`)
-        traefik.http.services.bas.loadbalancer.server.port: 80
+        traefik.http.services.tofuzoom.loadbalancer.server.port: 80
   unoforbash:
     <<: *all
     image: unoforbash
