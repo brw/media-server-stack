@@ -176,7 +176,7 @@ services:
         traefik.http.routers.rubytaco.tls.certresolver: cloudflare
         traefik.http.routers.rubytaco.rule: Host(`rubyta.co`)
         traefik.http.services.rubytaco.loadbalancer.server.port: 80
-  bas:
+  bas-nginx:
     <<: *all
     image: linuxserver/nginx
     volumes:
@@ -213,9 +213,9 @@ services:
       labels:
         traefik.enable: "true"
         traefik.docker.network: traefik
-        traefik.http.routers.bas.entrypoints: https
-        traefik.http.routers.bas.tls.certresolver: cloudflare
-        traefik.http.routers.bas.rule: Host(`bas.sh`)
+        traefik.http.routers.tofuzoom.entrypoints: https
+        traefik.http.routers.tofuzoom.tls.certresolver: cloudflare
+        traefik.http.routers.tofuzoom.rule: Host(`tofuzoom.com`)
         traefik.http.services.bas.loadbalancer.server.port: 80
   unoforbash:
     <<: *all
