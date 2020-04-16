@@ -206,6 +206,8 @@ services:
   unoforbash:
     <<: *all
     image: unoforbash
+    ports:
+      - "4321:4321"
     deploy:
       labels:
         traefik.enable: "true"
@@ -213,13 +215,13 @@ services:
         traefik.tcp.routers.unoforbash.entrypoints: uno
         traefik.tcp.routers.unoforbash.rule: HostSNI(`*`)
         traefik.tcp.services.unoforbash.loadbalancer.server.port: 4321
-    ports:
-      - "4321:4321"
   mc-tofuzoom:
     <<: *all
     image: itzg/minecraft-server
     volumes:
       - ${ROOT}/data/minecraft/tofuzoom:/data
+    ports:
+      - "25565:25565"
     environment:
       TYPE: "PAPER"
       SERVER_NAME: "tofuZoom"
@@ -236,13 +238,6 @@ services:
       USE_AIKAR_FLAGS: "true"
       USE_LARGE_PAGES: "true"
       CONSOLE: "false"
-    deploy:
-      labels:
-        traefik.enable: "true"
-        traefik.docker.network: traefik
-        traefik.tcp.routers.mc-tofuzoom.entrypoints: minecraft
-        traefik.tcp.routers.mc-tofuzoom.rule: HostSNI(`*`)
-        traefik.tcp.services.mc-tofuzoom.loadbalancer.server.port: 25565
   traefik:
   <<: *all
   image: traefik
