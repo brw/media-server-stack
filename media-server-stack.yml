@@ -239,7 +239,6 @@ services:
       MEMORY: "12G"
       USE_AIKAR_FLAGS: "true"
       USE_LARGE_PAGES: "true"
-      CONSOLE: "false"
     command:
       - "--noconsole"
   traefik:
