@@ -228,7 +228,7 @@ services:
       SERVER_NAME: "tofuZoom"
       DIFFICULTY: "normal"
       OPS: "basvdw"
-      SERVER_ICON: "https://cdn.discordapp.com/emojis/699625083219738654.png"
+      ICON: "https://cdn.discordapp.com/emojis/699625083219738654.png"
       RCON_PASSWORD: ${RCON_PASSWORD}
       ENABLE_QUERY: "true"
       MAX_PLAYERS: 100
