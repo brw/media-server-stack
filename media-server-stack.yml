@@ -219,7 +219,7 @@ services:
     <<: *all
     image: itzg/minecraft-server
     environment:
-      SERVER_NAME: 
+      SERVER_NAME: "TofuZoom"
   traefik:
     <<: *all
     image: traefik
