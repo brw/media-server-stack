@@ -249,12 +249,19 @@ services:
       MAX_PLAYERS: 200
       ENABLE_COMMAND_BLOCK: "true"
       SPAWN_PROTECTION: 0
-      MOTD: ':tofuZoom:'
+      MOTD: ":tofuZoom:"
       MEMORY: "12G"
       USE_AIKAR_FLAGS: "true"
       USE_LARGE_PAGES: "true"
     command:
       - "--noconsole"
+    deploy:
+      labels:
+        traefik.enable: "true"
+        traefik.docker.network: traefik
+        traefik.tcp.routers.mc-tofuzoom-dynmap.entrypoints: https
+        traefik.tcp.routers.mc-tofuzoom-dynmap.rule: Host(`map.tofuzoom.com`)
+        traefik.tcp.services.mc-tofuzoom-dynmap.loadbalancer.server.port:
   traefik:
     <<: *all
     image: traefik
