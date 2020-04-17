@@ -263,10 +263,12 @@ services:
         traefik.http.routers.tofuzoom-dynmap.entrypoints: https
         traefik.http.routers.tofuzoom-dynmap.tls.certresolver: cloudflare
         traefik.http.routers.tofuzoom-dynmap.rule: Host(`map.tofuzoom.com`)
+        traefik.http.routers.tofuzoom-dynmap.service: tofuzoom-dynmap
         traefik.http.services.tofuzoom-dynmap.loadbalancer.server.port: 8123
         traefik.http.routers.tofuzoom-plan.entrypoints: https
         traefik.http.routers.tofuzoom-plan.tls.certresolver: cloudflare
         traefik.http.routers.tofuzoom-plan.rule: Host(`plan.tofuzoom.com`)
+        traefik.http.routers.tofuzoom-plan.service: tofuzoom-plan
         traefik.http.services.tofuzoom-plan.loadbalancer.server.port: 8804
   traefik:
     <<: *all
