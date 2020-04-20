@@ -249,7 +249,7 @@ services:
       ENABLE_QUERY: "true"
       MAX_PLAYERS: 200
       ENABLE_COMMAND_BLOCK: "true"
-      SPAWN_PROTECTION: 0
+      SPAWN_PROTECTION: 16
       MOTD: ":tofuZoom:"
       MEMORY: "12G"
       USE_AIKAR_FLAGS: "true"
