@@ -196,7 +196,7 @@ services:
     volumes:
       - ${ROOT}/data/web/files.bas.sh:/var/www/html
     environment:
-      - APACHE_RUN_USER=1000
+      - APACHE_RUN_USER: 1000
     deploy:
       labels:
         traefik.enable: "true"
