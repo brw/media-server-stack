@@ -194,7 +194,7 @@ services:
     <<: *all
     image: codeskyblue/gohttpserver
     volumes:
-      - ${ROOT}/data/web/files.bas.sh:/var/www/html
+      - ${ROOT}/data/web/files.bas.sh:/app/public
     environment:
       APACHE_RUN_USER: "#1000"
     deploy:
