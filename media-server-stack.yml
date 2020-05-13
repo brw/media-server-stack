@@ -251,7 +251,7 @@ services:
       ENABLE_COMMAND_BLOCK: "true"
       SPAWN_PROTECTION: 16
       MOTD: ":tofuZoom:"
-      MEMORY: "16G"
+      MEMORY: "12G"
       USE_AIKAR_FLAGS: "true"
       USE_LARGE_PAGES: "true"
       ALLOW_FLIGHT: "true"
