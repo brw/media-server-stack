@@ -169,6 +169,7 @@ services:
       - ${ROOT}/docker/nginx/config:/config
       - ${ROOT}/data/web/rubyta.co:/config/www
     deploy:
+      replicas: 0
       labels:
         traefik.enable: "true"
         traefik.docker.network: traefik
@@ -223,6 +224,7 @@ services:
     ports:
       - "4321:4321"
     deploy:
+      replicas: 0
       labels:
         traefik.enable: "true"
         traefik.docker.network: traefik
