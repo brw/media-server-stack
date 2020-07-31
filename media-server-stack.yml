@@ -258,7 +258,6 @@ services:
       USE_AIKAR_FLAGS: "true"
       USE_LARGE_PAGES: "true"
       ALLOW_FLIGHT: "true"
-      VERSION: 1.15.2
     command:
       - "--noconsole"
     deploy:
