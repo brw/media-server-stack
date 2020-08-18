@@ -172,7 +172,10 @@ services:
       labels:
         traefik.enable: "true"
         traefik.docker.network: traefik
-        traefik.http.routers.
+        traefik.http.routers.ombi.entrypoints: https
+        traefik.http.routers.ombi.tls.certresolver: cloudflare
+        traefik.http.routers.ombi.rule: Host(`ombi.bas.sh`)
+        traefik.http.services.ombi.loadbalancer.server.port:
   rubytaco:
     <<: *all
     image: linuxserver/nginx
