@@ -181,7 +181,14 @@ services:
     image: linuxserver/bazarr
     volumes:
       - ${ROOT}/docker/bazarr/config:/config
-    deploy
+    deploy:
+      labels:
+        traefik.enable: "true"
+        traefik.docker.network: traefik
+        traefik.http.routers.bazarr.entrypoints: https
+        traefik.http.routers.bazarr.tls.certresolver: cloudflare
+        traefik.http.routers.bazarr.rule: Host(`bazarr.bas.sh`)
+        traefik.http.services.bazarr.loadbalancer.server.port:
   rubytaco:
     <<: *all
     image: linuxserver/nginx
