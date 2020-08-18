@@ -163,7 +163,11 @@ services:
         traefik.http.routers.resilio.tls.certresolver: cloudflare
         traefik.http.routers.resilio.rule: Host(`sync.bas.sh`)
         traefik.http.services.resilio.loadbalancer.server.port: 8888
-
+  ombi:
+    <<: *all
+    image: linuxserver/ombi
+    volumes:
+      - ${ROOT}/
   rubytaco:
     <<: *all
     image: linuxserver/nginx
