@@ -181,7 +181,7 @@ services:
     image: linuxserver/bazarr
     volumes:
       - ${ROOT}/docker/bazarr/config:/config
-      - ${ROOT}/data/
+      - ${ROOT}/data/media/plex/TV:
     deploy:
       labels:
         traefik.enable: "true"
