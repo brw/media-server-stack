@@ -167,7 +167,12 @@ services:
     <<: *all
     image: linuxserver/ombi
     volumes:
-      - ${ROOT}/
+      - ${ROOT}/docker/ombi/config:/config
+    deploy:
+      labels:
+        traefik.enable: "true"
+        traefik.docker.network: traefik
+        traefik.http.routers.
   rubytaco:
     <<: *all
     image: linuxserver/nginx
