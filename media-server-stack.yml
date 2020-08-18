@@ -183,8 +183,8 @@ services:
       - ${ROOT}/docker/bazarr/config:/config
       - ${ROOT}/data/media/plex/TV:/tv
       - ${ROOT}/data/media/plex/TV-Anime:/tv-anime
-      - ${ROOT}/data/media/plex/Movies:/movies-anime
-      - ${ROOT}/data/media/plex/M
+      - ${ROOT}/data/media/plex/Movies:/movies
+      - ${ROOT}/data/media/plex/Movies-Anime:/movies-anime
     deploy:
       labels:
         traefik.enable: "true"
