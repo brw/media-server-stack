@@ -195,7 +195,7 @@ services:
         traefik.http.services.bazarr.loadbalancer.server.port: 6767
   shokoserver:
     <<: *all
-    image: linuxserver/
+    image: shokoanime/server
   rubytaco:
     <<: *all
     image: linuxserver/nginx
