@@ -193,6 +193,7 @@ services:
         traefik.http.routers.bazarr.tls.certresolver: cloudflare
         traefik.http.routers.bazarr.rule: Host(`bazarr.bas.sh`)
         traefik.http.services.bazarr.loadbalancer.server.port: 6767
+  shokoserver:
   rubytaco:
     <<: *all
     image: linuxserver/nginx
