@@ -287,7 +287,7 @@ services:
       - "25575:25575"
     environment:
       TYPE: "PAPER"
-      VERSIONL: 1.16.1
+      VERSION: 1.16.1
       EULA: "true"
       OVERRIDE_SERVER_PROPERTIES: "true"
       SERVER_NAME: "tofuZoom"
