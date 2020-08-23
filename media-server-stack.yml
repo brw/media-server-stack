@@ -197,7 +197,7 @@ services:
     <<: *all
     image: shokoanime/server
     volumes:
-      - ${ROOT}/docker/shokoserver:/
+      - ${ROOT}/docker/shokoserver:/home/shoko/.shoko
   rubytaco:
     <<: *all
     image: linuxserver/nginx
