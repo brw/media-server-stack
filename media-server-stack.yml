@@ -196,6 +196,7 @@ services:
   shokoserver:
     <<: *all
     image: shokoanime/server
+    volumes
   rubytaco:
     <<: *all
     image: linuxserver/nginx
