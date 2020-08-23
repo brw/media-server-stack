@@ -198,6 +198,8 @@ services:
     image: shokoanime/server
     volumes:
       - ${ROOT}/docker/shokoserver:/home/shoko/.shoko
+      - ${ROOT}/data/media/plex/TV-Anime:/tv-anime
+      - ${ROOT}/data/media/plex/Movies-Anime:/movies-anime
   rubytaco:
     <<: *all
     image: linuxserver/nginx
