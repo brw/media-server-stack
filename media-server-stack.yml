@@ -200,6 +200,14 @@ services:
       - ${ROOT}/docker/shokoserver:/home/shoko/.shoko
       - ${ROOT}/data/media/plex/TV-Anime:/tv-anime
       - ${ROOT}/data/media/plex/Movies-Anime:/movies-anime
+    deploy:
+      labels:
+        traefik.enable: "true"
+        traefik.docker.network: traefik
+        traefik.http.routers.shokoserver.entrypoints: https
+        traefik.http.routers.shokoserver.tls.certresolver: cloudflare
+        traefik.http.routers.shokoserver.rule: Host(`shoko.bas.sh`)
+        traefik.http.services.shokoserver.loadbalancer.server.port: 8111
   rubytaco:
     <<: *all
     image: linuxserver/nginx
