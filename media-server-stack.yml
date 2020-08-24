@@ -213,6 +213,8 @@ services:
     image: adolfintel/speedtest
     volumes:
       - ${ROOT}/docker
+    environment:
+      - MODE:
   rubytaco:
     <<: *all
     image: linuxserver/nginx
