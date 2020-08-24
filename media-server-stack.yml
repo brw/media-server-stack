@@ -214,7 +214,7 @@ services:
     volumes:
       - ${ROOT}/docker
     environment:
-      - MODE:
+      - MODE:"standalone"
   rubytaco:
     <<: *all
     image: linuxserver/nginx
