@@ -212,7 +212,7 @@ services:
     <<: *all
     image: linuxserver/librespeed
     volumes:
-      - ${ROOT}/docker/speedtest:/speedtest
+      - ${ROOT}/docker/speedtest:/config
     environment:
       TITLE: "Speedtest | Haring"
       TELEMETRY: "true"
