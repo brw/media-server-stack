@@ -221,7 +221,7 @@ services:
       - REDACT_IP_ADDRESSES: "true"
       - PASSWORD: ${SPEEDTEST_PASSWORD}
       - EMAIL: "hi@bas.sh"
-      -
+      - IP
   rubytaco:
     <<: *all
     image: linuxserver/nginx
