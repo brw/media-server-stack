@@ -214,6 +214,7 @@ services:
     volumes:
       - ${ROOT}/docker
     environment:
+      - TITLE: "Speedtest | Haring"
       - MODE: "standalone"
   rubytaco:
     <<: *all
