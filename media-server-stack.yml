@@ -219,6 +219,7 @@ services:
       - TELEMETRY: "true"
       - ENABLE_ID_OBFUSCATION: "true"
       - REDACT_IP_ADDRESSES: "true"
+      - PASSWORD: ""
   rubytaco:
     <<: *all
     image: linuxserver/nginx
