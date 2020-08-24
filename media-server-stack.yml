@@ -216,6 +216,8 @@ services:
     environment:
       - TITLE: "Speedtest | Haring"
       - MODE: "standalone"
+      - TELEMETRY: "true"
+
   rubytaco:
     <<: *all
     image: linuxserver/nginx
