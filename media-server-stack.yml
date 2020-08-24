@@ -215,7 +215,6 @@ services:
       - ${ROOT}/docker
     environment:
       - TITLE: "Speedtest | Haring"
-      - MODE: "standalone"
       - TELEMETRY: "true"
       - ENABLE_ID_OBFUSCATION: "true"
       - REDACT_IP_ADDRESSES: "true"
