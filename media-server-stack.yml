@@ -214,13 +214,13 @@ services:
     volumes:
       - ${ROOT}/docker/speedtest:/speedtest
     environment:
-      - TITLE: "Speedtest | Haring"
-      - TELEMETRY: "true"
-      - ENABLE_ID_OBFUSCATION: "true"
-      - REDACT_IP_ADDRESSES: "true"
-      - PASSWORD: ${SPEEDTEST_PASSWORD}
-      - EMAIL: "hi@bas.sh"
-      - IPINFO_APIKEY: ${IPINFO_APIKEY}
+      TITLE: "Speedtest | Haring"
+      TELEMETRY: "true"
+      ENABLE_ID_OBFUSCATION: "true"
+      REDACT_IP_ADDRESSES: "true"
+      PASSWORD: ${SPEEDTEST_PASSWORD}
+      EMAIL: "hi@bas.sh"
+      IPINFO_APIKEY: ${IPINFO_APIKEY}
     labels:
       traefik.enable: "true"
       traefik.docker.network: traefik
