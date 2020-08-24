@@ -220,6 +220,7 @@ services:
       - ENABLE_ID_OBFUSCATION: "true"
       - REDACT_IP_ADDRESSES: "true"
       - PASSWORD: ${SPEEDTEST_PASSWORD}
+      - EMAIL: "hi@bas.sh"
       -
   rubytaco:
     <<: *all
