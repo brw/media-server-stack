@@ -219,7 +219,8 @@ services:
       - TELEMETRY: "true"
       - ENABLE_ID_OBFUSCATION: "true"
       - REDACT_IP_ADDRESSES: "true"
-      - PASSWORD: ""
+      - PASSWORD: ${SPEEDTEST_PASSWORD}
+      -
   rubytaco:
     <<: *all
     image: linuxserver/nginx
