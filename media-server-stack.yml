@@ -221,7 +221,8 @@ services:
       - REDACT_IP_ADDRESSES: "true"
       - PASSWORD: ${SPEEDTEST_PASSWORD}
       - EMAIL: "hi@bas.sh"
-      - IP
+      - IPINFO_APIKEY: "aebca621f1cf8f"
+      -
   rubytaco:
     <<: *all
     image: linuxserver/nginx
