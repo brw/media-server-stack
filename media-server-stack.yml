@@ -222,7 +222,6 @@ services:
       - PASSWORD: ${SPEEDTEST_PASSWORD}
       - EMAIL: "hi@bas.sh"
       - IPINFO_APIKEY: ${IPINFO_APIKEY}
-      -
   rubytaco:
     <<: *all
     image: linuxserver/nginx
