@@ -208,6 +208,11 @@ services:
         traefik.http.routers.shokoserver.tls.certresolver: cloudflare
         traefik.http.routers.shokoserver.rule: Host(`shoko.bas.sh`)
         traefik.http.services.shokoserver.loadbalancer.server.port: 8111
+  speedtest:
+    <<: *all
+    image: adolfintel/speedtest
+    volumes:
+      - ${ROOT}/docker
   rubytaco:
     <<: *all
     image: linuxserver/nginx
