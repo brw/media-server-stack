@@ -210,7 +210,7 @@ services:
         traefik.http.services.shokoserver.loadbalancer.server.port: 8111
   speedtest:
     <<: *all
-    image: linuxserver/speedtest
+    image: linuxserver/librespeed
     volumes:
       - ${ROOT}/docker/speedtest:/speedtest
     environment:
