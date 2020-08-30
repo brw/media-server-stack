@@ -36,7 +36,6 @@ services:
       TZ: ${TZ}
     devices:
       - /dev/dri:/dev/dri
-    deploy:
 
   deluge:
     <<: *all
