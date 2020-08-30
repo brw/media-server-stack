@@ -200,6 +200,8 @@ services:
       - ${ROOT}/docker/shokoserver:/home/shoko/.shoko
       - ${ROOT}/data/media/plex/TV-Anime:/tv-anime
       - ${ROOT}/data/media/plex/Movies-Anime:/movies-anime
+    ports:
+      - "8111:8111"
     deploy:
       labels:
         traefik.enable: "true"
