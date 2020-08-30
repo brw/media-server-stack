@@ -36,7 +36,6 @@ services:
       TZ: ${TZ}
     devices:
       - /dev/dri:/dev/dri
-
   deluge:
     <<: *all
     #image: linuxserver/deluge:5b398f77-ls22 # Pin Deluge version until 2.x runs properly on USB
