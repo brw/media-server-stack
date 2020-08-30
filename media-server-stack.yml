@@ -43,6 +43,7 @@ services:
         traefik.http.routers.traefik.entrypoints: https
         traefik.http.routers.traefik.tls.certresolver: cloudflare
         traefik.http.routers.traefik.rule: Host(`plex.bas.sh`)
+        traefik.http.services.traefik.loadbalancer.server.port:
   deluge:
     <<: *all
     #image: linuxserver/deluge:5b398f77-ls22 # Pin Deluge version until 2.x runs properly on USB
