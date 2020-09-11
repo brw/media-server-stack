@@ -189,7 +189,14 @@ services:
     image: darkalfx/requestrr
     volumes:
       - ${ROOT}/docker/requestrr:/root/config
-
+    deploy:
+      labels:
+        traefik.enable: "true"
+        traefik.docker.network: traefik
+        traefik.http.routers.requestrr.entrypoints: https
+        traefik.http.routers.requestrr.tls.certresolver: cloudflare
+        traefik.http.routers.requestrr.rule: Host(`requestrr.bas.sh`)
+        traefik.http.services.requestrr.loadbalancer.server.port: 4545
   bazarr:
     <<: *all
     image: linuxserver/bazarr
