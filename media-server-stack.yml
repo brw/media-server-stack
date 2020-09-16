@@ -175,7 +175,7 @@ services:
     <<: *all
     image: linuxserver/ombi
     volumes:
-      - ${ROOT}/docker/ombi/config:/config
+      - ${ROOT}/docker/ombi:/config
     deploy:
       labels:
         traefik.enable: "true"
