@@ -173,7 +173,7 @@ services:
         traefik.http.services.resilio.loadbalancer.server.port: 8888
   ombi:
     <<: *all
-    image: linuxserver/ombi
+    image: linuxserver/ombi:v4-preview
     volumes:
       - ${ROOT}/docker/ombi:/config
     deploy:
