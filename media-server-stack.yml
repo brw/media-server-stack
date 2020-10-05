@@ -100,7 +100,7 @@ services:
         traefik.http.services.sonarr.loadbalancer.server.port: 8989
   radarr:
     <<: *all
-    image: linuxserver/radarr:preview
+    image: linuxserver/radarr:nightly
     volumes:
       - ${ROOT}/docker/radarr/config:/config
       - ${ROOT}/data:/data:rslave
