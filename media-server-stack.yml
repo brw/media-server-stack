@@ -206,6 +206,7 @@ services:
       - ${ROOT}/data/media/plex/Movies:/movies
       - ${ROOT}/data/media/plex/Movies-Anime:/movies-anime
     deploy:
+      replicas: 0
       labels:
         traefik.enable: "true"
         traefik.docker.network: traefik
