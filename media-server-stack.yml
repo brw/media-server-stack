@@ -113,7 +113,7 @@ services:
         traefik.http.services.radarr.loadbalancer.server.port: 7878
   tautulli:
     <<: *all
-    image: linuxserver/tautulli:development
+    image: linuxserver/tautulli:develop
     volumes:
       - ${ROOT}/docker/tautulli/config:/config
       # TODO: Add Plex logs folder here, map to /logs
