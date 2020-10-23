@@ -385,7 +385,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - traefik:/etc/traefik
     ports:
-      - published: 80
+      - target: 80
+        published: 80
         protocol: tcp
         mode: host
       - target: 443
