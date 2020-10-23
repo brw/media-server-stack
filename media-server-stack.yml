@@ -45,7 +45,6 @@ services:
         traefik.http.services.traefik.loadbalancer.server.port: 32400
   deluge:
     <<: *all
-    #image: linuxserver/deluge:5b398f77-ls22 # Pin Deluge version until 2.x runs properly on USB
     image: linuxserver/deluge
     volumes:
       - ${ROOT}/docker/deluge/config:/config
