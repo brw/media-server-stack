@@ -322,19 +322,19 @@ services:
         traefik.http.routers.tofumang.tls.certresolver: cloudflare
         traefik.http.routers.tofumang.rule: Host(`tofumang.com`)
         traefik.http.services.tofumang.loadbalancer.server.port: 80
-  unoforbash:
-    <<: *all
-    image: unoforbash
-    ports:
-      - "4321:4321"
-    deploy:
-      replicas: 0
-      labels:
-        traefik.enable: "true"
-        traefik.docker.network: traefik
-        traefik.tcp.routers.unoforbash.entrypoints: uno
-        traefik.tcp.routers.unoforbash.rule: HostSNI(`*`)
-        traefik.tcp.services.unoforbash.loadbalancer.server.port: 4321
+  # unoforbash:
+  #   <<: *all
+  #   image: unoforbash
+  #   ports:
+  #     - "4321:4321"
+  #   deploy:
+  #     replicas: 0
+  #     labels:
+  #       traefik.enable: "true"
+  #       traefik.docker.network: traefik
+  #       traefik.tcp.routers.unoforbash.entrypoints: uno
+  #       traefik.tcp.routers.unoforbash.rule: HostSNI(`*`)
+  #       traefik.tcp.services.unoforbash.loadbalancer.server.port: 4321
   mc-tofuzoom:
     <<: *all
     image: itzg/minecraft-server
