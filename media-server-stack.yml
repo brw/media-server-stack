@@ -312,7 +312,7 @@ services:
     <<: *all
     image: linuxserver/nginx
     volumes:
-      - ${ROOT}/docker/nginx/tofumang.com/config:/config
+      - ${ROOT}/docker/nginx/tofumang.com:/config
       - ${ROOT}/data/web/tofumang.com:/config/www
     deploy:
       labels:
