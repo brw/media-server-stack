@@ -442,6 +442,9 @@ services:
         traefik.http.routers.httptofumang.rule: Host(`tofumang.com`)
         traefik.http.routers.httptofumang.middlewares: httpsredirect
         traefik.http.middlewares.httpsredirect.redirectscheme.scheme: https
+        pilot:
+          token: "d7906eb1-ea30-4c20-88e2-c0b200a14eda"
+
 
 volumes:
   traefik:
