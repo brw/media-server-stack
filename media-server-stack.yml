@@ -42,7 +42,7 @@ services:
         traefik.http.routers.plex.entrypoints: https
         traefik.http.routers.plex.tls.certresolver: cloudflare
         traefik.http.routers.plex.rule: Host(`plex.bas.sh`)
-        traefik.http.services.traefik.loadbalancer.server.port: 32400
+        traefik.http.services.plex.loadbalancer.server.port: 32400
   deluge:
     <<: *all
     image: linuxserver/deluge
