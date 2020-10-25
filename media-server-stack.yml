@@ -439,6 +439,8 @@ services:
         traefik.http.routers.httptofuzoom-plan.entrypoints: http
         traefik.http.routers.httptofuzoom-plan.rule: Host(`plan.tofuzoom.com`)
         traefik.http.routers.httptofuzoom-plan.middlewares: httpsredirect
+        traefik.http.routers.httptofuzoom-plan.rule: Host(`tofumang.com`)
+        traefik.http.routers.httptofuzoom-plan.middlewares: httpsredirect
         traefik.http.middlewares.httpsredirect.redirectscheme.scheme: https
 
 volumes:
