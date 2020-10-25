@@ -39,9 +39,9 @@ services:
       labels:
         traefik.enable: "true"
         traefik.docker.network: traefik
-        traefik.http.routers.traefik.entrypoints: https
-        traefik.http.routers.traefik.tls.certresolver: cloudflare
-        traefik.http.routers.traefik.rule: Host(`plex.bas.sh`)
+        traefik.http.routers.plex.entrypoints: https
+        traefik.http.routers.plex.tls.certresolver: cloudflare
+        traefik.http.routers.plex.rule: Host(`plex.bas.sh`)
         traefik.http.services.traefik.loadbalancer.server.port: 32400
   deluge:
     <<: *all
