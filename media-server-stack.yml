@@ -308,6 +308,20 @@ services:
         traefik.http.routers.tofuzoom.tls.certresolver: cloudflare
         traefik.http.routers.tofuzoom.rule: Host(`tofuzoom.com`)
         traefik.http.services.tofuzoom.loadbalancer.server.port: 80
+  tofumang-nginx:
+    <<: *all
+    image: linuxserver/nginx
+    volumes:
+      - ${ROOT}/docker/nginx/tofumang.com/config:/config
+      - ${ROOT}/data/web/tofumang.com:/config/www
+    deploy:
+      labels:
+        traefik.enable: "true"
+        traefik.docker.network: traefik
+        traefik.http.routers.tofuzoom.entrypoints: https
+        traefik.http.routers.tofuzoom.tls.certresolver: cloudflare
+        traefik.http.routers.tofuzoom.rule: Host(`tofumang.com`)
+        traefik.http.services.tofuzoom.loadbalancer.server.port: 80
   unoforbash:
     <<: *all
     image: unoforbash
