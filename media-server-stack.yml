@@ -338,7 +338,7 @@ services:
   #       traefik.tcp.services.unoforbash.loadbalancer.server.port: 4321
   mc-tofuzoom:
     <<: *all
-    image: itzg/minecraft-server
+    image: itzg/minecraft-server:adopt14
     volumes:
       - ${ROOT}/data/minecraft/tofuzoom:/data
     ports:
