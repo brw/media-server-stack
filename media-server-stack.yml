@@ -338,7 +338,7 @@ services:
   #       traefik.tcp.services.unoforbash.loadbalancer.server.port: 4321
   mc-tofuzoom:
     <<: *all
-    image: itzg/minecraft-server
+    image: itzg/minecraft-server:adopt13
     volumes:
       - ${ROOT}/data/minecraft/tofuzoom:/data
     ports:
@@ -363,7 +363,6 @@ services:
       USE_AIKAR_FLAGS: "true"
       USE_LARGE_PAGES: "true"
       ALLOW_FLIGHT: "true"
-      JVM_XX_OPTS: "-XX:ParallelGCThreads=1 -XX:ActiveProcessorCount=8"
     deploy:
       labels:
         traefik.enable: "true"
