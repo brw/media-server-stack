@@ -364,8 +364,6 @@ services:
       USE_LARGE_PAGES: "true"
       ALLOW_FLIGHT: "true"
       JVM_XX_OPTS: "-XX:ParallelGCThreads=1 -XX:ActiveProcessorCount=8"
-    command:
-      - "--noconsole"
     deploy:
       labels:
         traefik.enable: "true"
