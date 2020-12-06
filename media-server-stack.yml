@@ -355,7 +355,7 @@ services:
       ICON: "https://cdn.discordapp.com/emojis/699625083219738654.png"
       RCON_PASSWORD: ${RCON_PASSWORD}
       ENABLE_QUERY: "true"
-      MAX_PLAYERS: 200
+      MAX_PLAYERS: 420
       ENABLE_COMMAND_BLOCK: "true"
       SPAWN_PROTECTION: 16
       MOTD: ":tofuZoom:"
