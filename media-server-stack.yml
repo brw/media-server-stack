@@ -379,6 +379,10 @@ services:
         traefik.http.routers.tofuzoom-plan.rule: Host(`plan.tofuzoom.com`)
         traefik.http.routers.tofuzoom-plan.service: tofuzoom-plan
         traefik.http.services.tofuzoom-plan.loadbalancer.server.port: 8804
+  mc-tofuzoom-rcon:
+    <<: *all
+    image: itzg/rcon
+    volumes
   traefik:
     <<: *all
     image: traefik
