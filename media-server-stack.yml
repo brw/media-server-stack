@@ -387,7 +387,7 @@ services:
     ports:
       - "4327:4327"
     environment:
-      d
+      RWA_USERNAME: 
   traefik:
     <<: *all
     image: traefik
