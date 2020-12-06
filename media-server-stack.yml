@@ -384,7 +384,6 @@ services:
     image: itzg/rcon
     ports:
       - "4327:4327"
-
   traefik:
     <<: *all
     image: traefik
