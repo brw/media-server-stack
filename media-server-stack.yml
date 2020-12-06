@@ -389,6 +389,8 @@ services:
     environment:
       RWA_USERNAME: ${RWA_USERNAME}
       RWA_PASSWORD: ${RWA_PASSWORD}
+      RWA_ADMIN: "true"
+      RWA_RCON_HOST: "mc-tofuzoom"
   traefik:
     <<: *all
     image: traefik
