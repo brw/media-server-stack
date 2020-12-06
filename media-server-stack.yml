@@ -382,7 +382,9 @@ services:
   mc-tofuzoom-rcon:
     <<: *all
     image: itzg/rcon
-    volumes
+    ports:
+      - "4327:4327"
+
   traefik:
     <<: *all
     image: traefik
