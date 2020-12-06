@@ -382,8 +382,12 @@ services:
   mc-tofuzoom-rcon:
     <<: *all
     image: itzg/rcon
+    volumes:
+      - "${ROOT}/data/minecraft/tofuzoom/rcon"
     ports:
       - "4327:4327"
+    environment:
+      d
   traefik:
     <<: *all
     image: traefik
