@@ -394,6 +394,15 @@ services:
       RWA_SERVER_NAME: "tofuZoom"
       RWA_WEB_RCON: "true"
       RWA_RCON_PASSWORD: "${RCON_PASSWORD}"
+    deploy:
+      labels:
+        traefik.enable: "true"
+        traefik.docker.network: traefik
+        traefik.http.routers.tofuzoom-rcon.entrypoints: https
+        traefik.http.routers.tofuzoom-rcon.tls.certresolver: cloudflare
+        traefik.http.routers.tofuzoom-rcon.rule: Host(`rcon.tofuzoom.com`)
+        traefik.http.routers.tofuzoom-rcon.service: tofuzoom-rcon
+        traefik.http.services.tofuzoom-rcon.loadbalancer.server.port: 4326
   traefik:
     <<: *all
     image: traefik
