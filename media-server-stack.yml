@@ -383,7 +383,7 @@ services:
     <<: *all
     image: itzg/rcon
     volumes:
-      - "${ROOT}/data/minecraft/tofuzoom/rcon"
+      - "${ROOT}/data/minecraft/tofuzoom/rcon:/opt/rcon-web-admin/db"
     ports:
       - "4327:4327"
     environment:
