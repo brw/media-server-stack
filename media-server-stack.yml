@@ -363,6 +363,8 @@ services:
       USE_AIKAR_FLAGS: "true"
       USE_LARGE_PAGES: "true"
       ALLOW_FLIGHT: "true"
+      ENABLE_AUTOPAUSE: "true"
+      MAX_TICK_TIME: -1
     deploy:
       labels:
         traefik.enable: "true"
