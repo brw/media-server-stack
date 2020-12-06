@@ -353,7 +353,7 @@ services:
       DIFFICULTY: "normal"
       OPS: "basvdw"
       ICON: "https://cdn.discordapp.com/emojis/699625083219738654.png"
-      ENABLE_RCON="true"
+      ENABLE_RCON: "true"
       RCON_PASSWORD: ${RCON_PASSWORD}
       ENABLE_QUERY: "true"
       MAX_PLAYERS: 420
