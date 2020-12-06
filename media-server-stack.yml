@@ -396,6 +396,7 @@ services:
       RWA_WEB_RCON: "true"
       RWA_RCON_PASSWORD: "${RCON_PASSWORD}"
     deploy:
+      replicas: 0
       labels:
         traefik.enable: "true"
         traefik.docker.network: traefik
