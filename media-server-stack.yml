@@ -387,7 +387,7 @@ services:
     ports:
       - "4327:4327"
     environment:
-      RWA_USERNAME: bas
+      RWA_USERNAME: ${RWA_USERNAME}
       RWA_PASSWORD: ${RWA_PASSWORD}
   traefik:
     <<: *all
