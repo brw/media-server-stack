@@ -45,6 +45,7 @@ services:
         traefik.http.services.plex.loadbalancer.server.port: 32400
     emby:
       <<: *all
+
   deluge:
     <<: *all
     image: linuxserver/deluge
