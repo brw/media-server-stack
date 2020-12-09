@@ -49,7 +49,14 @@ services:
       volumes:
         - ${ROOT}/docker/emby:/config
         - ${ROOT}/data:/data:rslave
-      
+      deploy:
+        labels:
+          traefik.enable: "true"
+          traefik.docker.network: traefik
+          traefik.http.routers.emby.entrypoints: https
+          traefik.http.routers.emby.tls.certresolver: cloudflare
+          traefik.http.routers.emby.rule: Host(`emby.bas.sh`)
+          traefik.http.services.emby.loadbalancer.server.port: 8096
   deluge:
     <<: *all
     image: linuxserver/deluge
