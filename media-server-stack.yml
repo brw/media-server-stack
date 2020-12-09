@@ -11,7 +11,7 @@ services:
   # Use Docker Compose instead of Swarm for device support maybe?
   plex:
     # <<: *all
-    image: linuxserver/plex
+    image: ghcr.io/linuxserver/plex
     hostname: ${HOSTNAME}
     volumes:
       - ${ROOT}/docker/plex/config:/config
@@ -45,7 +45,7 @@ services:
         traefik.http.services.plex.loadbalancer.server.port: 32400
     emby:
       <<: *all
-      image: linuxserver/emby
+      image: ghcr.io/linuxserver/emby
       volumes:
         - ${ROOT}/docker/emby:/config
         - ${ROOT}/data:/data:rslave
@@ -59,7 +59,7 @@ services:
           traefik.http.services.emby.loadbalancer.server.port: 8096
   deluge:
     <<: *all
-    image: linuxserver/deluge
+    image: ghcr.io/linuxserver/deluge
     volumes:
       - ${ROOT}/docker/deluge/config:/config
       - ${ROOT}/data:/data:rslave
@@ -84,7 +84,7 @@ services:
         traefik.http.services.deluge-daemon.loadbalancer.server.port: 58846
   jackett:
     <<: *all
-    image: linuxserver/jackett:development
+    image: ghcr.io/linuxserver/jackett:development
     volumes:
       - ${ROOT}/docker/jackett/config:/config/Jackett
       - ${ROOT}/docker/shared/blackhole:/downloads
@@ -98,7 +98,7 @@ services:
         traefik.http.services.jackett.loadbalancer.server.port: 9117
   sonarr:
     <<: *all
-    image: linuxserver/sonarr:preview
+    image: ghcr.io/linuxserver/sonarr:preview
     volumes:
       - ${ROOT}/docker/sonarr/config:/config
       - ${ROOT}/data:/data:rslave
@@ -112,7 +112,7 @@ services:
         traefik.http.services.sonarr.loadbalancer.server.port: 8989
   radarr:
     <<: *all
-    image: linuxserver/radarr:nightly
+    image: ghcr.io/linuxserver/radarr:nightly
     volumes:
       - ${ROOT}/docker/radarr/config:/config
       - ${ROOT}/data:/data:rslave
@@ -126,7 +126,7 @@ services:
         traefik.http.services.radarr.loadbalancer.server.port: 7878
   tautulli:
     <<: *all
-    image: linuxserver/tautulli
+    image: ghcr.io/linuxserver/tautulli
     volumes:
       - ${ROOT}/docker/tautulli/config:/config
       # TODO: Add Plex logs folder here, map to /logs
@@ -155,7 +155,7 @@ services:
         traefik.http.services.kitana.loadbalancer.server.port: 31337
   thelounge:
     <<: *all
-    image: linuxserver/thelounge
+    image: ghcr.io/linuxserver/thelounge
     volumes:
       - ${ROOT}/docker/thelounge/config:/config
     deploy:
@@ -168,7 +168,7 @@ services:
         traefik.http.services.thelounge.loadbalancer.server.port: 9000
   resilio:
     <<: *all
-    image: linuxserver/resilio-sync
+    image: ghcr.io/linuxserver/resilio-sync
     volumes:
       - ${ROOT}/docker/resilio:/config
       - ${ROOT}/data/resilio/downloads:/downloads
@@ -186,7 +186,7 @@ services:
         traefik.http.services.resilio.loadbalancer.server.port: 8888
   ombi:
     <<: *all
-    image: linuxserver/ombi:v4-preview
+    image: ghcr.io/linuxserver/ombi:v4-preview
     volumes:
       - ${ROOT}/docker/ombi:/config
     deploy:
@@ -212,7 +212,7 @@ services:
         traefik.http.services.requestrr.loadbalancer.server.port: 4545
   bazarr:
     <<: *all
-    image: linuxserver/bazarr
+    image: ghcr.io/linuxserver/bazarr
     volumes:
       - ${ROOT}/docker/bazarr/config:/config
       - ${ROOT}/data/media/plex/TV:/tv
@@ -248,7 +248,7 @@ services:
         traefik.http.services.shokoserver.loadbalancer.server.port: 8111
   speedtest:
     <<: *all
-    image: linuxserver/librespeed
+    image: ghcr.io/linuxserver/librespeed
     volumes:
       - ${ROOT}/docker/speedtest:/config
     environment:
@@ -269,7 +269,7 @@ services:
         traefik.http.services.speedtest.loadbalancer.server.port: 80
   rubytaco:
     <<: *all
-    image: linuxserver/nginx
+    image: ghcr.io/linuxserver/nginx
     volumes:
       - ${ROOT}/docker/nginx/config:/config
       - ${ROOT}/data/web/rubyta.co:/config/www
@@ -284,7 +284,7 @@ services:
         traefik.http.services.rubytaco.loadbalancer.server.port: 80
   bas-nginx:
     <<: *all
-    image: linuxserver/nginx
+    image: ghcr.io/linuxserver/nginx
     volumes:
       - ${ROOT}/docker/nginx/bas.sh/config:/config
       - ${ROOT}/data/web/bas.sh:/config/www
@@ -311,7 +311,7 @@ services:
         traefik.http.services.bas-files.loadbalancer.server.port: 8000
   tofuzoom-nginx:
     <<: *all
-    image: linuxserver/nginx
+    image: ghcr.io/linuxserver/nginx
     volumes:
       - ${ROOT}/docker/nginx/tofuzoom.com/config:/config
       - ${ROOT}/data/web/tofuzoom.com:/config/www
@@ -325,7 +325,7 @@ services:
         traefik.http.services.tofuzoom.loadbalancer.server.port: 80
   tofumang-nginx:
     <<: *all
-    image: linuxserver/nginx
+    image: ghcr.io/linuxserver/nginx
     volumes:
       - ${ROOT}/docker/nginx/tofumang.com:/config
       - ${ROOT}/data/web/tofumang.com:/config/www
