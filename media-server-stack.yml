@@ -45,7 +45,10 @@ services:
         traefik.http.services.plex.loadbalancer.server.port: 32400
     emby:
       <<: *all
-      
+      image: linuxserver/emby
+      volumes:
+        - ${ROOT}/docker/emby:/config
+        - ${ROOT}/data:/data:rslave
   deluge:
     <<: *all
     image: linuxserver/deluge
