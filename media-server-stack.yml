@@ -15,6 +15,7 @@ services:
     hostname: ${HOSTNAME}
     volumes:
       - ${ROOT}/docker/plex/config:/config
+      - ${ROOT}/docker/plex/transcode:/transcode
       - ${ROOT}/data:/data:rslave
     ports:
       - "10000:32400/tcp"
