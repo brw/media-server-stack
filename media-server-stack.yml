@@ -59,6 +59,17 @@ services:
         traefik.http.services.emby.loadbalancer.server.port: 8096
   jellyfin:
     <<: *all
+    volumes:
+      - ${ROOT}/docker/jellyfin:/config
+      - ${ROOT}/data:/data:rslave
+    deploy:
+      labels:
+        traefik.enable: "true"
+        traefik.docker.network: traefik
+        traefik.http.routers.jellyfin.entrypoints: https
+        traefik.http.routers.jellyfin.tls.certresolver: cloudflare
+        traefik.http.routers.jellyfin.rule: Host(`jellyfin.bas.sh`)
+        traefik.http.services.jellyfin.loadbalancer.server.port: 8096
   deluge:
     <<: *all
     image: linuxserver/deluge
