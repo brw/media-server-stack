@@ -49,6 +49,7 @@ services:
       volumes:
         - ${ROOT}/docker/emby:/config
         - ${ROOT}/data:/data:rslave
+      
   deluge:
     <<: *all
     image: linuxserver/deluge
