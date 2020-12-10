@@ -425,12 +425,12 @@ services:
       replicas: 0
       labels:
         traefik.enable: "true"
-        traefik.docker.network: traefik
-        traefik.http.routers.tofuzoom-rcon.entrypoints: https
-        traefik.http.routers.tofuzoom-rcon.tls.certresolver: cloudflare
-        traefik.http.routers.tofuzoom-rcon.rule: Host(`rcon.tofuzoom.com`)
-        traefik.http.routers.tofuzoom-rcon.service: tofuzoom-rcon
-        traefik.http.services.tofuzoom-rcon.loadbalancer.server.port: 4326
+        docker.network: traefik
+        http.services.tofuzoom-rcon.loadbalancer.server.port: 4326
+        http.routers.tofuzoom-rcon.entrypoints: https
+        http.routers.tofuzoom-rcon.tls.certresolver: cloudflare
+        http.routers.tofuzoom-rcon.rule: Host(`rcon.tofuzoom.com`)
+        http.routers.tofuzoom-rcon.service: tofuzoom-rcon
   traefik:
     <<: *all
     image: traefik
@@ -468,35 +468,38 @@ services:
         mode: host
     deploy:
       labels:
-        traefik.enable: "true"
-        traefik.docker.network: traefik
-        traefik.http.routers.traefik.entrypoints: https
-        traefik.http.routers.traefik.service: api@internal
-        traefik.http.routers.traefik.tls.certresolver: cloudflare
-        traefik.http.routers.traefik.rule: Host(`traefik.bas.sh`)
-        traefik.http.services.traefik.loadbalancer.server.port: 8080
-        traefik.http.routers.http.entrypoints: http
-        traefik.http.routers.http.rule: HostRegexp(`{subdomain:[a-z0-9\-]+}.bas.sh`)
-        traefik.http.routers.http.middlewares: httpsredirect
-        traefik.http.routers.httprubytaco.entrypoints: http
-        traefik.http.routers.httprubytaco.rule: Host(`rubyta.co`)
-        traefik.http.routers.httprubytaco.middlewares: httpsredirect
-        traefik.http.routers.httpbas.entrypoints: http
-        traefik.http.routers.httpbas.rule: Host(`bas.sh`)
-        traefik.http.routers.httpbas.middlewares: httpsredirect
-        traefik.http.routers.httptofuzoom.entrypoints: http
-        traefik.http.routers.httptofuzoom.rule: Host(`tofuzoom.com`)
-        traefik.http.routers.httptofuzoom.middlewares: httpsredirect
-        traefik.http.routers.httptofuzoom-dynmap.entrypoints: http
-        traefik.http.routers.httptofuzoom-dynmap.rule: Host(`map.tofuzoom.com`)
-        traefik.http.routers.httptofuzoom-dynmap.middlewares: httpsredirect
-        traefik.http.routers.httptofuzoom-plan.entrypoints: http
-        traefik.http.routers.httptofuzoom-plan.rule: Host(`plan.tofuzoom.com`)
-        traefik.http.routers.httptofuzoom-plan.middlewares: httpsredirect
-        traefik.http.routers.httptofumang.entrypoints: http
-        traefik.http.routers.httptofumang.rule: Host(`tofumang.com`)
-        traefik.http.routers.httptofumang.middlewares: httpsredirect
-        traefik.http.middlewares.httpsredirect.redirectscheme.scheme: https
+        traefik:
+          enable: "true"
+          docker.network: traefik
+          http:
+            services.traefik.loadbalancer.server.port: 8080
+            middlewares.httpsredirect.redirectscheme.scheme: https
+            routers:
+              traefik.entrypoints: https
+              traefik.service: api@internal
+              traefik.tls.certresolver: cloudflare
+              traefik.rule: Host(`traefik.bas.sh`)
+              http.entrypoints: http
+              http.rule: HostRegexp(`{subdomain:[a-z0-9\-]+}.bas.sh`)
+              http.middlewares: httpsredirect
+              httprubytaco.entrypoints: http
+              httprubytaco.rule: Host(`rubyta.co`)
+              httprubytaco.middlewares: httpsredirect
+              httpbas.entrypoints: http
+              httpbas.rule: Host(`bas.sh`)
+              httpbas.middlewares: httpsredirect
+              httptofuzoom.entrypoints: http
+              httptofuzoom.rule: Host(`tofuzoom.com`)
+              httptofuzoom.middlewares: httpsredirect
+              httptofuzoom-dynmap.entrypoints: http
+              httptofuzoom-dynmap.rule: Host(`map.tofuzoom.com`)
+              httptofuzoom-dynmap.middlewares: httpsredirect
+              httptofuzoom-plan.entrypoints: http
+              httptofuzoom-plan.rule: Host(`plan.tofuzoom.com`)
+              httptofuzoom-plan.middlewares: httpsredirect
+              httptofumang.entrypoints: http
+              httptofumang.rule: Host(`tofumang.com`)
+              httptofumang.middlewares: httpsredirect
 
 volumes:
   traefik:
