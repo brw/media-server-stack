@@ -36,12 +36,13 @@ services:
       - /dev/dri:/dev/dri
     deploy:
       labels:
-        traefik.enable: "true"
-        traefik.docker.network: traefik
-        traefik.http.routers.plex.entrypoints: https
-        traefik.http.routers.plex.tls.certresolver: cloudflare
-        traefik.http.routers.plex.rule: Host(`plex.bas.sh`)
-        traefik.http.services.plex.loadbalancer.server.port: 32400
+        traefik:
+          enable: "true"
+          docker.network: traefik
+          http.routers.plex.entrypoints: https
+          http.routers.plex.tls.certresolver: cloudflare
+          http.routers.plex.rule: Host(`plex.bas.sh`)
+          http.services.plex.loadbalancer.server.port: 32400
   emby:
     <<: *all
     image: linuxserver/emby
@@ -50,12 +51,13 @@ services:
       - ${ROOT}/data:/data:rslave
     deploy:
       labels:
-        traefik.enable: "true"
-        traefik.docker.network: traefik
-        traefik.http.routers.emby.entrypoints: https
-        traefik.http.routers.emby.tls.certresolver: cloudflare
-        traefik.http.routers.emby.rule: Host(`emby.bas.sh`)
-        traefik.http.services.emby.loadbalancer.server.port: 8096
+        traefik:
+          enable: "true"
+          docker.network: traefik
+          http.routers.emby.entrypoints: https
+          http.routers.emby.tls.certresolver: cloudflare
+          http.routers.emby.rule: Host(`emby.bas.sh`)
+          http.services.emby.loadbalancer.server.port: 8096
   jellyfin:
     <<: *all
     volumes:
@@ -63,12 +65,13 @@ services:
       - ${ROOT}/data:/data:rslave
     deploy:
       labels:
-        traefik.enable: "true"
-        traefik.docker.network: traefik
-        traefik.http.routers.jellyfin.entrypoints: https
-        traefik.http.routers.jellyfin.tls.certresolver: cloudflare
-        traefik.http.routers.jellyfin.rule: Host(`jellyfin.bas.sh`)
-        traefik.http.services.jellyfin.loadbalancer.server.port: 8096
+        traefik:
+          enable: "true"
+          docker.network: traefik
+          http.routers.jellyfin.entrypoints: https
+          http.routers.jellyfin.tls.certresolver: cloudflare
+          http.routers.jellyfin.rule: Host(`jellyfin.bas.sh`)
+          http.services.jellyfin.loadbalancer.server.port: 8096
   deluge:
     <<: *all
     image: linuxserver/deluge
@@ -82,18 +85,19 @@ services:
       - "54795:58846"
     deploy:
       labels:
-        traefik.enable: "true"
-        traefik.docker.network: traefik
-        traefik.http.routers.deluge-web.entrypoints: https
-        traefik.http.routers.deluge-web.tls.certresolver: cloudflare
-        traefik.http.routers.deluge-web.rule: Host(`deluge-web.bas.sh`)
-        traefik.http.routers.deluge-web.service: deluge-web
-        traefik.http.services.deluge-web.loadbalancer.server.port: 8112
-        traefik.http.routers.deluge-daemon.entrypoints: https
-        traefik.http.routers.deluge-daemon.tls.certresolver: cloudflare
-        traefik.http.routers.deluge-daemon.rule: Host(`deluge-daemon.bas.sh`)
-        traefik.http.routers.deluge-daemon.service: deluge-daemon
-        traefik.http.services.deluge-daemon.loadbalancer.server.port: 58846
+        traefik:
+          enable: "true"
+          docker.network: traefik
+          http.routers.deluge-web.entrypoints: https
+          http.routers.deluge-web.tls.certresolver: cloudflare
+          http.routers.deluge-web.rule: Host(`deluge-web.bas.sh`)
+          http.routers.deluge-web.service: deluge-web
+          http.services.deluge-web.loadbalancer.server.port: 8112
+          http.routers.deluge-daemon.entrypoints: https
+          http.routers.deluge-daemon.tls.certresolver: cloudflare
+          http.routers.deluge-daemon.rule: Host(`deluge-daemon.bas.sh`)
+          http.routers.deluge-daemon.service: deluge-daemon
+          http.services.deluge-daemon.loadbalancer.server.port: 58846
   jackett:
     <<: *all
     image: linuxserver/jackett:development
@@ -102,12 +106,13 @@ services:
       - ${ROOT}/docker/shared/blackhole:/downloads
     deploy:
       labels:
-        traefik.enable: "true"
-        traefik.docker.network: traefik
-        traefik.http.routers.jackett.entrypoints: https
-        traefik.http.routers.jackett.tls.certresolver: cloudflare
-        traefik.http.routers.jackett.rule: Host(`jackett.bas.sh`)
-        traefik.http.services.jackett.loadbalancer.server.port: 9117
+        traefik:
+          enable: "true"
+          docker.network: traefik
+          http.routers.jackett.entrypoints: https
+          http.routers.jackett.tls.certresolver: cloudflare
+          http.routers.jackett.rule: Host(`jackett.bas.sh`)
+          http.services.jackett.loadbalancer.server.port: 9117
   sonarr:
     <<: *all
     image: linuxserver/sonarr:preview
@@ -116,12 +121,13 @@ services:
       - ${ROOT}/data:/data:rslave
     deploy:
       labels:
-        traefik.enable: "true"
-        traefik.docker.network: traefik
-        traefik.http.routers.sonarr.entrypoints: https
-        traefik.http.routers.sonarr.tls.certresolver: cloudflare
-        traefik.http.routers.sonarr.rule: Host(`sonarr.bas.sh`)
-        traefik.http.services.sonarr.loadbalancer.server.port: 8989
+        traefik:
+          enable: "true"
+          docker.network: traefik
+          http.routers.sonarr.entrypoints: https
+          http.routers.sonarr.tls.certresolver: cloudflare
+          http.routers.sonarr.rule: Host(`sonarr.bas.sh`)
+          http.services.sonarr.loadbalancer.server.port: 8989
   radarr:
     <<: *all
     image: linuxserver/radarr:nightly
@@ -130,12 +136,13 @@ services:
       - ${ROOT}/data:/data:rslave
     deploy:
       labels:
-        traefik.enable: "true"
-        traefik.docker.network: traefik
-        traefik.http.routers.radarr.entrypoints: https
-        traefik.http.routers.radarr.tls.certresolver: cloudflare
-        traefik.http.routers.radarr.rule: Host(`radarr.bas.sh`)
-        traefik.http.services.radarr.loadbalancer.server.port: 7878
+        traefik:
+          enable: "true"
+          docker.network: traefik
+          http.routers.radarr.entrypoints: https
+          http.routers.radarr.tls.certresolver: cloudflare
+          http.routers.radarr.rule: Host(`radarr.bas.sh`)
+          http.services.radarr.loadbalancer.server.port: 7878
   tautulli:
     <<: *all
     image: linuxserver/tautulli
@@ -144,12 +151,13 @@ services:
       # TODO: Add Plex logs folder here, map to /logs
     deploy:
       labels:
-        traefik.enable: "false"
-        traefik.docker.network: traefik
-        traefik.http.routers.tautulli.entrypoints: https
-        traefik.http.routers.tautulli.tls.certresolver: cloudflare
-        traefik.http.routers.tautulli.rule: Host(`tautulli.bas.sh`)
-        traefik.http.services.tautulli.loadbalancer.server.port: 8181
+        traefik:
+          enable: "false"
+          docker.network: traefik
+          http.routers.tautulli.entrypoints: https
+          http.routers.tautulli.tls.certresolver: cloudflare
+          http.routers.tautulli.rule: Host(`tautulli.bas.sh`)
+          http.services.tautulli.loadbalancer.server.port: 8181
   kitana:
     <<: *all
     image: pannal/kitana
@@ -159,12 +167,13 @@ services:
       - "-P"
     deploy:
       labels:
-        traefik.enable: "true"
-        traefik.docker.network: traefik
-        traefik.http.routers.kitana.entrypoints: https
-        traefik.http.routers.kitana.tls.certresolver: cloudflare
-        traefik.http.routers.kitana.rule: Host(`kitana.bas.sh`)
-        traefik.http.services.kitana.loadbalancer.server.port: 31337
+        traefik:
+          enable: "true"
+          docker.network: traefik
+          http.routers.kitana.entrypoints: https
+          http.routers.kitana.tls.certresolver: cloudflare
+          http.routers.kitana.rule: Host(`kitana.bas.sh`)
+          http.services.kitana.loadbalancer.server.port: 31337
   thelounge:
     <<: *all
     image: linuxserver/thelounge
@@ -172,12 +181,13 @@ services:
       - ${ROOT}/docker/thelounge/config:/config
     deploy:
       labels:
-        traefik.enable: "true"
-        traefik.docker.network: traefik
-        traefik.http.routers.thelounge.entrypoints: https
-        traefik.http.routers.thelounge.tls.certresolver: cloudflare
-        traefik.http.routers.thelounge.rule: Host(`irc.bas.sh`)
-        traefik.http.services.thelounge.loadbalancer.server.port: 9000
+        traefik:
+          enable: "true"
+          docker.network: traefik
+          http.routers.thelounge.entrypoints: https
+          http.routers.thelounge.tls.certresolver: cloudflare
+          http.routers.thelounge.rule: Host(`irc.bas.sh`)
+          http.services.thelounge.loadbalancer.server.port: 9000
   resilio:
     <<: *all
     image: linuxserver/resilio-sync
@@ -190,12 +200,13 @@ services:
       - "55555:55555"
     deploy:
       labels:
-        traefik.enable: "true"
-        traefik.docker.network: traefik
-        traefik.http.routers.resilio.entrypoints: https
-        traefik.http.routers.resilio.tls.certresolver: cloudflare
-        traefik.http.routers.resilio.rule: Host(`sync.bas.sh`)
-        traefik.http.services.resilio.loadbalancer.server.port: 8888
+        traefik:
+          enable: "true"
+          docker.network: traefik
+          http.routers.resilio.entrypoints: https
+          http.routers.resilio.tls.certresolver: cloudflare
+          http.routers.resilio.rule: Host(`sync.bas.sh`)
+          http.services.resilio.loadbalancer.server.port: 8888
   ombi:
     <<: *all
     image: linuxserver/ombi:v4-preview
@@ -203,12 +214,13 @@ services:
       - ${ROOT}/docker/ombi:/config
     deploy:
       labels:
-        traefik.enable: "true"
-        traefik.docker.network: traefik
-        traefik.http.routers.ombi.entrypoints: https
-        traefik.http.routers.ombi.tls.certresolver: cloudflare
-        traefik.http.routers.ombi.rule: Host(`ombi.bas.sh`)
-        traefik.http.services.ombi.loadbalancer.server.port: 3579
+        traefik:
+          enable: "true"
+          docker.network: traefik
+          http.routers.ombi.entrypoints: https
+          http.routers.ombi.tls.certresolver: cloudflare
+          http.routers.ombi.rule: Host(`ombi.bas.sh`)
+          http.services.ombi.loadbalancer.server.port: 3579
   requestrr:
     <<: *all
     image: darkalfx/requestrr
@@ -216,12 +228,13 @@ services:
       - ${ROOT}/docker/requestrr:/root/config
     deploy:
       labels:
-        traefik.enable: "true"
-        traefik.docker.network: traefik
-        traefik.http.routers.requestrr.entrypoints: https
-        traefik.http.routers.requestrr.tls.certresolver: cloudflare
-        traefik.http.routers.requestrr.rule: Host(`requestrr.bas.sh`)
-        traefik.http.services.requestrr.loadbalancer.server.port: 4545
+        traefik:
+          enable: "true"
+          docker.network: traefik
+          http.routers.requestrr.entrypoints: https
+          http.routers.requestrr.tls.certresolver: cloudflare
+          http.routers.requestrr.rule: Host(`requestrr.bas.sh`)
+          http.services.requestrr.loadbalancer.server.port: 4545
   bazarr:
     <<: *all
     image: linuxserver/bazarr
@@ -234,12 +247,13 @@ services:
     deploy:
       replicas: 0
       labels:
-        traefik.enable: "true"
-        traefik.docker.network: traefik
-        traefik.http.routers.bazarr.entrypoints: https
-        traefik.http.routers.bazarr.tls.certresolver: cloudflare
-        traefik.http.routers.bazarr.rule: Host(`bazarr.bas.sh`)
-        traefik.http.services.bazarr.loadbalancer.server.port: 6767
+        traefik:
+          enable: "true"
+          docker.network: traefik
+          http.routers.bazarr.entrypoints: https
+          http.routers.bazarr.tls.certresolver: cloudflare
+          http.routers.bazarr.rule: Host(`bazarr.bas.sh`)
+          http.services.bazarr.loadbalancer.server.port: 6767
   shokoserver:
     <<: *all
     image: shokoanime/server
@@ -252,12 +266,13 @@ services:
     deploy:
       replicas: 0
       labels:
-        traefik.enable: "true"
-        traefik.docker.network: traefik
-        traefik.http.routers.shokoserver.entrypoints: https
-        traefik.http.routers.shokoserver.tls.certresolver: cloudflare
-        traefik.http.routers.shokoserver.rule: Host(`shoko.bas.sh`)
-        traefik.http.services.shokoserver.loadbalancer.server.port: 8111
+        traefik:
+          enable: "true"
+          docker.network: traefik
+          http.routers.shokoserver.entrypoints: https
+          http.routers.shokoserver.tls.certresolver: cloudflare
+          http.routers.shokoserver.rule: Host(`shoko.bas.sh`)
+          http.services.shokoserver.loadbalancer.server.port: 8111
   speedtest:
     <<: *all
     image: linuxserver/librespeed
@@ -273,12 +288,13 @@ services:
       IPINFO_APIKEY: ${IPINFO_APIKEY}
     deploy:
       labels:
-        traefik.enable: "true"
-        traefik.docker.network: traefik
-        traefik.http.routers.speedtest.entrypoints: https
-        traefik.http.routers.speedtest.tls.certresolver: cloudflare
-        traefik.http.routers.speedtest.rule: Host(`speedtest.bas.sh`)
-        traefik.http.services.speedtest.loadbalancer.server.port: 80
+        traefik:
+          enable: "true"
+          docker.network: traefik
+          http.routers.speedtest.entrypoints: https
+          http.routers.speedtest.tls.certresolver: cloudflare
+          http.routers.speedtest.rule: Host(`speedtest.bas.sh`)
+          http.services.speedtest.loadbalancer.server.port: 80
   rubytaco:
     <<: *all
     image: linuxserver/nginx
@@ -288,12 +304,13 @@ services:
     deploy:
       replicas: 0
       labels:
-        traefik.enable: "true"
-        traefik.docker.network: traefik
-        traefik.http.routers.rubytaco.entrypoints: https
-        traefik.http.routers.rubytaco.tls.certresolver: cloudflare
-        traefik.http.routers.rubytaco.rule: Host(`rubyta.co`)
-        traefik.http.services.rubytaco.loadbalancer.server.port: 80
+        traefik:
+          enable: "true"
+          docker.network: traefik
+          http.routers.rubytaco.entrypoints: https
+          http.routers.rubytaco.tls.certresolver: cloudflare
+          http.routers.rubytaco.rule: Host(`rubyta.co`)
+          http.services.rubytaco.loadbalancer.server.port: 80
   bas-nginx:
     <<: *all
     image: linuxserver/nginx
@@ -302,12 +319,13 @@ services:
       - ${ROOT}/data/web/bas.sh:/config/www
     deploy:
       labels:
-        traefik.enable: "true"
-        traefik.docker.network: traefik
-        traefik.http.routers.bas.entrypoints: https
-        traefik.http.routers.bas.tls.certresolver: cloudflare
-        traefik.http.routers.bas.rule: Host(`bas.sh`)
-        traefik.http.services.bas.loadbalancer.server.port: 80
+        traefik:
+          enable: "true"
+          docker.network: traefik
+          http.routers.bas.entrypoints: https
+          http.routers.bas.tls.certresolver: cloudflare
+          http.routers.bas.rule: Host(`bas.sh`)
+          http.services.bas.loadbalancer.server.port: 80
   bas-files:
     <<: *all
     image: codeskyblue/gohttpserver
@@ -315,12 +333,13 @@ services:
       - ${ROOT}/data/web/files.bas.sh:/app/public
     deploy:
       labels:
-        traefik.enable: "true"
-        traefik.docker.network: traefik
-        traefik.http.routers.bas-files.entrypoints: https
-        traefik.http.routers.bas-files.tls.certresolver: cloudflare
-        traefik.http.routers.bas-files.rule: Host(`files.bas.sh`)
-        traefik.http.services.bas-files.loadbalancer.server.port: 8000
+        traefik:
+          enable: "true"
+          docker.network: traefik
+          http.routers.bas-files.entrypoints: https
+          http.routers.bas-files.tls.certresolver: cloudflare
+          http.routers.bas-files.rule: Host(`files.bas.sh`)
+          http.services.bas-files.loadbalancer.server.port: 8000
   tofuzoom-nginx:
     <<: *all
     image: linuxserver/nginx
@@ -329,12 +348,13 @@ services:
       - ${ROOT}/data/web/tofuzoom.com:/config/www
     deploy:
       labels:
-        traefik.enable: "true"
-        traefik.docker.network: traefik
-        traefik.http.routers.tofuzoom.entrypoints: https
-        traefik.http.routers.tofuzoom.tls.certresolver: cloudflare
-        traefik.http.routers.tofuzoom.rule: Host(`tofuzoom.com`)
-        traefik.http.services.tofuzoom.loadbalancer.server.port: 80
+        traefik:
+          enable: "true"
+          docker.network: traefik
+          http.routers.tofuzoom.entrypoints: https
+          http.routers.tofuzoom.tls.certresolver: cloudflare
+          http.routers.tofuzoom.rule: Host(`tofuzoom.com`)
+          http.services.tofuzoom.loadbalancer.server.port: 80
   tofumang-nginx:
     <<: *all
     image: linuxserver/nginx
@@ -343,12 +363,13 @@ services:
       - ${ROOT}/data/web/tofumang.com:/config/www
     deploy:
       labels:
-        traefik.enable: "true"
-        traefik.docker.network: traefik
-        traefik.http.routers.tofumang.entrypoints: https
-        traefik.http.routers.tofumang.tls.certresolver: cloudflare
-        traefik.http.routers.tofumang.rule: Host(`tofumang.com`)
-        traefik.http.services.tofumang.loadbalancer.server.port: 80
+        traefik:
+          enable: "true"
+          docker.network: traefik
+          http.routers.tofumang.entrypoints: https
+          http.routers.tofumang.tls.certresolver: cloudflare
+          http.routers.tofumang.rule: Host(`tofumang.com`)
+          http.services.tofumang.loadbalancer.server.port: 80
   # unoforbash:
   #   <<: *all
   #   image: unoforbash
@@ -357,11 +378,12 @@ services:
   #   deploy:
   #     replicas: 0
   #     labels:
-  #       traefik.enable: "true"
-  #       traefik.docker.network: traefik
-  #       traefik.tcp.routers.unoforbash.entrypoints: uno
-  #       traefik.tcp.routers.unoforbash.rule: HostSNI(`*`)
-  #       traefik.tcp.services.unoforbash.loadbalancer.server.port: 4321
+  #       traefik:
+  #         enable: "true"
+  #         docker.network: traefik
+  #         tcp.routers.unoforbash.entrypoints: uno
+  #         tcp.routers.unoforbash.rule: HostSNI(`*`)
+  #         tcp.services.unoforbash.loadbalancer.server.port: 4321
   mc-tofuzoom:
     <<: *all
     image: itzg/minecraft-server:adopt14
@@ -394,18 +416,19 @@ services:
       # MAX_TICK_TIME: -1
     deploy:
       labels:
-        traefik.enable: "true"
-        traefik.docker.network: traefik
-        traefik.http.routers.tofuzoom-dynmap.entrypoints: https
-        traefik.http.routers.tofuzoom-dynmap.tls.certresolver: cloudflare
-        traefik.http.routers.tofuzoom-dynmap.rule: Host(`map.tofuzoom.com`)
-        traefik.http.routers.tofuzoom-dynmap.service: tofuzoom-dynmap
-        traefik.http.services.tofuzoom-dynmap.loadbalancer.server.port: 8123
-        traefik.http.routers.tofuzoom-plan.entrypoints: https
-        traefik.http.routers.tofuzoom-plan.tls.certresolver: cloudflare
-        traefik.http.routers.tofuzoom-plan.rule: Host(`plan.tofuzoom.com`)
-        traefik.http.routers.tofuzoom-plan.service: tofuzoom-plan
-        traefik.http.services.tofuzoom-plan.loadbalancer.server.port: 8804
+        traefik:
+          enable: "true"
+          docker.network: traefik
+          http.routers.tofuzoom-dynmap.entrypoints: https
+          http.routers.tofuzoom-dynmap.tls.certresolver: cloudflare
+          http.routers.tofuzoom-dynmap.rule: Host(`map.tofuzoom.com`)
+          http.routers.tofuzoom-dynmap.service: tofuzoom-dynmap
+          http.services.tofuzoom-dynmap.loadbalancer.server.port: 8123
+          http.routers.tofuzoom-plan.entrypoints: https
+          http.routers.tofuzoom-plan.tls.certresolver: cloudflare
+          http.routers.tofuzoom-plan.rule: Host(`plan.tofuzoom.com`)
+          http.routers.tofuzoom-plan.service: tofuzoom-plan
+          http.services.tofuzoom-plan.loadbalancer.server.port: 8804
   mc-tofuzoom-rcon:
     <<: *all
     image: itzg/rcon
