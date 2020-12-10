@@ -474,6 +474,8 @@ services:
         traefik.http.routers.traefik.service: api@internal
         traefik.http.routers.traefik.tls.certresolver: cloudflare
         traefik.http.routers.traefik.rule: Host(`traefik.bas.sh`)
+        traefik.http.routers.traefik.tls.domains[0].main: "bas.sh"
+        traefik.http.routers.traefik.tls.domains[0].sans: "*.bas.sh"
         traefik.http.services.traefik.loadbalancer.server.port: 8080
         traefik.http.routers.http.entrypoints: http
         traefik.http.routers.http.rule: HostRegexp(`{subdomain:[a-z0-9\-]+}.bas.sh`)
