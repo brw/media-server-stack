@@ -575,8 +575,12 @@ services:
               traefik:
                 entrypoints: https
                 service: api@internal
-                tls.certresolver: cloudflare
                 rule: Host(`traefik.bas.sh`)
+                tls:
+                  certresolver: cloudflare
+                  domains[0]:
+                    main: "bas.sh"
+                    sans: "*.bas.sh"
               http:
                 entrypoints: http
                 rule: HostRegexp(`{subdomain:[a-z0-9\-]+}.bas.sh`)
