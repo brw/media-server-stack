@@ -376,11 +376,12 @@ services:
           enable: "true"
           docker.network: traefik
           http:
-            routers:
-              bas.entrypoints: https
-              bas.tls.certresolver: cloudflare
-              bas.rule: Host(`bas.sh`)
             services.bas.loadbalancer.server.port: 80
+            routers:
+              bas:
+                entrypoints: https
+                tls.certresolver: cloudflare
+                rule: Host(`bas.sh`)
   bas-files:
     <<: *all
     image: codeskyblue/gohttpserver
@@ -391,10 +392,13 @@ services:
         traefik:
           enable: "true"
           docker.network: traefik
-          http.routers.bas-files.entrypoints: https
-          http.routers.bas-files.tls.certresolver: cloudflare
-          http.routers.bas-files.rule: Host(`files.bas.sh`)
-          http.services.bas-files.loadbalancer.server.port: 8000
+          http:
+            services.bas-files.loadbalancer.server.port: 8000
+            routers:
+              bas-files:
+                entrypoints: https
+                tls.certresolver: cloudflare
+                rule: Host(`files.bas.sh`)
   tofuzoom-nginx:
     <<: *all
     image: linuxserver/nginx
@@ -406,10 +410,13 @@ services:
         traefik:
           enable: "true"
           docker.network: traefik
-          http.routers.tofuzoom.entrypoints: https
-          http.routers.tofuzoom.tls.certresolver: cloudflare
-          http.routers.tofuzoom.rule: Host(`tofuzoom.com`)
-          http.services.tofuzoom.loadbalancer.server.port: 80
+          http:
+            services.tofuzoom.loadbalancer.server.port: 80
+            routers:
+              tofuzoom:
+                entrypoints: https
+                tls.certresolver: cloudflare
+                rule: Host(`tofuzoom.com`)
   tofumang-nginx:
     <<: *all
     image: linuxserver/nginx
@@ -421,10 +428,13 @@ services:
         traefik:
           enable: "true"
           docker.network: traefik
-          http.routers.tofumang.entrypoints: https
-          http.routers.tofumang.tls.certresolver: cloudflare
-          http.routers.tofumang.rule: Host(`tofumang.com`)
-          http.services.tofumang.loadbalancer.server.port: 80
+          http:
+            services.tofumang.loadbalancer.server.port: 80
+            routers:
+              tofumang:
+                entrypoints: https
+                tls.certresolver: cloudflare
+                rule: Host(`tofumang.com`)
   # unoforbash:
   #   <<: *all
   #   image: unoforbash
@@ -474,16 +484,21 @@ services:
         traefik:
           enable: "true"
           docker.network: traefik
-          http.routers.tofuzoom-dynmap.entrypoints: https
-          http.routers.tofuzoom-dynmap.tls.certresolver: cloudflare
-          http.routers.tofuzoom-dynmap.rule: Host(`map.tofuzoom.com`)
-          http.routers.tofuzoom-dynmap.service: tofuzoom-dynmap
-          http.services.tofuzoom-dynmap.loadbalancer.server.port: 8123
-          http.routers.tofuzoom-plan.entrypoints: https
-          http.routers.tofuzoom-plan.tls.certresolver: cloudflare
-          http.routers.tofuzoom-plan.rule: Host(`plan.tofuzoom.com`)
-          http.routers.tofuzoom-plan.service: tofuzoom-plan
-          http.services.tofuzoom-plan.loadbalancer.server.port: 8804
+          http:
+            services:
+              tofuzoom-dynmap.loadbalancer.server.port: 8123
+              tofuzoom-plan.loadbalancer.server.port: 8804
+            routers:
+              tofuzoom-dynmap:
+                entrypoints: https
+                tls.certresolver: cloudflare
+                rule: Host(`map.tofuzoom.com`)
+                service: tofuzoom-dynmap
+              tofuzoom-plan:
+                entrypoints: https
+                tls.certresolver: cloudflare
+                rule: Host(`plan.tofuzoom.com`)
+                service: tofuzoom-plan
   mc-tofuzoom-rcon:
     <<: *all
     image: itzg/rcon
@@ -505,11 +520,14 @@ services:
         traefik:
           enable: "true"
           docker.network: traefik
-          http.services.tofuzoom-rcon.loadbalancer.server.port: 4326
-          http.routers.tofuzoom-rcon.entrypoints: https
-          http.routers.tofuzoom-rcon.tls.certresolver: cloudflare
-          http.routers.tofuzoom-rcon.rule: Host(`rcon.tofuzoom.com`)
-          http.routers.tofuzoom-rcon.service: tofuzoom-rcon
+          http:
+            services.tofuzoom-rcon.loadbalancer.server.port: 4326
+            routers:
+              tofuzoom-rcon:
+                entrypoints: https
+                tls.certresolver: cloudflare
+                rule: Host(`rcon.tofuzoom.com`)
+                service: tofuzoom-rcon
   traefik:
     <<: *all
     image: traefik
@@ -554,31 +572,39 @@ services:
             services.traefik.loadbalancer.server.port: 8080
             middlewares.httpsredirect.redirectscheme.scheme: https
             routers:
-              traefik.entrypoints: https
-              traefik.service: api@internal
-              traefik.tls.certresolver: cloudflare
-              traefik.rule: Host(`traefik.bas.sh`)
-              http.entrypoints: http
-              http.rule: HostRegexp(`{subdomain:[a-z0-9\-]+}.bas.sh`)
-              http.middlewares: httpsredirect
-              httprubytaco.entrypoints: http
-              httprubytaco.rule: Host(`rubyta.co`)
-              httprubytaco.middlewares: httpsredirect
-              httpbas.entrypoints: http
-              httpbas.rule: Host(`bas.sh`)
-              httpbas.middlewares: httpsredirect
-              httptofuzoom.entrypoints: http
-              httptofuzoom.rule: Host(`tofuzoom.com`)
-              httptofuzoom.middlewares: httpsredirect
-              httptofuzoom-dynmap.entrypoints: http
-              httptofuzoom-dynmap.rule: Host(`map.tofuzoom.com`)
-              httptofuzoom-dynmap.middlewares: httpsredirect
-              httptofuzoom-plan.entrypoints: http
-              httptofuzoom-plan.rule: Host(`plan.tofuzoom.com`)
-              httptofuzoom-plan.middlewares: httpsredirect
-              httptofumang.entrypoints: http
-              httptofumang.rule: Host(`tofumang.com`)
-              httptofumang.middlewares: httpsredirect
+              traefik:
+                entrypoints: https
+                service: api@internal
+                tls.certresolver: cloudflare
+                rule: Host(`traefik.bas.sh`)
+              http:
+                entrypoints: http
+                rule: HostRegexp(`{subdomain:[a-z0-9\-]+}.bas.sh`)
+                middlewares: httpsredirect
+              httprubytaco:
+                entrypoints: http
+                rule: Host(`rubyta.co`)
+                middlewares: httpsredirect
+              httpbas:
+                entrypoints: http
+                rule: Host(`bas.sh`)
+                middlewares: httpsredirect
+              httptofuzoom:
+                entrypoints: http
+                rule: Host(`tofuzoom.com`)
+                middlewares: httpsredirect
+                dynmap:
+                  entrypoints: http
+                  rule: Host(`map.tofuzoom.com`)
+                  middlewares: httpsredirect
+                plan:
+                  entrypoints: http
+                  rule: Host(`plan.tofuzoom.com`)
+                  middlewares: httpsredirect
+              httptofumang:
+                entrypoints: http
+                rule: Host(`tofumang.com`)
+                middlewares: httpsredirect
 
 volumes:
   traefik:
