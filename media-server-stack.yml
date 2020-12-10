@@ -57,6 +57,7 @@ services:
         traefik.http.services.emby.loadbalancer.server.port: 8096
   jellyfin:
     <<: *all
+    image: linuxserver/jellyfin
     volumes:
       - ${ROOT}/docker/jellyfin:/config
       - ${ROOT}/data:/data:rslave
