@@ -39,10 +39,13 @@ services:
         traefik:
           enable: "true"
           docker.network: traefik
-          http.routers.plex.entrypoints: https
-          http.routers.plex.tls.certresolver: cloudflare
-          http.routers.plex.rule: Host(`plex.bas.sh`)
-          http.services.plex.loadbalancer.server.port: 32400
+          http:
+            services.plex.loadbalancer.server.port: 32400
+            routers:
+              plex:
+                entrypoints: https
+                tls.certresolver: cloudflare
+                rule: Host(`plex.bas.sh`)
   emby:
     <<: *all
     image: linuxserver/emby
@@ -54,10 +57,13 @@ services:
         traefik:
           enable: "true"
           docker.network: traefik
-          http.routers.emby.entrypoints: https
-          http.routers.emby.tls.certresolver: cloudflare
-          http.routers.emby.rule: Host(`emby.bas.sh`)
-          http.services.emby.loadbalancer.server.port: 8096
+          http:
+            services.emby.loadbalancer.server.port: 8096
+            routers:
+              emby:
+                entrypoints: https
+                tls.certresolver: cloudflare
+                rule: Host(`emby.bas.sh`)
   jellyfin:
     <<: *all
     volumes:
@@ -68,10 +74,13 @@ services:
         traefik:
           enable: "true"
           docker.network: traefik
-          http.routers.jellyfin.entrypoints: https
-          http.routers.jellyfin.tls.certresolver: cloudflare
-          http.routers.jellyfin.rule: Host(`jellyfin.bas.sh`)
-          http.services.jellyfin.loadbalancer.server.port: 8096
+          http:
+            services.jellyfin.loadbalancer.server.port: 8096
+            routers:
+              jellyfin:
+                entrypoints: https
+                tls.certresolver: cloudflare
+                rule: Host(`jellyfin.bas.sh`)
   deluge:
     <<: *all
     image: linuxserver/deluge
@@ -88,16 +97,21 @@ services:
         traefik:
           enable: "true"
           docker.network: traefik
-          http.routers.deluge-web.entrypoints: https
-          http.routers.deluge-web.tls.certresolver: cloudflare
-          http.routers.deluge-web.rule: Host(`deluge-web.bas.sh`)
-          http.routers.deluge-web.service: deluge-web
-          http.services.deluge-web.loadbalancer.server.port: 8112
-          http.routers.deluge-daemon.entrypoints: https
-          http.routers.deluge-daemon.tls.certresolver: cloudflare
-          http.routers.deluge-daemon.rule: Host(`deluge-daemon.bas.sh`)
-          http.routers.deluge-daemon.service: deluge-daemon
-          http.services.deluge-daemon.loadbalancer.server.port: 58846
+          http:
+            services:
+              deluge-web.loadbalancer.server.port: 8112
+              loadbalancer.server.port: 58846
+            routers:
+              deluge-web:
+                entrypoints: https
+                tls.certresolver: cloudflare
+                rule: Host(`deluge-web.bas.sh`)
+                service: deluge-web
+              deluge-daemon:
+                entrypoints: https
+                tls.certresolver: cloudflare
+                rule: Host(`deluge-daemon.bas.sh`)
+                service: deluge-daemon
   jackett:
     <<: *all
     image: linuxserver/jackett:development
@@ -109,10 +123,13 @@ services:
         traefik:
           enable: "true"
           docker.network: traefik
-          http.routers.jackett.entrypoints: https
-          http.routers.jackett.tls.certresolver: cloudflare
-          http.routers.jackett.rule: Host(`jackett.bas.sh`)
-          http.services.jackett.loadbalancer.server.port: 9117
+          http:
+            services.jackett.loadbalancer.server.port: 9117
+            routers:
+              jackett:
+                entrypoints: https
+                tls.certresolver: cloudflare
+                rule: Host(`jackett.bas.sh`)
   sonarr:
     <<: *all
     image: linuxserver/sonarr:preview
@@ -124,10 +141,13 @@ services:
         traefik:
           enable: "true"
           docker.network: traefik
-          http.routers.sonarr.entrypoints: https
-          http.routers.sonarr.tls.certresolver: cloudflare
-          http.routers.sonarr.rule: Host(`sonarr.bas.sh`)
-          http.services.sonarr.loadbalancer.server.port: 8989
+          http:
+            services.sonarr.loadbalancer.server.port: 8989
+            routers:
+              sonarr:
+                entrypoints: https
+                tls.certresolver: cloudflare
+                rule: Host(`sonarr.bas.sh`)
   radarr:
     <<: *all
     image: linuxserver/radarr:nightly
@@ -139,10 +159,13 @@ services:
         traefik:
           enable: "true"
           docker.network: traefik
-          http.routers.radarr.entrypoints: https
-          http.routers.radarr.tls.certresolver: cloudflare
-          http.routers.radarr.rule: Host(`radarr.bas.sh`)
-          http.services.radarr.loadbalancer.server.port: 7878
+          http:
+            services.radarr.loadbalancer.server.port: 7878
+            routers:
+              radarr:
+                entrypoints: https
+                tls.certresolver: cloudflare
+                radarr.rule: Host(`radarr.bas.sh`)
   tautulli:
     <<: *all
     image: linuxserver/tautulli
@@ -154,10 +177,13 @@ services:
         traefik:
           enable: "false"
           docker.network: traefik
-          http.routers.tautulli.entrypoints: https
-          http.routers.tautulli.tls.certresolver: cloudflare
-          http.routers.tautulli.rule: Host(`tautulli.bas.sh`)
-          http.services.tautulli.loadbalancer.server.port: 8181
+          http:
+            services.tautulli.loadbalancer.server.port: 8181
+            routers:
+              tautulli:
+                entrypoints: https
+                tls.certresolver: cloudflare
+                rule: Host(`tautulli.bas.sh`)
   kitana:
     <<: *all
     image: pannal/kitana
@@ -170,10 +196,13 @@ services:
         traefik:
           enable: "true"
           docker.network: traefik
-          http.routers.kitana.entrypoints: https
-          http.routers.kitana.tls.certresolver: cloudflare
-          http.routers.kitana.rule: Host(`kitana.bas.sh`)
-          http.services.kitana.loadbalancer.server.port: 31337
+          http:
+            services.kitana.loadbalancer.server.port: 31337
+            routers:
+              kitana:
+                entrypoints: https
+                tls.certresolver: cloudflare
+                rule: Host(`kitana.bas.sh`)
   thelounge:
     <<: *all
     image: linuxserver/thelounge
@@ -184,10 +213,13 @@ services:
         traefik:
           enable: "true"
           docker.network: traefik
-          http.routers.thelounge.entrypoints: https
-          http.routers.thelounge.tls.certresolver: cloudflare
-          http.routers.thelounge.rule: Host(`irc.bas.sh`)
-          http.services.thelounge.loadbalancer.server.port: 9000
+          http:
+            services.thelounge.loadbalancer.server.port: 9000
+            routers:
+              thelounge:
+                entrypoints: https
+                tls.certresolver: cloudflare
+                rule: Host(`irc.bas.sh`)
   resilio:
     <<: *all
     image: linuxserver/resilio-sync
@@ -203,10 +235,13 @@ services:
         traefik:
           enable: "true"
           docker.network: traefik
-          http.routers.resilio.entrypoints: https
-          http.routers.resilio.tls.certresolver: cloudflare
-          http.routers.resilio.rule: Host(`sync.bas.sh`)
-          http.services.resilio.loadbalancer.server.port: 8888
+          http:
+            services.resilio.loadbalancer.server.port: 8888
+            routers:
+              resilio:
+                entrypoints: https
+                tls.certresolver: cloudflare
+                rule: Host(`sync.bas.sh`)
   ombi:
     <<: *all
     image: linuxserver/ombi:v4-preview
@@ -217,10 +252,13 @@ services:
         traefik:
           enable: "true"
           docker.network: traefik
-          http.routers.ombi.entrypoints: https
-          http.routers.ombi.tls.certresolver: cloudflare
-          http.routers.ombi.rule: Host(`ombi.bas.sh`)
-          http.services.ombi.loadbalancer.server.port: 3579
+          http: 
+            services.ombi.loadbalancer.server.port: 3579
+            routers:
+              ombi:
+                entrypoints: https
+                tls.certresolver: cloudflare
+                rule: Host(`ombi.bas.sh`)
   requestrr:
     <<: *all
     image: darkalfx/requestrr
@@ -231,10 +269,13 @@ services:
         traefik:
           enable: "true"
           docker.network: traefik
-          http.routers.requestrr.entrypoints: https
-          http.routers.requestrr.tls.certresolver: cloudflare
-          http.routers.requestrr.rule: Host(`requestrr.bas.sh`)
-          http.services.requestrr.loadbalancer.server.port: 4545
+          http:
+            services.requestrr.loadbalancer.server.port: 4545
+            routers:
+              requestrr:
+                entrypoints: https
+                tls.certresolver: cloudflare
+                rule: Host(`requestrr.bas.sh`)
   bazarr:
     <<: *all
     image: linuxserver/bazarr
@@ -250,10 +291,13 @@ services:
         traefik:
           enable: "true"
           docker.network: traefik
-          http.routers.bazarr.entrypoints: https
-          http.routers.bazarr.tls.certresolver: cloudflare
-          http.routers.bazarr.rule: Host(`bazarr.bas.sh`)
-          http.services.bazarr.loadbalancer.server.port: 6767
+          http:
+            services.bazarr.loadbalancer.server.port: 6767
+            routers:
+              bazarr:
+                entrypoints: https
+                tls.certresolver: cloudflare
+                rule: Host(`bazarr.bas.sh`)
   shokoserver:
     <<: *all
     image: shokoanime/server
@@ -269,10 +313,13 @@ services:
         traefik:
           enable: "true"
           docker.network: traefik
-          http.routers.shokoserver.entrypoints: https
-          http.routers.shokoserver.tls.certresolver: cloudflare
-          http.routers.shokoserver.rule: Host(`shoko.bas.sh`)
-          http.services.shokoserver.loadbalancer.server.port: 8111
+          http:
+            services.shokoserver.loadbalancer.server.port: 8111
+            routers:
+              shokoserver:
+                entrypoints: https
+                tls.certresolver: cloudflare
+                rule: Host(`shoko.bas.sh`)
   speedtest:
     <<: *all
     image: linuxserver/librespeed
@@ -291,10 +338,13 @@ services:
         traefik:
           enable: "true"
           docker.network: traefik
-          http.routers.speedtest.entrypoints: https
-          http.routers.speedtest.tls.certresolver: cloudflare
-          http.routers.speedtest.rule: Host(`speedtest.bas.sh`)
-          http.services.speedtest.loadbalancer.server.port: 80
+          http:
+            services.speedtest.loadbalancer.server.port: 80
+            routers:
+              speedtest:
+                entrypoints: https
+                tls.certresolver: cloudflare
+                rule: Host(`speedtest.bas.sh`)
   rubytaco:
     <<: *all
     image: linuxserver/nginx
@@ -307,10 +357,13 @@ services:
         traefik:
           enable: "true"
           docker.network: traefik
-          http.routers.rubytaco.entrypoints: https
-          http.routers.rubytaco.tls.certresolver: cloudflare
-          http.routers.rubytaco.rule: Host(`rubyta.co`)
-          http.services.rubytaco.loadbalancer.server.port: 80
+          http:
+            services.rubytaco.loadbalancer.server.port: 80
+            routers:
+              rubytaco:
+                entrypoints: https
+                tls.certresolver: cloudflare
+                rule: Host(`rubyta.co`)
   bas-nginx:
     <<: *all
     image: linuxserver/nginx
@@ -322,10 +375,12 @@ services:
         traefik:
           enable: "true"
           docker.network: traefik
-          http.routers.bas.entrypoints: https
-          http.routers.bas.tls.certresolver: cloudflare
-          http.routers.bas.rule: Host(`bas.sh`)
-          http.services.bas.loadbalancer.server.port: 80
+          http:
+            routers:
+              bas.entrypoints: https
+              bas.tls.certresolver: cloudflare
+              bas.rule: Host(`bas.sh`)
+            services.bas.loadbalancer.server.port: 80
   bas-files:
     <<: *all
     image: codeskyblue/gohttpserver
