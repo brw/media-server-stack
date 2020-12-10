@@ -63,8 +63,6 @@ services:
     volumes:
       - ${ROOT}/docker/jellyfin:/config
       - ${ROOT}/data:/data:rslave
-    ports:
-      - "8096:8096"
     deploy:
       labels:
         traefik.enable: "true"
