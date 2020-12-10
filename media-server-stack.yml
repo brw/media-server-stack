@@ -424,13 +424,14 @@ services:
     deploy:
       replicas: 0
       labels:
-        traefik.enable: "true"
-        docker.network: traefik
-        http.services.tofuzoom-rcon.loadbalancer.server.port: 4326
-        http.routers.tofuzoom-rcon.entrypoints: https
-        http.routers.tofuzoom-rcon.tls.certresolver: cloudflare
-        http.routers.tofuzoom-rcon.rule: Host(`rcon.tofuzoom.com`)
-        http.routers.tofuzoom-rcon.service: tofuzoom-rcon
+        traefik:
+          enable: "true"
+          docker.network: traefik
+          http.services.tofuzoom-rcon.loadbalancer.server.port: 4326
+          http.routers.tofuzoom-rcon.entrypoints: https
+          http.routers.tofuzoom-rcon.tls.certresolver: cloudflare
+          http.routers.tofuzoom-rcon.rule: Host(`rcon.tofuzoom.com`)
+          http.routers.tofuzoom-rcon.service: tofuzoom-rcon
   traefik:
     <<: *all
     image: traefik
