@@ -1,3 +1,4 @@
+# cspell: disable
 version: "3.7"
 x-all: &all
   hostname: ${HOSTNAME}
