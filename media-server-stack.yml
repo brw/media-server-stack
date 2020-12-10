@@ -440,7 +440,7 @@ services:
     command:
       - "--api.insecure=true"
       - "--providers.docker.endpoint=unix:///var/run/docker.sock"
-      - "--providers.docker.swarmMode=true"
+      - "--providers.docker.swarmmode=true"
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.http.address=:80"
       - "--entrypoints.https.address=:443"
