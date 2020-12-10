@@ -44,8 +44,8 @@ services:
             routers:
               plex:
                 entrypoints: https
-                tls.certresolver: cloudflare
                 rule: Host(`plex.bas.sh`)
+                tls.certresolver: cloudflare
   emby:
     <<: *all
     image: linuxserver/emby
@@ -62,8 +62,8 @@ services:
             routers:
               emby:
                 entrypoints: https
-                tls.certresolver: cloudflare
                 rule: Host(`emby.bas.sh`)
+                tls.certresolver: cloudflare
   jellyfin:
     <<: *all
     volumes:
@@ -79,8 +79,8 @@ services:
             routers:
               jellyfin:
                 entrypoints: https
-                tls.certresolver: cloudflare
                 rule: Host(`jellyfin.bas.sh`)
+                tls.certresolver: cloudflare
   deluge:
     <<: *all
     image: linuxserver/deluge
@@ -104,14 +104,14 @@ services:
             routers:
               deluge-web:
                 entrypoints: https
-                tls.certresolver: cloudflare
                 rule: Host(`deluge-web.bas.sh`)
                 service: deluge-web
+                tls.certresolver: cloudflare
               deluge-daemon:
                 entrypoints: https
-                tls.certresolver: cloudflare
                 rule: Host(`deluge-daemon.bas.sh`)
                 service: deluge-daemon
+                tls.certresolver: cloudflare
   jackett:
     <<: *all
     image: linuxserver/jackett:development
@@ -128,8 +128,8 @@ services:
             routers:
               jackett:
                 entrypoints: https
-                tls.certresolver: cloudflare
                 rule: Host(`jackett.bas.sh`)
+                tls.certresolver: cloudflare
   sonarr:
     <<: *all
     image: linuxserver/sonarr:preview
@@ -146,8 +146,8 @@ services:
             routers:
               sonarr:
                 entrypoints: https
-                tls.certresolver: cloudflare
                 rule: Host(`sonarr.bas.sh`)
+                tls.certresolver: cloudflare
   radarr:
     <<: *all
     image: linuxserver/radarr:nightly
@@ -164,8 +164,8 @@ services:
             routers:
               radarr:
                 entrypoints: https
-                tls.certresolver: cloudflare
                 radarr.rule: Host(`radarr.bas.sh`)
+                tls.certresolver: cloudflare
   tautulli:
     <<: *all
     image: linuxserver/tautulli
@@ -182,8 +182,8 @@ services:
             routers:
               tautulli:
                 entrypoints: https
-                tls.certresolver: cloudflare
                 rule: Host(`tautulli.bas.sh`)
+                tls.certresolver: cloudflare
   kitana:
     <<: *all
     image: pannal/kitana
@@ -201,8 +201,8 @@ services:
             routers:
               kitana:
                 entrypoints: https
-                tls.certresolver: cloudflare
                 rule: Host(`kitana.bas.sh`)
+                tls.certresolver: cloudflare
   thelounge:
     <<: *all
     image: linuxserver/thelounge
@@ -218,8 +218,8 @@ services:
             routers:
               thelounge:
                 entrypoints: https
-                tls.certresolver: cloudflare
                 rule: Host(`irc.bas.sh`)
+                tls.certresolver: cloudflare
   resilio:
     <<: *all
     image: linuxserver/resilio-sync
@@ -240,8 +240,8 @@ services:
             routers:
               resilio:
                 entrypoints: https
-                tls.certresolver: cloudflare
                 rule: Host(`sync.bas.sh`)
+                tls.certresolver: cloudflare
   ombi:
     <<: *all
     image: linuxserver/ombi:v4-preview
@@ -257,8 +257,8 @@ services:
             routers:
               ombi:
                 entrypoints: https
-                tls.certresolver: cloudflare
                 rule: Host(`ombi.bas.sh`)
+                tls.certresolver: cloudflare
   requestrr:
     <<: *all
     image: darkalfx/requestrr
@@ -274,8 +274,8 @@ services:
             routers:
               requestrr:
                 entrypoints: https
-                tls.certresolver: cloudflare
                 rule: Host(`requestrr.bas.sh`)
+                tls.certresolver: cloudflare
   bazarr:
     <<: *all
     image: linuxserver/bazarr
@@ -296,8 +296,8 @@ services:
             routers:
               bazarr:
                 entrypoints: https
-                tls.certresolver: cloudflare
                 rule: Host(`bazarr.bas.sh`)
+                tls.certresolver: cloudflare
   shokoserver:
     <<: *all
     image: shokoanime/server
@@ -318,8 +318,8 @@ services:
             routers:
               shokoserver:
                 entrypoints: https
-                tls.certresolver: cloudflare
                 rule: Host(`shoko.bas.sh`)
+                tls.certresolver: cloudflare
   speedtest:
     <<: *all
     image: linuxserver/librespeed
@@ -343,8 +343,8 @@ services:
             routers:
               speedtest:
                 entrypoints: https
-                tls.certresolver: cloudflare
                 rule: Host(`speedtest.bas.sh`)
+                tls.certresolver: cloudflare
   rubytaco:
     <<: *all
     image: linuxserver/nginx
@@ -362,8 +362,8 @@ services:
             routers:
               rubytaco:
                 entrypoints: https
-                tls.certresolver: cloudflare
                 rule: Host(`rubyta.co`)
+                tls.certresolver: cloudflare
   bas-nginx:
     <<: *all
     image: linuxserver/nginx
@@ -380,8 +380,8 @@ services:
             routers:
               bas:
                 entrypoints: https
-                tls.certresolver: cloudflare
                 rule: Host(`bas.sh`)
+                tls.certresolver: cloudflare
   bas-files:
     <<: *all
     image: codeskyblue/gohttpserver
@@ -397,8 +397,8 @@ services:
             routers:
               bas-files:
                 entrypoints: https
-                tls.certresolver: cloudflare
                 rule: Host(`files.bas.sh`)
+                tls.certresolver: cloudflare
   tofuzoom-nginx:
     <<: *all
     image: linuxserver/nginx
@@ -415,8 +415,8 @@ services:
             routers:
               tofuzoom:
                 entrypoints: https
-                tls.certresolver: cloudflare
                 rule: Host(`tofuzoom.com`)
+                tls.certresolver: cloudflare
   tofumang-nginx:
     <<: *all
     image: linuxserver/nginx
@@ -433,8 +433,8 @@ services:
             routers:
               tofumang:
                 entrypoints: https
-                tls.certresolver: cloudflare
                 rule: Host(`tofumang.com`)
+                tls.certresolver: cloudflare
   # unoforbash:
   #   <<: *all
   #   image: unoforbash
@@ -491,14 +491,14 @@ services:
             routers:
               tofuzoom-dynmap:
                 entrypoints: https
-                tls.certresolver: cloudflare
                 rule: Host(`map.tofuzoom.com`)
                 service: tofuzoom-dynmap
+                tls.certresolver: cloudflare
               tofuzoom-plan:
                 entrypoints: https
-                tls.certresolver: cloudflare
                 rule: Host(`plan.tofuzoom.com`)
                 service: tofuzoom-plan
+                tls.certresolver: cloudflare
   mc-tofuzoom-rcon:
     <<: *all
     image: itzg/rcon
@@ -525,9 +525,8 @@ services:
             routers:
               tofuzoom-rcon:
                 entrypoints: https
-                tls.certresolver: cloudflare
                 rule: Host(`rcon.tofuzoom.com`)
-                service: tofuzoom-rcon
+                tls.certresolver: cloudflare
   traefik:
     <<: *all
     image: traefik
