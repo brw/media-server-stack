@@ -33,8 +33,6 @@ services:
       PUID: ${PUID}
       PGID: ${PGID}
       TZ: ${TZ}
-    devices:
-      - /dev/dri:/dev/dri
     deploy:
       labels:
         traefik.enable: "true"
