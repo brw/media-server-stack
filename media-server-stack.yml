@@ -50,6 +50,7 @@ services:
     ports:
       - "8096:8096"
     deploy:
+      replicas: 0
       labels:
         traefik.enable: "true"
         traefik.docker.network: traefik
