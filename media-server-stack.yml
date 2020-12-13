@@ -325,7 +325,7 @@ services:
         traefik.http.routers.bas-files.tls.certresolver: cloudflare
         traefik.http.routers.bas-files.rule: Host(`files.bas.sh`)
         traefik.http.services.bas-files.loadbalancer.server.port: 8000
- tofuzoom-nginx:
+  tofuzoom-nginx:
     <<: *all
     image: linuxserver/nginx
     volumes:
