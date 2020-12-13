@@ -329,7 +329,7 @@ services:
     <<: *all
     image: mbentley/ums
     volumes:
-      - ${ROOT}/docker/ums:/opt/ums
+      - ${ROOT}/data/ums:/opt/ums/data
       - /mnt/hdd/tofumang_/vods:/media
     deploy:
       labels:
