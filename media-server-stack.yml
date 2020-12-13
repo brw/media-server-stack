@@ -327,7 +327,18 @@ services:
         traefik.http.services.bas-files.loadbalancer.server.port: 8000
   bas-tofumang:
     <<: *all
-    image: 
+    image: mbentley/ums
+    volumes:
+      - ${ROOT}/docker/ums:/opt/ums
+      - /mnt/hdd/tofumang_/vods:/media
+    deploy:
+      labels:
+        traefik.enable: "true"
+        traefik.docker.network: traefik
+        traefik.http.routers.bas-tofumang.entrypoints: https
+        traefik.http.routers.bas-tofumang.tls.certresolver: cloudflare
+        traefik.http.routers.bas-tofumang.rule: Host(`tofumang.bas.sh`)
+        traefik.http.routers.bas-tofumang.loadbalancer.server.port: 5001
   tofuzoom-nginx:
     <<: *all
     image: linuxserver/nginx
