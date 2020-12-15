@@ -79,6 +79,7 @@ services:
       - ${ROOT}/docker/deluge/config:/config
       - ${ROOT}/data:/data:rslave
       - ${ROOT}/docker/shared/blackhole:/blackhole
+      - /mnt/hdd:/data/hdd:rslave
     ports:
       - "58846:58846"
       - "54794:54794"
