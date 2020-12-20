@@ -219,6 +219,7 @@ services:
     volumes:
       - ${ROOT}/docker/requestrr:/root/config
     deploy:
+      replicas: 0
       labels:
         traefik.enable: "true"
         traefik.docker.network: traefik
