@@ -118,6 +118,7 @@ services:
     volumes:
       - ${ROOT}/docker/sonarr/config:/config
       - ${ROOT}/data:/data:rslave
+      - /mnt/hdd:/data/hdd:rslave
     deploy:
       labels:
         traefik.enable: "true"
