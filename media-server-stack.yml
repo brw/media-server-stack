@@ -214,6 +214,9 @@ services:
         traefik.http.routers.ombi.tls.certresolver: cloudflare
         traefik.http.routers.ombi.rule: Host(`ombi.bas.sh`)
         traefik.http.services.ombi.loadbalancer.server.port: 3579
+  overseer:
+    <<: *all
+    image:
   requestrr:
     <<: *all
     image: darkalfx/requestrr
