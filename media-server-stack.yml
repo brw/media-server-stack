@@ -218,7 +218,7 @@ services:
     <<: *all
     image: tscx/overseerr
     volumes:
-      - ${ROOT}/docker/overseerr:/config
+      - ${ROOT}/docker/overseerr:/app/config
   requestrr:
     <<: *all
     image: darkalfx/requestrr
