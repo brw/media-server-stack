@@ -201,19 +201,6 @@ services:
         traefik.http.routers.resilio.tls.certresolver: cloudflare
         traefik.http.routers.resilio.rule: Host(`sync.bas.sh`)
         traefik.http.services.resilio.loadbalancer.server.port: 8888
-  ombi:
-    <<: *all
-    image: linuxserver/ombi:v4-preview
-    volumes:
-      - ${ROOT}/docker/ombi:/config
-    deploy:
-      labels:
-        traefik.enable: "true"
-        traefik.docker.network: traefik
-        traefik.http.routers.ombi.entrypoints: https
-        traefik.http.routers.ombi.tls.certresolver: cloudflare
-        traefik.http.routers.ombi.rule: Host(`ombi.bas.sh`)
-        traefik.http.services.ombi.loadbalancer.server.port: 3579
   overseerr:
     <<: *all
     image: sctx/overseerr:develop
