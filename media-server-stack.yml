@@ -216,7 +216,7 @@ services:
         traefik.http.services.ombi.loadbalancer.server.port: 3579
   overseer:
     <<: *all
-    image:
+    image: t
   requestrr:
     <<: *all
     image: darkalfx/requestrr
