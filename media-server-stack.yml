@@ -216,7 +216,7 @@ services:
         traefik.http.services.ombi.loadbalancer.server.port: 3579
   overseerr:
     <<: *all
-    image: tscx/overseerr
+    image: sctx/overseerr
     volumes:
       - ${ROOT}/docker/overseerr:/app/config
     deploy:
