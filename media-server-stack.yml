@@ -219,6 +219,14 @@ services:
     image: tscx/overseerr
     volumes:
       - ${ROOT}/docker/overseerr:/app/config
+    deploy:
+      labels:
+        traefik.enable: "true"
+        traefik.docker.network: traefik
+        traefik.http.routers.overseerr.entrypoints: https
+        traefik.http.routers.overseerr.tls.certresolver: cloudflare
+        traefik.http.routers.overseerr.rule: Host(`overseerr.bas.sh`)
+        traefik.http.services.overseerr.loadbalancer.server.port: 5555
   requestrr:
     <<: *all
     image: darkalfx/requestrr
