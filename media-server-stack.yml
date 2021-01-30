@@ -203,7 +203,7 @@ services:
         traefik.http.services.resilio.loadbalancer.server.port: 8888
   overseerr:
     <<: *all
-    image: sctx/overseerr:develop
+    image: sctx/overseerr
     volumes:
       - ${ROOT}/docker/overseerr:/app/config
     deploy:
