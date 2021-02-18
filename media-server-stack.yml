@@ -212,7 +212,7 @@ services:
         traefik.docker.network: traefik
         traefik.http.routers.overseerr.entrypoints: https
         traefik.http.routers.overseerr.tls.certresolver: cloudflare
-        traefik.http.routers.overseerr.rule: Host(`overseerr.bas.sh`)
+        traefik.http.routers.overseerr.rule: Host(`request.bas.sh`)
         traefik.http.services.overseerr.loadbalancer.server.port: 5055
   requestrr:
     <<: *all
