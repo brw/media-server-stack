@@ -400,6 +400,7 @@ services:
       # ENABLE_AUTOPAUSE: "true"
       # MAX_TICK_TIME: -1
     deploy:
+      replicas: 0
       labels:
         traefik.enable: "true"
         traefik.docker.network: traefik
