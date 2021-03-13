@@ -114,7 +114,7 @@ services:
         traefik.http.services.jackett.loadbalancer.server.port: 9117
   sonarr:
     <<: *all
-    image: linuxserver/sonarr:preview
+    image: linuxserver/sonarr:develop
     volumes:
       - ${ROOT}/docker/sonarr/config:/config
       - ${ROOT}/data:/data:rslave
