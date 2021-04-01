@@ -291,6 +291,8 @@ services:
     cap_add:
       - NET_ADMIN
       - SYS_MODULE
+    environment:
+      PEERS: 1
     volumes:
       - ${ROOT}/docker/wireguard/config:/config
       - ${ROOT}/docker/wireguard/modules:/lib/modules
