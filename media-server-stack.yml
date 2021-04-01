@@ -285,6 +285,14 @@ services:
         traefik.http.routers.speedtest.tls.certresolver: cloudflare
         traefik.http.routers.speedtest.rule: Host(`speedtest.bas.sh`)
         traefik.http.services.speedtest.loadbalancer.server.port: 80
+  wireguard:
+    <<: *all
+    image: linuxserver/wireguard
+    volumes:
+      - ${ROOT}/docker/wireguard/config:/config
+      - ${ROOT}/docker/wireguard/modules:/lib/modules
+    ports:
+      -
   rubytaco:
     <<: *all
     image: linuxserver/nginx
