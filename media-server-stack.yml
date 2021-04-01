@@ -288,6 +288,9 @@ services:
   wireguard:
     <<: *all
     image: linuxserver/wireguard
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
     volumes:
       - ${ROOT}/docker/wireguard/config:/config
       - ${ROOT}/docker/wireguard/modules:/lib/modules
