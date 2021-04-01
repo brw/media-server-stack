@@ -295,7 +295,7 @@ services:
       PEERS: 1
     volumes:
       - ${ROOT}/docker/wireguard/config:/config
-      - ${ROOT}/docker/wireguard/modules:/lib/modules
+      - /lib/modules:/lib/modules
     ports:
       - 51820:51820/udp
     sysctls:
