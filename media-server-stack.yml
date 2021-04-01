@@ -292,7 +292,7 @@ services:
       - ${ROOT}/docker/wireguard/config:/config
       - ${ROOT}/docker/wireguard/modules:/lib/modules
     ports:
-      -
+      - 51820:51820/udp
   rubytaco:
     <<: *all
     image: linuxserver/nginx
