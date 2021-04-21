@@ -475,6 +475,10 @@ services:
         published: 69
         protocol: tcp
         mode: host
+      - target: 58846
+        published: 58846
+        protocol: tcp
+        mode: host
     deploy:
       labels:
         traefik.enable: "true"
