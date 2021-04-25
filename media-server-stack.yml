@@ -148,6 +148,7 @@ services:
       - ${ROOT}/docker/tautulli/config:/config
       # TODO: Add Plex logs folder here, map to /logs
     deploy:
+      replicas: 0
       labels:
         traefik.enable: "false"
         traefik.docker.network: traefik
