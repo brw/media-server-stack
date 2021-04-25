@@ -65,7 +65,6 @@ services:
       - ${ROOT}/docker/jellyfin:/config
       - ${ROOT}/data:/data:rslave
     deploy:
-      replicas: 0
       labels:
         traefik.enable: "true"
         traefik.docker.network: traefik
