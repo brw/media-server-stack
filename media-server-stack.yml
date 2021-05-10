@@ -348,6 +348,14 @@ services:
     environment:
       - GDRIVE_CLIENT_ID=${FILESTASH_GDRIVE_CLIENT_ID}
       - GDRIVE_CLIENT_SECRET=${FILESTASH_GDRIVE_CLIENT_SECRET}
+    deploy:
+      labels:
+        traefik.enable: "true"
+        traefik.docker.network: traefik
+        traefik.http.routers.filestash.entrypoints: https
+        traefik.http.routers.filestash.tls.certresolver: cloudflare
+        traefik.http.routers.filestash.rule: Host(`filestash.bas.sh`)
+        traefik.http.services.filestash.loadbalancer.server.port: 8334
   tofuzoom-nginx:
     <<: *all
     image: linuxserver/nginx
