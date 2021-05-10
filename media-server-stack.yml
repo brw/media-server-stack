@@ -328,36 +328,6 @@ services:
         traefik.http.routers.bas-files.tls.certresolver: cloudflare
         traefik.http.routers.bas-files.rule: Host(`files.bas.sh`)
         traefik.http.services.bas-files.loadbalancer.server.port: 8000
-  bas-files-caddy:
-    <<: *all
-    image: caddy
-    volumes:
-      - ${ROOT}/data/web/files.bas.sh:/srv
-    command: "caddy file-server --browse"
-    deploy:
-      labels:
-        traefik.enable: "true"
-        traefik.docker.network: traefik
-        traefik.http.routers.bas-files-caddy.entrypoints: https
-        traefik.http.routers.bas-files-caddy.tls.certresolver: cloudflare
-        traefik.http.routers.bas-files-caddy.rule: Host(`files-caddy.bas.sh`)
-        traefik.http.services.bas-files-caddy.loadbalancer.server.port: 80
-  filestash:
-    <<: *all
-    image: machines/filestash
-    volumes:
-      - ${ROOT}/docker/filestash:/app/data/state
-    environment:
-      - GDRIVE_CLIENT_ID=${FILESTASH_GDRIVE_CLIENT_ID}
-      - GDRIVE_CLIENT_SECRET=${FILESTASH_GDRIVE_CLIENT_SECRET}
-    deploy:
-      labels:
-        traefik.enable: "true"
-        traefik.docker.network: traefik
-        traefik.http.routers.filestash.entrypoints: https
-        traefik.http.routers.filestash.tls.certresolver: cloudflare
-        traefik.http.routers.filestash.rule: Host(`filestash.bas.sh`)
-        traefik.http.services.filestash.loadbalancer.server.port: 8334
   tofuzoom-nginx:
     <<: *all
     image: linuxserver/nginx
