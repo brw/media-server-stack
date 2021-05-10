@@ -332,7 +332,7 @@ services:
     <<: *all
     image: caddy
     volumes:
-      - ${ROOT}/data/web/files.bas.sh:/
+      - ${ROOT}/data/web/files.bas.sh:/usr/share/caddy
   tofuzoom-nginx:
     <<: *all
     image: linuxserver/nginx
