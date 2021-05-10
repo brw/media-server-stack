@@ -345,7 +345,8 @@ services:
   filestash:
     <<: *all
     image: machines/filestash
-
+    environment:
+      - GDRIVE
   tofuzoom-nginx:
     <<: *all
     image: linuxserver/nginx
