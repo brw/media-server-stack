@@ -331,6 +331,8 @@ services:
   bas-files-caddy:
     <<: *all
     image: caddy
+    volumes:
+      -
   tofuzoom-nginx:
     <<: *all
     image: linuxserver/nginx
