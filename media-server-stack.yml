@@ -346,7 +346,7 @@ services:
     <<: *all
     image: machines/filestash
     environment:
-      - GDRIVE_CLIENT_ID=${FILESTASH_GOOGLE_CLIENT_ID}
+      - GDRIVE_CLIENT_ID=${FILESTASH_GDRIVE_CLIENT_ID}
       - GDRIVE_CLIENT_SECRET=${FILESTASH_GDRIVE_CLIENT_SECRET}
   tofuzoom-nginx:
     <<: *all
