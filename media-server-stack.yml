@@ -330,6 +330,7 @@ services:
         traefik.http.services.bas-files.loadbalancer.server.port: 8000
   bas-files-caddy:
     <<: *all
+    image: caddy
   tofuzoom-nginx:
     <<: *all
     image: linuxserver/nginx
