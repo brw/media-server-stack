@@ -345,6 +345,8 @@ services:
   filestash:
     <<: *all
     image: machines/filestash
+    volumes:
+      - ${ROOT}/docker/filestash:/app/data/state
     environment:
       - GDRIVE_CLIENT_ID=${FILESTASH_GDRIVE_CLIENT_ID}
       - GDRIVE_CLIENT_SECRET=${FILESTASH_GDRIVE_CLIENT_SECRET}
