@@ -345,8 +345,7 @@ services:
   filestash:
     <<: *all
     image: machines/filestash
-    volumes:
-      -
+
   tofuzoom-nginx:
     <<: *all
     image: linuxserver/nginx
