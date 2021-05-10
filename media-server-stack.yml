@@ -333,7 +333,7 @@ services:
     image: caddy
     volumes:
       - ${ROOT}/data/web/files.bas.sh:/usr/share/caddy
-    command: "caddy file-server"
+    command: "caddy file-server --browse"
     deploy:
       labels:
         traefik.enable: "true"
