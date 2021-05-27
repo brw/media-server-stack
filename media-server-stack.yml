@@ -84,6 +84,7 @@ services:
       - "58846:58846"
       - "54794:54794"
       - "54795:58846"
+      - "8112:8112"
     deploy:
       labels:
         traefik.enable: "true"
@@ -104,6 +105,8 @@ services:
     volumes:
       - ${ROOT}/docker/jackett/config:/config/Jackett
       - ${ROOT}/docker/shared/blackhole:/downloads
+    ports:
+      - "10003:9117"
     deploy:
       labels:
         traefik.enable: "true"
@@ -119,6 +122,8 @@ services:
       - ${ROOT}/docker/sonarr/config:/config
       - ${ROOT}/data:/data:rslave
       - /mnt/hdd:/data/hdd:rslave
+    ports:
+      - "10001:8989"
     deploy:
       labels:
         traefik.enable: "true"
@@ -133,6 +138,9 @@ services:
     volumes:
       - ${ROOT}/docker/radarr/config:/config
       - ${ROOT}/data:/data:rslave
+      - /mnt/hdd:/data/hdd:rslave
+    ports:
+      - "10002:7878"
     deploy:
       labels:
         traefik.enable: "true"
