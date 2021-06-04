@@ -167,7 +167,6 @@ services:
   kitana:
     <<: *all
     image: pannal/kitana
-    user: "${UID}:${GID}"
     volumes:
       - ${ROOT}/docker/kitana:/app/data
     command:
