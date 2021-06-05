@@ -423,7 +423,7 @@ services:
       RWA_RCON_HOST: "mc-tofuzoom"
       RWA_SERVER_NAME: "tofuZoom"
       RWA_WEB_RCON: "true"
-      RWA_RCON_PASSWORD: "${RCON_PASSWORD}"
+      RWA_RCON_PASSWORD: ${RCON_PASSWORD}
     deploy:
       replicas: 0
       labels:
