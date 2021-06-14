@@ -193,6 +193,8 @@ services:
         traefik.http.routers.thelounge.tls.certresolver: cloudflare
         traefik.http.routers.thelounge.rule: Host(`irc.bas.sh`)
         traefik.http.services.thelounge.loadbalancer.server.port: 9000
+      restart-policy:
+        max_attempts: 3
   resilio:
     <<: *all
     image: ghcr.io/linuxserver/resilio-sync
