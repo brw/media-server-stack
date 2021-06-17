@@ -215,7 +215,7 @@ services:
     <<: *all
     image: ghcr.io/linuxserver/overseerr
     volumes:
-      - ${ROOT}/docker/overseerr:/app/config
+      - ${ROOT}/docker/overseerr:/config
     deploy:
       labels:
         traefik.enable: "true"
