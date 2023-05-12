@@ -91,7 +91,7 @@ local git = '/home/bas/git:/home/bas/git';
         //REFRESH_LIBRARY_ON_SCAN: 'false',
         NOTIFICATIONS_ENABLE: 'true',
         NOTIFICATIONS_APPRISE_CONFIGS:
-          '[{ urls: ["discord://977756105021227038/tzT1QYXiWJptlMnYmm1wd1RNtVf0H-OUGURVNWOfy_ldV1CMyZksvueS7F3Gh5tWLZ2I"], events: ["play_or_activity", "scheduler"] }]',
+          '[{ urls: ["${DISCORD_AUTO_LANGUAGES_WEBHOOK_URL}"], events: ["play_or_activity", "scheduler"] }]',
       },
     },
 

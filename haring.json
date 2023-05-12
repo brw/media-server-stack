@@ -50,7 +50,7 @@
       "autolanguages": {
          "environment": {
             "GUID": "${GID}",
-            "NOTIFICATIONS_APPRISE_CONFIGS": "[{ urls: [\"discord://977756105021227038/tzT1QYXiWJptlMnYmm1wd1RNtVf0H-OUGURVNWOfy_ldV1CMyZksvueS7F3Gh5tWLZ2I\"], events: [\"play_or_activity\", \"scheduler\"] }]",
+            "NOTIFICATIONS_APPRISE_CONFIGS": "[{ urls: [\"${DISCORD_AUTO_LANGUAGES_WEBHOOK_URL}\"], events: [\"play_or_activity\", \"scheduler\"] }]",
             "NOTIFICATIONS_ENABLE": "true",
             "PLEX_TOKEN": "${PLEX_TOKEN}",
             "PLEX_URL": "${PLEX_URL}",
