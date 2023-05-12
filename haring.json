@@ -1,0 +1,614 @@
+{
+   "services": {
+      "anki": {
+         "deploy": {
+            "labels": {
+               "traefik.docker.network": "traefik",
+               "traefik.enable": "true",
+               "traefik.http.routers.anki.entrypoints": "https",
+               "traefik.http.routers.anki.rule": "Host(`anki.bas.sh`)",
+               "traefik.http.routers.anki.tls.certresolver": "cloudflare",
+               "traefik.http.services.anki.loadbalancer.server.port": 27701
+            }
+         },
+         "environment": {
+            "ANKISYNCD_AUTH_DB_PATH": "/app/data/auth.db",
+            "ANKISYNCD_DATA_ROOT": "/app/data/collections",
+            "ANKISYNCD_SESSION_DB_PATH": "/app/data/session.db",
+            "GUID": "${GID}",
+            "PUID": "${UID}",
+            "TZ": "${TZ}"
+         },
+         "hostname": "Haring",
+         "image": "ankicommunity/anki-sync-server:latest-develop",
+         "volumes": [
+            "${ROOT}/docker/anki:/app/data"
+         ]
+      },
+      "autobrr": {
+         "deploy": {
+            "labels": {
+               "traefik.docker.network": "traefik",
+               "traefik.enable": "true",
+               "traefik.http.routers.autobrr.entrypoints": "https",
+               "traefik.http.routers.autobrr.rule": "Host(`autobrr.bas.sh`)",
+               "traefik.http.routers.autobrr.tls.certresolver": "cloudflare",
+               "traefik.http.services.autobrr.loadbalancer.server.port": 7474
+            }
+         },
+         "environment": {
+            "GUID": "${GID}",
+            "PUID": "${UID}",
+            "TZ": "${TZ}"
+         },
+         "hostname": "Haring",
+         "image": "ghcr.io/autobrr/autobrr",
+         "volumes": [
+            "${ROOT}/docker/autobrr:/config"
+         ]
+      },
+      "autolanguages": {
+         "environment": {
+            "GUID": "${GID}",
+            "NOTIFICATIONS_APPRISE_CONFIGS": "[{ urls: [\"discord://977756105021227038/tzT1QYXiWJptlMnYmm1wd1RNtVf0H-OUGURVNWOfy_ldV1CMyZksvueS7F3Gh5tWLZ2I\"], events: [\"play_or_activity\", \"scheduler\"] }]",
+            "NOTIFICATIONS_ENABLE": "true",
+            "PLEX_TOKEN": "${PLEX_TOKEN}",
+            "PLEX_URL": "${PLEX_URL}",
+            "PUID": "${UID}",
+            "TRIGGER_ON_ACTIVITY": "true",
+            "TZ": "${TZ}",
+            "UPDATE_LEVEL": "season"
+         },
+         "hostname": "Haring",
+         "image": "remirigal/plex-auto-languages",
+         "volumes": [
+            "${ROOT}/docker/autolanguages:/config"
+         ]
+      },
+      "bas": {
+         "deploy": {
+            "labels": {
+               "traefik.docker.network": "traefik",
+               "traefik.enable": "true",
+               "traefik.http.routers.bas.entrypoints": "https",
+               "traefik.http.routers.bas.rule": "Host(`bas.sh`)",
+               "traefik.http.routers.bas.tls.certresolver": "cloudflare",
+               "traefik.http.services.bas.loadbalancer.server.port": 80
+            }
+         },
+         "environment": {
+            "GUID": "${GID}",
+            "PUID": "${UID}",
+            "TZ": "${TZ}"
+         },
+         "hostname": "Haring",
+         "image": "ghcr.io/linuxserver/nginx",
+         "volumes": [
+            "${ROOT}/docker/bas:/config",
+            "${ROOT}/data/web/bas:/config/www"
+         ]
+      },
+      "files": {
+         "deploy": {
+            "labels": {
+               "traefik.docker.network": "traefik",
+               "traefik.enable": "true",
+               "traefik.http.routers.files.entrypoints": "https",
+               "traefik.http.routers.files.rule": "Host(`files.bas.sh`)",
+               "traefik.http.routers.files.tls.certresolver": "cloudflare",
+               "traefik.http.routers.get.entrypoints": "https",
+               "traefik.http.routers.get.rule": "Host(`get.bas.sh`)",
+               "traefik.http.routers.get.tls.certresolver": "cloudflare",
+               "traefik.http.services.files.loadbalancer.server.port": 8000
+            }
+         },
+         "environment": {
+            "GUID": "${GID}",
+            "PUID": "${UID}",
+            "TZ": "${TZ}"
+         },
+         "hostname": "Haring",
+         "image": "codeskyblue/gohttpserver",
+         "volumes": [
+            "${ROOT}/data/web/files:/app/public"
+         ]
+      },
+      "gitea": {
+         "deploy": {
+            "labels": {
+               "traefik.docker.network": "traefik",
+               "traefik.enable": "true",
+               "traefik.http.routers.gitea.entrypoints": "https",
+               "traefik.http.routers.gitea.rule": "Host(`gitea.bas.sh`)",
+               "traefik.http.routers.gitea.tls.certresolver": "cloudflare",
+               "traefik.http.services.gitea.loadbalancer.server.port": 3000
+            },
+            "replicas": 0
+         },
+         "environment": {
+            "GUID": "${GID}",
+            "PUID": "${UID}",
+            "TZ": "${TZ}"
+         },
+         "hostname": "Haring",
+         "image": "gitea/gitea",
+         "ports": [
+            "2222:22",
+            "3000:3000"
+         ],
+         "volumes": [
+            "${ROOT}/docker/gitea:/data",
+            "/etc/timezone:/etc/timezone:ro",
+            "/etc/localtime:/etc/localtime:ro"
+         ]
+      },
+      "jackett": {
+         "deploy": {
+            "labels": {
+               "traefik.docker.network": "traefik",
+               "traefik.enable": "true",
+               "traefik.http.routers.jackett.entrypoints": "https",
+               "traefik.http.routers.jackett.rule": "Host(`jackett.bas.sh`)",
+               "traefik.http.routers.jackett.tls.certresolver": "cloudflare",
+               "traefik.http.services.jackett.loadbalancer.server.port": 9117
+            }
+         },
+         "environment": {
+            "GUID": "${GID}",
+            "PUID": "${UID}",
+            "TZ": "${TZ}"
+         },
+         "hostname": "Haring",
+         "image": "ghcr.io/linuxserver/jackett",
+         "volumes": [
+            "${ROOT}/docker/jackett:/config"
+         ]
+      },
+      "kitana": {
+         "command": [
+            "-P"
+         ],
+         "deploy": {
+            "labels": {
+               "traefik.docker.network": "traefik",
+               "traefik.enable": "true",
+               "traefik.http.routers.kitana.entrypoints": "https",
+               "traefik.http.routers.kitana.rule": "Host(`kitana.bas.sh`)",
+               "traefik.http.routers.kitana.tls.certresolver": "cloudflare",
+               "traefik.http.services.kitana.loadbalancer.server.port": 31337
+            }
+         },
+         "environment": {
+            "GUID": "${GID}",
+            "PUID": "${UID}",
+            "TZ": "${TZ}"
+         },
+         "hostname": "Haring",
+         "image": "pannal/kitana",
+         "volumes": [
+            "${ROOT}/docker/kitana:/app/data"
+         ]
+      },
+      "librespeed": {
+         "deploy": {
+            "labels": {
+               "traefik.docker.network": "traefik",
+               "traefik.enable": "true",
+               "traefik.http.routers.speedtest.entrypoints": "https",
+               "traefik.http.routers.speedtest.rule": "Host(`speedtest.bas.sh`)",
+               "traefik.http.routers.speedtest.tls.certresolver": "cloudflare",
+               "traefik.http.services.speedtest.loadbalancer.server.port": 80
+            }
+         },
+         "environment": {
+            "EMAIL": "hi@bas.sh",
+            "ENABLE_ID_OBFUSCATION": "true",
+            "GUID": "${GID}",
+            "IPINFO_APIKEY": "${IPINFO_APIKEY}",
+            "PASSWORD": "${SPEEDTEST_PASSWORD}",
+            "PUID": "${UID}",
+            "REDACT_IP_ADDRESSES": "true",
+            "TELEMETRY": "true",
+            "TITLE": "Speedtest | Bas",
+            "TZ": "${TZ}"
+         },
+         "hostname": "Haring",
+         "image": "ghcr.io/linuxserver/librespeed",
+         "volumes": [
+            "${ROOT}/docker/librespeed:/config"
+         ]
+      },
+      "overseerr": {
+         "deploy": {
+            "labels": {
+               "traefik.docker.network": "traefik",
+               "traefik.enable": "true",
+               "traefik.http.routers.request.entrypoints": "https",
+               "traefik.http.routers.request.rule": "Host(`request.bas.sh`)",
+               "traefik.http.routers.request.tls.certresolver": "cloudflare",
+               "traefik.http.services.request.loadbalancer.server.port": 5055
+            }
+         },
+         "environment": {
+            "GUID": "${GID}",
+            "PUID": "${UID}",
+            "TZ": "${TZ}"
+         },
+         "hostname": "Haring",
+         "image": "ghcr.io/linuxserver/overseerr",
+         "volumes": [
+            "${ROOT}/docker/overseerr:/config"
+         ]
+      },
+      "plex": {
+         "deploy": {
+            "labels": {
+               "traefik.docker.network": "traefik",
+               "traefik.enable": "true",
+               "traefik.http.routers.plex.entrypoints": "https",
+               "traefik.http.routers.plex.rule": "Host(`plex.bas.sh`)",
+               "traefik.http.routers.plex.tls.certresolver": "cloudflare",
+               "traefik.http.services.plex.loadbalancer.server.port": 32400
+            }
+         },
+         "environment": {
+            "GUID": "${GID}",
+            "PUID": "${UID}",
+            "TZ": "${TZ}",
+            "VERSION": "latest"
+         },
+         "hostname": "Haring",
+         "image": "ghcr.io/linuxserver/plex",
+         "ports": [
+            "32400:32400/tcp",
+            "3005:3005/tcp",
+            "8324:8324/tcp",
+            "32469:32469/tcp",
+            "1900:1900/udp",
+            "32410:32410/udp",
+            "32412:32412/udp",
+            "32413:32413/udp",
+            "32414:32414/udp",
+            "33400:33400/tcp"
+         ],
+         "volumes": [
+            "${ROOT}/docker/plex:/config",
+            "${ROOT}/data:/home/bas/data:rslave",
+            "/home/bas/git:/home/bas/git"
+         ]
+      },
+      "radarr": {
+         "deploy": {
+            "labels": {
+               "traefik.docker.network": "traefik",
+               "traefik.enable": "true",
+               "traefik.http.routers.radarr.entrypoints": "https",
+               "traefik.http.routers.radarr.rule": "Host(`radarr.bas.sh`)",
+               "traefik.http.routers.radarr.tls.certresolver": "cloudflare",
+               "traefik.http.services.radarr.loadbalancer.server.port": 7878
+            }
+         },
+         "environment": {
+            "GUID": "${GID}",
+            "PUID": "${UID}",
+            "TZ": "${TZ}"
+         },
+         "hostname": "Haring",
+         "image": "ghcr.io/linuxserver/radarr",
+         "volumes": [
+            "${ROOT}/docker/radarr:/config",
+            "${ROOT}/data:/home/bas/data:rslave"
+         ]
+      },
+      "resilio": {
+         "deploy": {
+            "labels": {
+               "traefik.docker.network": "traefik",
+               "traefik.enable": "true",
+               "traefik.http.routers.sync.entrypoints": "https",
+               "traefik.http.routers.sync.rule": "Host(`sync.bas.sh`)",
+               "traefik.http.routers.sync.tls.certresolver": "cloudflare",
+               "traefik.http.services.sync.loadbalancer.server.port": 8888
+            },
+            "replicas": 0
+         },
+         "environment": {
+            "GUID": "${GID}",
+            "PUID": "${UID}",
+            "TZ": "${TZ}"
+         },
+         "hostname": "Haring",
+         "image": "ghcr.io/linuxserver/resilio-sync",
+         "ports": [
+            "55555:55555"
+         ],
+         "volumes": [
+            "${ROOT}/docker/resilio:/config",
+            "${ROOT}/data:/home/bas/data:rslave",
+            "${ROOT}/data/resilio/downloads:/downloads"
+         ]
+      },
+      "rubytaco": {
+         "deploy": {
+            "labels": {
+               "traefik.docker.network": "traefik",
+               "traefik.enable": "true",
+               "traefik.http.routers.rubyta.entrypoints": "https",
+               "traefik.http.routers.rubyta.rule": "Host(`rubyta.co`)",
+               "traefik.http.routers.rubyta.tls.certresolver": "cloudflare",
+               "traefik.http.services.rubyta.loadbalancer.server.port": 80
+            }
+         },
+         "environment": {
+            "GUID": "${GID}",
+            "PUID": "${UID}",
+            "TZ": "${TZ}"
+         },
+         "hostname": "Haring",
+         "image": "ghcr.io/linuxserver/nginx",
+         "volumes": [
+            "${ROOT}/docker/rubytaco:/config",
+            "${ROOT}/data/web/rubytaco:/config/www"
+         ]
+      },
+      "sabnzbd": {
+         "deploy": {
+            "labels": {
+               "traefik.docker.network": "traefik",
+               "traefik.enable": "true",
+               "traefik.http.routers.sabnzbd.entrypoints": "https",
+               "traefik.http.routers.sabnzbd.rule": "Host(`sabnzbd.bas.sh`)",
+               "traefik.http.routers.sabnzbd.tls.certresolver": "cloudflare",
+               "traefik.http.services.sabnzbd.loadbalancer.server.port": 8080
+            }
+         },
+         "environment": {
+            "GUID": "${GID}",
+            "PUID": "${UID}",
+            "TZ": "${TZ}"
+         },
+         "hostname": "Haring",
+         "image": "ghcr.io/linuxserver/sabnzbd",
+         "volumes": [
+            "${ROOT}/docker/sabnzbd:/config",
+            "${ROOT}/data:/home/bas/data:rslave"
+         ]
+      },
+      "sonarr": {
+         "deploy": {
+            "labels": {
+               "traefik.docker.network": "traefik",
+               "traefik.enable": "true",
+               "traefik.http.routers.sonarr.entrypoints": "https",
+               "traefik.http.routers.sonarr.rule": "Host(`sonarr.bas.sh`)",
+               "traefik.http.routers.sonarr.tls.certresolver": "cloudflare",
+               "traefik.http.services.sonarr.loadbalancer.server.port": 8989
+            }
+         },
+         "environment": {
+            "GUID": "${GID}",
+            "PUID": "${UID}",
+            "TZ": "${TZ}"
+         },
+         "hostname": "Haring",
+         "image": "ghcr.io/linuxserver/sonarr",
+         "volumes": [
+            "${ROOT}/docker/sonarr:/config",
+            "${ROOT}/data:/home/bas/data:rslave"
+         ]
+      },
+      "static": {
+         "deploy": {
+            "labels": {
+               "traefik.docker.network": "traefik",
+               "traefik.enable": "true",
+               "traefik.http.routers.static.entrypoints": "https",
+               "traefik.http.routers.static.rule": "Host(`static.bas.sh`)",
+               "traefik.http.routers.static.tls.certresolver": "cloudflare",
+               "traefik.http.services.static.loadbalancer.server.port": 8080
+            }
+         },
+         "environment": {
+            "CORS": "true",
+            "GUID": "${GID}",
+            "PUID": "${UID}",
+            "TZ": "${TZ}"
+         },
+         "hostname": "Haring",
+         "image": "halverneus/static-file-server",
+         "volumes": [
+            "${ROOT}/data/web/files:/web"
+         ]
+      },
+      "tautulli": {
+         "deploy": {
+            "labels": {
+               "traefik.docker.network": "traefik",
+               "traefik.enable": "true",
+               "traefik.http.routers.tautulli.entrypoints": "https",
+               "traefik.http.routers.tautulli.rule": "Host(`tautulli.bas.sh`)",
+               "traefik.http.routers.tautulli.tls.certresolver": "cloudflare",
+               "traefik.http.services.tautulli.loadbalancer.server.port": 8181
+            }
+         },
+         "environment": {
+            "GUID": "${GID}",
+            "PUID": "${UID}",
+            "TZ": "${TZ}"
+         },
+         "hostname": "Haring",
+         "image": "ghcr.io/linuxserver/tautulli",
+         "volumes": [
+            "${ROOT}/docker/tautulli:/config",
+            "${ROOT}/data:/home/bas/data:rslave",
+            "/home/bas/git:/home/bas/git"
+         ]
+      },
+      "thelounge": {
+         "deploy": {
+            "labels": {
+               "traefik.docker.network": "traefik",
+               "traefik.enable": "true",
+               "traefik.http.routers.irc.entrypoints": "https",
+               "traefik.http.routers.irc.rule": "Host(`irc.bas.sh`)",
+               "traefik.http.routers.irc.tls.certresolver": "cloudflare",
+               "traefik.http.services.irc.loadbalancer.server.port": 9000
+            }
+         },
+         "environment": {
+            "GUID": "${GID}",
+            "PUID": "${UID}",
+            "TZ": "${TZ}"
+         },
+         "hostname": "Haring",
+         "image": "ghcr.io/linuxserver/thelounge",
+         "volumes": [
+            "${ROOT}/docker/thelounge:/config"
+         ]
+      },
+      "tofumang": {
+         "deploy": {
+            "labels": {
+               "traefik.docker.network": "traefik",
+               "traefik.enable": "true",
+               "traefik.http.routers.tofumang.entrypoints": "https",
+               "traefik.http.routers.tofumang.rule": "Host(`tofumang.com`)",
+               "traefik.http.routers.tofumang.tls.certresolver": "cloudflare",
+               "traefik.http.services.tofumang.loadbalancer.server.port": 80
+            }
+         },
+         "environment": {
+            "GUID": "${GID}",
+            "PUID": "${UID}",
+            "TZ": "${TZ}"
+         },
+         "hostname": "Haring",
+         "image": "ghcr.io/linuxserver/nginx",
+         "volumes": [
+            "${ROOT}/docker/tofumang:/config",
+            "${ROOT}/data/web/tofumang:/config/www"
+         ]
+      },
+      "traefik": {
+         "command": [
+            "--api.insecure=true",
+            "--providers.docker.endpoint=unix:///var/run/docker.sock",
+            "--providers.docker.swarmmode=true",
+            "--providers.docker.exposedbydefault=false",
+            "--entrypoints.http.address=:80",
+            "--entrypoints.https.address=:443",
+            "--certificatesresolvers.cloudflare.acme.dnschallenge=true",
+            "--certificatesresolvers.cloudflare.acme.dnschallenge.provider=cloudflare",
+            "--certificatesresolvers.cloudflare.acme.dnschallenge.resolvers=1.1.1.1:53,8.8.8.8:53",
+            "--certificatesresolvers.cloudflare.acme.storage=/etc/traefik/acme.json",
+            "--certificatesresolvers.cloudflare.acme.email=hi@bas.sh"
+         ],
+         "deploy": {
+            "labels": {
+               "traefik.docker.network": "traefik",
+               "traefik.enable": "true",
+               "traefik.http.middlewares.httpsredirect.redirectscheme.scheme": "https",
+               "traefik.http.routers.httpbas.entrypoints": "http",
+               "traefik.http.routers.httpbas.middlewares": "httpsredirect",
+               "traefik.http.routers.httpbas.rule": "Host(`bas.sh`)",
+               "traefik.http.routers.httphttp.entrypoints": "http",
+               "traefik.http.routers.httphttp.middlewares": "httpsredirect",
+               "traefik.http.routers.httphttp.rule": "HostRegexp(`{subdomain:[a-z0-9\\-]+}.bas.sh`)",
+               "traefik.http.routers.httprubyta.entrypoints": "http",
+               "traefik.http.routers.httprubyta.middlewares": "httpsredirect",
+               "traefik.http.routers.httprubyta.rule": "Host(`rubyta.co`)",
+               "traefik.http.routers.httptofumang.entrypoints": "http",
+               "traefik.http.routers.httptofumang.middlewares": "httpsredirect",
+               "traefik.http.routers.httptofumang.rule": "Host(`tofumang.com`)",
+               "traefik.http.routers.httptofuzoom.entrypoints": "http",
+               "traefik.http.routers.httptofuzoom.middlewares": "httpsredirect",
+               "traefik.http.routers.httptofuzoom.rule": "Host(`tofuzoom.com`)",
+               "traefik.http.routers.traefik.entrypoints": "https",
+               "traefik.http.routers.traefik.rule": "Host(`traefik.bas.sh`)",
+               "traefik.http.routers.traefik.service": "api@internal",
+               "traefik.http.routers.traefik.tls.certresolver": "cloudflare",
+               "traefik.http.routers.traefik.tls.domains[0].main": "bas.sh",
+               "traefik.http.routers.traefik.tls.domains[0].sans": "*.bas.sh",
+               "traefik.http.services.traefik.loadbalancer.server.port": 8080
+            }
+         },
+         "environment": {
+            "CF_API_EMAIL": "hi@bas.sh",
+            "CF_API_KEY": "${CF_API_KEY}",
+            "GUID": "${GID}",
+            "PUID": "${UID}",
+            "TZ": "${TZ}"
+         },
+         "hostname": "Haring",
+         "image": "traefik",
+         "ports": [
+            {
+               "mode": "host",
+               "protocol": "tcp",
+               "published": 80,
+               "target": 80
+            },
+            {
+               "mode": "host",
+               "protocol": "tcp",
+               "published": 443,
+               "target": 443
+            },
+            {
+               "mode": "host",
+               "protocol": "tcp",
+               "published": 69,
+               "target": 69
+            }
+         ],
+         "volumes": [
+            "/var/run/docker.sock:/var/run/docker.sock:ro",
+            "${ROOT}/docker/traefik:/etc/traefik"
+         ]
+      },
+      "whoami": {
+         "deploy": {
+            "labels": {
+               "traefik.docker.network": "traefik",
+               "traefik.enable": "true",
+               "traefik.http.routers.whoami.entrypoints": "https",
+               "traefik.http.routers.whoami.rule": "Host(`whoami.bas.sh`)",
+               "traefik.http.routers.whoami.tls.certresolver": "cloudflare",
+               "traefik.http.services.whoami.loadbalancer.server.port": 80
+            }
+         },
+         "environment": {
+            "GUID": "${GID}",
+            "PUID": "${UID}",
+            "TZ": "${TZ}"
+         },
+         "hostname": "Haring",
+         "image": "traefik/whoami"
+      },
+      "wizarr": {
+         "deploy": {
+            "labels": {
+               "traefik.docker.network": "traefik",
+               "traefik.enable": "true",
+               "traefik.http.routers.join.entrypoints": "https",
+               "traefik.http.routers.join.rule": "Host(`join.bas.sh`)",
+               "traefik.http.routers.join.tls.certresolver": "cloudflare",
+               "traefik.http.services.join.loadbalancer.server.port": 5690
+            }
+         },
+         "environment": {
+            "ALLOW_BUG_REPORTING": "true",
+            "APP_URL": "https://join.bas.sh",
+            "GUID": "${GID}",
+            "PUID": "${UID}",
+            "TZ": "${TZ}"
+         },
+         "hostname": "Haring",
+         "image": "ghcr.io/wizarrrr/wizarr",
+         "volumes": [
+            "${ROOT}/docker/wizarr:/data/database"
+         ]
+      }
+   },
+   "version": "3.8"
+}
