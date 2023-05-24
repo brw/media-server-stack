@@ -205,7 +205,7 @@
             "ENABLE_ID_OBFUSCATION": "true",
             "GUID": "${GID}",
             "IPINFO_APIKEY": "${IPINFO_APIKEY}",
-            "PASSWORD": "${SPEEDTEST_PASSWORD}",
+            "PASSWORD": "${PASSWORD}",
             "PUID": "${UID}",
             "REDACT_IP_ADDRESSES": "true",
             "TELEMETRY": "true",
@@ -216,6 +216,37 @@
          "image": "ghcr.io/linuxserver/librespeed",
          "volumes": [
             "${ROOT}/docker/librespeed:/config"
+         ]
+      },
+      "monero": {
+         "command": [
+            "--data-dir /monero"
+         ],
+         "deploy": {
+            "labels": {
+               "traefik.docker.network": "traefik",
+               "traefik.enable": "true",
+               "traefik.http.routers.monero.entrypoints": "https",
+               "traefik.http.routers.monero.rule": "Host(`monero.bas.sh`)",
+               "traefik.http.routers.monero.tls.certresolver": "cloudflare",
+               "traefik.http.services.monero.loadbalancer.server.port": 28081
+            }
+         },
+         "environment": {
+            "GUID": "${GID}",
+            "PUID": "${UID}",
+            "RPC_PASSWD": "${PASSWORD}",
+            "RPC_USER": "bas",
+            "TZ": "${TZ}"
+         },
+         "hostname": "Haring",
+         "image": "rinocommunity/monero",
+         "ports": [
+            "28080:28080",
+            "28081:28081"
+         ],
+         "volumes": [
+            "${ROOT}/docker/monero:/monero"
          ]
       },
       "overseerr": {

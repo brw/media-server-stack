@@ -57,7 +57,9 @@ local git = '/home/bas/git:/home/bas/git';
 
     anki: Service('anki', 27701) {
       image: 'ankicommunity/anki-sync-server:latest-develop',
-      volumes: ['${ROOT}/docker/anki:/app/data'],
+      volumes: [
+        '${ROOT}/docker/anki:/app/data',
+      ],
       environment+: {
         ANKISYNCD_DATA_ROOT: '/app/data/collections',
         ANKISYNCD_AUTH_DB_PATH: '/app/data/auth.db',
@@ -72,13 +74,20 @@ local git = '/home/bas/git:/home/bas/git';
         '/etc/timezone:/etc/timezone:ro',
         '/etc/localtime:/etc/localtime:ro',
       ],
-      ports: ['2222:22', '3000:3000'],
+      ports: [
+        '2222:22',
+        '3000:3000',
+      ],
     },
 
     kitana: Service('kitana', 31337) {
       image: 'pannal/kitana',
-      volumes: ['${ROOT}/docker/kitana:/app/data'],
-      command: ['-P'],
+      volumes: [
+        '${ROOT}/docker/kitana:/app/data',
+      ],
+      command: [
+        '-P',
+      ],
     },
 
     autolanguages: Service('autolanguages') {
@@ -103,10 +112,30 @@ local git = '/home/bas/git:/home/bas/git';
         data,
         '${ROOT}/data/resilio/downloads:/downloads',
       ],
-      ports: ['55555:55555'],
+      ports: [
+        '55555:55555',
+      ],
     },
 
     overseerr: Service('overseerr', 5055, domain='request'),
+
+    monero: Service('monero', 28081) {
+      image: 'rinocommunity/monero',
+      volumes: [
+        '${ROOT}/docker/monero:/monero',
+      ],
+      environment+: {
+        RPC_USER: 'bas',
+        RPC_PASSWD: '${PASSWORD}',
+      },
+      ports: [
+        '28080:28080',
+        '28081:28081',
+      ],
+      command: [
+        '--data-dir /monero',
+      ],
+    },
 
     wizarr: Service('wizarr', 5690, domain='join') {
       image: 'ghcr.io/wizarrrr/wizarr',
@@ -125,7 +154,7 @@ local git = '/home/bas/git:/home/bas/git';
         TELEMETRY: 'true',
         ENABLE_ID_OBFUSCATION: 'true',
         REDACT_IP_ADDRESSES: 'true',
-        PASSWORD: '${SPEEDTEST_PASSWORD}',
+        PASSWORD: '${PASSWORD}',
         EMAIL: 'hi@bas.sh',
         IPINFO_APIKEY: '${IPINFO_APIKEY}',
       },
@@ -133,7 +162,9 @@ local git = '/home/bas/git:/home/bas/git';
 
     files: Service('files', 8000) {
       image: 'codeskyblue/gohttpserver',
-      volumes: ['${ROOT}/data/web/files:/app/public'],
+      volumes: [
+        '${ROOT}/data/web/files:/app/public',
+      ],
       deploy+: {
         labels+: Router('get'),
       },
@@ -141,7 +172,9 @@ local git = '/home/bas/git:/home/bas/git';
 
     static: Service('static', 8080) {
       image: 'halverneus/static-file-server',
-      volumes: ['${ROOT}/data/web/files:/web'],
+      volumes: [
+        '${ROOT}/data/web/files:/web',
+      ],
       environment+: {
         CORS: 'true',
       },
