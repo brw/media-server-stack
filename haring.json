@@ -88,6 +88,29 @@
             "${ROOT}/data/web/bas:/config/www"
          ]
       },
+      "bazarr": {
+         "deploy": {
+            "labels": {
+               "traefik.docker.network": "traefik",
+               "traefik.enable": "true",
+               "traefik.http.routers.bazarr.entrypoints": "https",
+               "traefik.http.routers.bazarr.rule": "Host(`bazarr.bas.sh`)",
+               "traefik.http.routers.bazarr.tls.certresolver": "cloudflare",
+               "traefik.http.services.bazarr.loadbalancer.server.port": 6767
+            }
+         },
+         "environment": {
+            "GUID": "${GID}",
+            "PUID": "${UID}",
+            "TZ": "${TZ}"
+         },
+         "hostname": "Haring",
+         "image": "ghcr.io/linuxserver/bazarr",
+         "volumes": [
+            "${ROOT}/docker/bazarr:/config",
+            "${ROOT}/data:/home/bas/data:rslave"
+         ]
+      },
       "files": {
          "deploy": {
             "labels": {
