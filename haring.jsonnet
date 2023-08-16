@@ -140,6 +140,18 @@ local git = "/home/bas/git:/home/bas/git";
       ],
     },
 
+    mkvtoolnix: Service("mkvtoolnix", 5800) {
+      image: "jlesage/mkvtoolnix",
+      volumes+: [data],
+      environment+: {
+        VNC_PASSWORD: "${PASSWORD}",
+        DARK_MODE: "1",
+        APP_NICENESS: "10",
+        KEEP_APP_RUNNING: "1",
+        ENABLE_CJK_FONT: "1",
+      },
+    },
+
     wizarr: Service("wizarr", 5690, domain="join") {
       image: "ghcr.io/wizarrrr/wizarr",
       volumes: [

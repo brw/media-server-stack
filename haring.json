@@ -241,6 +241,34 @@
             "${ROOT}/docker/librespeed:/config"
          ]
       },
+      "mkvtoolnix": {
+         "deploy": {
+            "labels": {
+               "traefik.docker.network": "traefik",
+               "traefik.enable": "true",
+               "traefik.http.routers.mkvtoolnix.entrypoints": "https",
+               "traefik.http.routers.mkvtoolnix.rule": "Host(`mkvtoolnix.bas.sh`)",
+               "traefik.http.routers.mkvtoolnix.tls.certresolver": "cloudflare",
+               "traefik.http.services.mkvtoolnix.loadbalancer.server.port": 5800
+            }
+         },
+         "environment": {
+            "APP_NICENESS": "10",
+            "DARK_MODE": "1",
+            "ENABLE_CJK_FONT": "1",
+            "GUID": "${GID}",
+            "KEEP_APP_RUNNING": "1",
+            "PUID": "${UID}",
+            "TZ": "${TZ}",
+            "VNC_PASSWORD": "${PASSWORD}"
+         },
+         "hostname": "Haring",
+         "image": "jlesage/mkvtoolnix",
+         "volumes": [
+            "${ROOT}/docker/mkvtoolnix:/config",
+            "${ROOT}/data:/home/bas/data:rslave"
+         ]
+      },
       "monero": {
          "command": [
             "--data-dir /monero"
