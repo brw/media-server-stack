@@ -50,6 +50,10 @@ local git = "/home/bas/git:/home/bas/git";
       image: "ghcr.io/autobrr/autobrr",
     },
 
+    omegabrr: Service("omegabrr", 7441) {
+      image: "ghcr.io/autobrr/omegabrr",
+    },
+
     tautulli: Service("tautulli", 8181) {
       volumes+: [data, git],
     },
@@ -144,7 +148,7 @@ local git = "/home/bas/git:/home/bas/git";
       image: "jlesage/mkvtoolnix",
       volumes+: [data],
       environment+: {
-        VNC_PASSWORD: "${PASSWORD}",
+        VNC_PASSWORD: "${MKVTOOLNIX_PASSWORD}",
         DARK_MODE: "1",
         APP_NICENESS: "10",
         KEEP_APP_RUNNING: "1",

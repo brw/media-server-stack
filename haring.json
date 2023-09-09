@@ -260,7 +260,7 @@
             "KEEP_APP_RUNNING": "1",
             "PUID": "${UID}",
             "TZ": "${TZ}",
-            "VNC_PASSWORD": "${PASSWORD}"
+            "VNC_PASSWORD": "${MKVTOOLNIX_PASSWORD}"
          },
          "hostname": "Haring",
          "image": "jlesage/mkvtoolnix",
@@ -298,6 +298,28 @@
          ],
          "volumes": [
             "${ROOT}/docker/monero:/monero"
+         ]
+      },
+      "omegabrr": {
+         "deploy": {
+            "labels": {
+               "traefik.docker.network": "traefik",
+               "traefik.enable": "true",
+               "traefik.http.routers.omegabrr.entrypoints": "https",
+               "traefik.http.routers.omegabrr.rule": "Host(`omegabrr.bas.sh`)",
+               "traefik.http.routers.omegabrr.tls.certresolver": "cloudflare",
+               "traefik.http.services.omegabrr.loadbalancer.server.port": 7441
+            }
+         },
+         "environment": {
+            "GUID": "${GID}",
+            "PUID": "${UID}",
+            "TZ": "${TZ}"
+         },
+         "hostname": "Haring",
+         "image": "ghcr.io/autobrr/omegabrr",
+         "volumes": [
+            "${ROOT}/docker/omegabrr:/config"
          ]
       },
       "overseerr": {
