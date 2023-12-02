@@ -8,3 +8,11 @@ Compile and copy to clipboard in WSL:
 ```bash
 jsonnet haring.jsonnet -o haring.json && win32yank.exe -i < haring.json
 ```
+or under Wayland
+```bash
+jsonnet haring.jsonnet -o haring.json && wl-copy < haring.json
+```
+or under Xorg
+```bash
+jsonnet haring.jsonnet -o haring.json && xclip < haring.json
+```
