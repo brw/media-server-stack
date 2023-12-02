@@ -16,3 +16,10 @@ or under Xorg
 ```bash
 jsonnet haring.jsonnet -o haring.json && xclip < haring.json
 ```
+
+## Setup
+```bash
+docker swarm init
+docker stack deploy -c portainer-agent-stack.yml portainer
+```
+then deploy the media server stack by copying the contents of `haring.json` to Portainer.
