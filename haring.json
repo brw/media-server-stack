@@ -97,7 +97,8 @@
                "traefik.http.routers.bazarr.rule": "Host(`bazarr.bas.sh`)",
                "traefik.http.routers.bazarr.tls.certresolver": "cloudflare",
                "traefik.http.services.bazarr.loadbalancer.server.port": 6767
-            }
+            },
+            "replicas": 0
          },
          "environment": {
             "GUID": "${GID}",
@@ -221,7 +222,8 @@
                "traefik.http.routers.speedtest.rule": "Host(`speedtest.bas.sh`)",
                "traefik.http.routers.speedtest.tls.certresolver": "cloudflare",
                "traefik.http.services.speedtest.loadbalancer.server.port": 80
-            }
+            },
+            "replicas": 0
          },
          "environment": {
             "EMAIL": "hi@bas.sh",
@@ -250,7 +252,8 @@
                "traefik.http.routers.mkvtoolnix.rule": "Host(`mkvtoolnix.bas.sh`)",
                "traefik.http.routers.mkvtoolnix.tls.certresolver": "cloudflare",
                "traefik.http.services.mkvtoolnix.loadbalancer.server.port": 5800
-            }
+            },
+            "replicas": 0
          },
          "environment": {
             "APP_NICENESS": "10",
@@ -281,7 +284,8 @@
                "traefik.http.routers.monero.rule": "Host(`monero.bas.sh`)",
                "traefik.http.routers.monero.tls.certresolver": "cloudflare",
                "traefik.http.services.monero.loadbalancer.server.port": 28081
-            }
+            },
+            "replicas": 0
          },
          "environment": {
             "GUID": "${GID}",
@@ -309,7 +313,8 @@
                "traefik.http.routers.omegabrr.rule": "Host(`omegabrr.bas.sh`)",
                "traefik.http.routers.omegabrr.tls.certresolver": "cloudflare",
                "traefik.http.services.omegabrr.loadbalancer.server.port": 7441
-            }
+            },
+            "replicas": 0
          },
          "environment": {
             "GUID": "${GID}",
@@ -318,6 +323,7 @@
          },
          "hostname": "Haring",
          "image": "ghcr.io/autobrr/omegabrr",
+         "user": "1000:1000",
          "volumes": [
             "${ROOT}/docker/omegabrr:/config"
          ]
@@ -353,7 +359,8 @@
                "traefik.http.routers.plex.rule": "Host(`plex.bas.sh`)",
                "traefik.http.routers.plex.tls.certresolver": "cloudflare",
                "traefik.http.services.plex.loadbalancer.server.port": 32400
-            }
+            },
+            "replicas": 0
          },
          "environment": {
             "GUID": "${GID}",
@@ -390,7 +397,8 @@
                "traefik.http.routers.radarr.rule": "Host(`radarr.bas.sh`)",
                "traefik.http.routers.radarr.tls.certresolver": "cloudflare",
                "traefik.http.services.radarr.loadbalancer.server.port": 7878
-            }
+            },
+            "replicas": 0
          },
          "environment": {
             "GUID": "${GID}",
@@ -432,29 +440,6 @@
             "${ROOT}/data/resilio/downloads:/downloads"
          ]
       },
-      "rubytaco": {
-         "deploy": {
-            "labels": {
-               "traefik.docker.network": "traefik",
-               "traefik.enable": "true",
-               "traefik.http.routers.rubyta.entrypoints": "https",
-               "traefik.http.routers.rubyta.rule": "Host(`rubyta.co`)",
-               "traefik.http.routers.rubyta.tls.certresolver": "cloudflare",
-               "traefik.http.services.rubyta.loadbalancer.server.port": 80
-            }
-         },
-         "environment": {
-            "GUID": "${GID}",
-            "PUID": "${UID}",
-            "TZ": "${TZ}"
-         },
-         "hostname": "Haring",
-         "image": "ghcr.io/linuxserver/nginx",
-         "volumes": [
-            "${ROOT}/docker/rubytaco:/config",
-            "${ROOT}/data/web/rubytaco:/config/www"
-         ]
-      },
       "sabnzbd": {
          "deploy": {
             "labels": {
@@ -464,7 +449,8 @@
                "traefik.http.routers.sabnzbd.rule": "Host(`sabnzbd.bas.sh`)",
                "traefik.http.routers.sabnzbd.tls.certresolver": "cloudflare",
                "traefik.http.services.sabnzbd.loadbalancer.server.port": 8080
-            }
+            },
+            "replicas": 0
          },
          "environment": {
             "GUID": "${GID}",
@@ -487,7 +473,8 @@
                "traefik.http.routers.sonarr.rule": "Host(`sonarr.bas.sh`)",
                "traefik.http.routers.sonarr.tls.certresolver": "cloudflare",
                "traefik.http.services.sonarr.loadbalancer.server.port": 8989
-            }
+            },
+            "replicas": 0
          },
          "environment": {
             "GUID": "${GID}",
@@ -506,6 +493,12 @@
             "labels": {
                "traefik.docker.network": "traefik",
                "traefik.enable": "true",
+               "traefik.http.routers.files.entrypoints": "https",
+               "traefik.http.routers.files.rule": "Host(`files.bas.sh`)",
+               "traefik.http.routers.files.tls.certresolver": "cloudflare",
+               "traefik.http.routers.get.entrypoints": "https",
+               "traefik.http.routers.get.rule": "Host(`get.bas.sh`)",
+               "traefik.http.routers.get.tls.certresolver": "cloudflare",
                "traefik.http.routers.static.entrypoints": "https",
                "traefik.http.routers.static.rule": "Host(`static.bas.sh`)",
                "traefik.http.routers.static.tls.certresolver": "cloudflare",
@@ -536,7 +529,9 @@
             }
          },
          "environment": {
+            "DOCKER_MODS": "linuxserver/mods:universal-package-install",
             "GUID": "${GID}",
+            "INSTALL_PACKAGES": "openssh-client-default",
             "PUID": "${UID}",
             "TZ": "${TZ}"
          },

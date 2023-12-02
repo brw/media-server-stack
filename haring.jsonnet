@@ -13,7 +13,8 @@ local git = '/home/bas/git:/home/bas/git';
       image: 'traefik/whoami',
       volumes: [],
     },
-    plex: Service('plex', 32400) {
+
+    plex: Service('plex', 32400, replicas=0) {
       volumes+: [data, git],
       environment+: {
         VERSION: 'latest',
@@ -34,15 +35,15 @@ local git = '/home/bas/git:/home/bas/git';
 
     jackett: Service('jackett', 9117),
 
-    sonarr: Service('sonarr', 8989) {
+    sonarr: Service('sonarr', 8989, replicas=0) {
       volumes+: [data],
     },
 
-    radarr: Service('radarr', 7878) {
+    radarr: Service('radarr', 7878, replicas=0) {
       volumes+: [data],
     },
 
-    bazarr: Service('bazarr', 6767) {
+    bazarr: Service('bazarr', 6767, replicas=0) {
       volumes+: [data],
     },
 
@@ -50,15 +51,20 @@ local git = '/home/bas/git:/home/bas/git';
       image: 'ghcr.io/autobrr/autobrr',
     },
 
-    omegabrr: Service('omegabrr', 7441) {
+    omegabrr: Service('omegabrr', 7441, replicas=0) {
       image: 'ghcr.io/autobrr/omegabrr',
+      user: '1000:1000',
     },
 
     tautulli: Service('tautulli', 8181) {
       volumes+: [data, git],
+      environment+: {
+        DOCKER_MODS: 'linuxserver/mods:universal-package-install',
+        INSTALL_PACKAGES: 'openssh-client-default'
+      }
     },
 
-    sabnzbd: Service('sabnzbd', 8080) {
+    sabnzbd: Service('sabnzbd', 8080, replicas=0) {
       volumes+: [data],
     },
 
@@ -126,7 +132,7 @@ local git = '/home/bas/git:/home/bas/git';
 
     overseerr: Service('overseerr', 5055, domain='request'),
 
-    monero: Service('monero', 28081) {
+    monero: Service('monero', 28081, replicas=0) {
       image: 'rinocommunity/monero',
       volumes: [
         '${ROOT}/docker/monero:/monero',
@@ -144,7 +150,7 @@ local git = '/home/bas/git:/home/bas/git';
       ],
     },
 
-    mkvtoolnix: Service('mkvtoolnix', 5800) {
+    mkvtoolnix: Service('mkvtoolnix', 5800, replicas=0) {
       image: 'jlesage/mkvtoolnix',
       volumes+: [data],
       environment+: {
@@ -167,7 +173,7 @@ local git = '/home/bas/git:/home/bas/git';
       },
     },
 
-    librespeed: Service('librespeed', 80, domain='speedtest') {
+    librespeed: Service('librespeed', 80, domain='speedtest', replicas=0) {
       environment+: {
         TITLE: 'Speedtest | Bas',
         TELEMETRY: 'true',
@@ -197,9 +203,12 @@ local git = '/home/bas/git:/home/bas/git';
       environment+: {
         CORS: 'true',
       },
+      deploy+: {
+        labels+:
+          Router('get') +
+          Router('files'),
+      },
     },
-
-    rubytaco: WebService('rubytaco', domain='rubyta.co'),
 
     bas: WebService('bas', domain='bas.sh'),
 
