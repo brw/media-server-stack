@@ -14,7 +14,7 @@ local git = '/home/bas/git:/home/bas/git';
       volumes: [],
     },
 
-    plex: Service('plex', 32400, replicas=0) {
+    plex: Service('plex', 32400) {
       volumes+: [data, git],
       environment+: {
         VERSION: 'latest',
@@ -35,15 +35,15 @@ local git = '/home/bas/git:/home/bas/git';
 
     jackett: Service('jackett', 9117),
 
-    sonarr: Service('sonarr', 8989, replicas=0) {
+    sonarr: Service('sonarr', 8989) {
       volumes+: [data],
     },
 
-    radarr: Service('radarr', 7878, replicas=0) {
+    radarr: Service('radarr', 7878) {
       volumes+: [data],
     },
 
-    bazarr: Service('bazarr', 6767, replicas=0) {
+    bazarr: Service('bazarr', 6767) {
       volumes+: [data],
     },
 
@@ -60,11 +60,11 @@ local git = '/home/bas/git:/home/bas/git';
       volumes+: [data, git],
       environment+: {
         DOCKER_MODS: 'linuxserver/mods:universal-package-install',
-        INSTALL_PACKAGES: 'openssh-client-default'
-      }
+        INSTALL_PACKAGES: 'openssh-client-default',
+      },
     },
 
-    sabnzbd: Service('sabnzbd', 8080, replicas=0) {
+    sabnzbd: Service('sabnzbd', 8080) {
       volumes+: [data],
     },
 
@@ -132,6 +132,13 @@ local git = '/home/bas/git:/home/bas/git';
 
     overseerr: Service('overseerr', 5055, domain='request'),
 
+    maintainerr: Service('maintainerr', 80, replicas=0) {
+      image: 'jorenn92/maintainerr',
+      volumes: [
+        '${ROOT}/docker/maintainerr:/opt/data',
+      ],
+    },
+
     monero: Service('monero', 28081, replicas=0) {
       image: 'rinocommunity/monero',
       volumes: [
@@ -150,7 +157,7 @@ local git = '/home/bas/git:/home/bas/git';
       ],
     },
 
-    mkvtoolnix: Service('mkvtoolnix', 5800, replicas=0) {
+    mkvtoolnix: Service('mkvtoolnix', 5800) {
       image: 'jlesage/mkvtoolnix',
       volumes+: [data],
       environment+: {
@@ -173,7 +180,7 @@ local git = '/home/bas/git:/home/bas/git';
       },
     },
 
-    librespeed: Service('librespeed', 80, domain='speedtest', replicas=0) {
+    librespeed: Service('librespeed', 80, domain='speedtest') {
       environment+: {
         TITLE: 'Speedtest | Bas',
         TELEMETRY: 'true',
