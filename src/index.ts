@@ -299,7 +299,7 @@ const mkvtoolnixService = await ContainerService.create("mkvtoolnix", {
   webPort: 5800,
   mounts: [dockerConfMount("mkvtoolnix"), dataMount],
   envs: [
-    `VNC_PASSWORD=${getEnv("VNC_PASSWORD")}`,
+    `VNC_PASSWORD=${getEnv("MKVTOOLNIX_VNC_PASSWORD")}`,
     "DARK_MODE=true",
     "APP_NICENESS=10",
     "KEEP_APP_RUNNING=1",
