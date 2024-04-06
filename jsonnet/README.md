@@ -1,4 +1,6 @@
-# Media Server Stack
+# Media Server Stack (Old)
+
+### This is an old version of my media server config. The new version using Pulumi can be found [here](..). The Docker Swarm setup is only kept for reference.
 
 My media server is hosted with Docker Swarm. This repo consists of a Docker Compose file written in Jsonnet and compiled to JSON (works with any YAML parser because JSON is a subset of YAML).
 
