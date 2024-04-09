@@ -171,6 +171,7 @@ const librespeedService = await ContainerService.create("librespeed", {
     "ENABLE_ID_OBFUSCATION=true",
     "REDACT_IP_ADDRESSES=true",
     `EMAIL=${getEnv("EMAIL")}`,
+    `PASSWORD=${getEnv("LIBRESPEED_PASSWORD")}`,
     `IPINFO_APIKEY=${getEnv("IPINFO_APIKEY")}`,
   ],
 });
