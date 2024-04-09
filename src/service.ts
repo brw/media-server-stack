@@ -125,6 +125,11 @@ type Args = AtLeast<
   "image"
 >;
 
+const network = new docker.Network("haring", {
+  name: "haring",
+  driver: "bridge",
+});
+
 export class ContainerService extends pulumi.ComponentResource {
   public container: docker.Container;
 
@@ -162,13 +167,16 @@ export class ContainerService extends pulumi.ComponentResource {
     );
 
     let labels = {};
+    let host;
 
     if (args.webPort) {
+      host = args.hostRule || `${args.domain || name}.bas.sh`;
+
       labels = {
         "traefik.enable": "true",
         [`traefik.http.services.${name}.loadbalancer.server.port`]:
           args.webPort.toString(),
-        [`traefik.http.routers.${name}.rule`]: `Host(\`${args.hostRule || `${args.domain || name}.bas.sh`}\`)`,
+        [`traefik.http.routers.${name}.rule`]: `Host(\`${host}\`)`,
         [`traefik.http.routers.${name}.entrypoints`]: "https",
         [`traefik.http.routers.${name}.tls`]: "true",
         [`traefik.http.routers.${name}.middlewares`]: [
@@ -190,25 +198,38 @@ export class ContainerService extends pulumi.ComponentResource {
       ...(args.envs || []),
     ];
 
-    this.container = new docker.Container(
+    const containerArgs = {
+      image: this.image.imageId,
       name,
-      {
-        image: this.image.imageId,
-        name,
-        command: args.command,
-        restart: "always",
-        labels: convertLabels(labels),
-        envs,
-        ports: convertPorts(args.ports),
-        mounts: args.mounts,
-        ...args.extraContainerOptions,
-      },
-      {
-        parent: this,
-        deleteBeforeReplace: true,
-        replaceOnChanges: ["mounts"],
-      },
-    );
+      command: args.command,
+      restart: "always",
+      labels: convertLabels(labels),
+      envs,
+      ports: convertPorts(args.ports),
+      mounts: args.mounts,
+      ...args.extraContainerOptions,
+    };
+
+    if (args.webPort && host) {
+      containerArgs.networksAdvanced = [
+        {
+          name: network.name,
+          aliases: [host],
+        },
+      ];
+    } else {
+      containerArgs.networksAdvanced = [
+        {
+          name: network.name,
+        },
+      ];
+    }
+
+    this.container = new docker.Container(name, containerArgs, {
+      parent: this,
+      deleteBeforeReplace: true,
+      replaceOnChanges: ["mounts"],
+    });
 
     this.registerOutputs({
       container: this.container,
