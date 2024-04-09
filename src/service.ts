@@ -119,6 +119,7 @@ type Args = AtLeast<
     labels: Record<string, string>;
     envs: string[];
     mounts: docker.types.input.ContainerMount[];
+    volumes: docker.types.input.ContainerVolume[];
     ports: (`${number}:${number}` | number)[];
     extraContainerOptions: Partial<docker.ContainerArgs>;
   },
@@ -207,6 +208,7 @@ export class ContainerService extends pulumi.ComponentResource {
       envs,
       ports: convertPorts(args.ports),
       mounts: args.mounts,
+      volumes: args.volumes,
       ...args.extraContainerOptions,
     };
 
@@ -228,7 +230,7 @@ export class ContainerService extends pulumi.ComponentResource {
     this.container = new docker.Container(name, containerArgs, {
       parent: this,
       deleteBeforeReplace: true,
-      replaceOnChanges: ["mounts"],
+      replaceOnChanges: ["mounts", "volumes"],
     });
 
     this.registerOutputs({

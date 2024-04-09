@@ -1,4 +1,5 @@
 import * as pulumi from "@pulumi/pulumi";
+import * as docker from "@pulumi/docker";
 import { ContainerService } from "./service";
 import { getEnv } from "./env";
 
@@ -23,15 +24,20 @@ const gitMount = {
   type: "bind",
 };
 
+const traefikVolume = new docker.Volume("traefik", {
+  name: "traefik",
+});
+
 const traefikService = await ContainerService.create("traefik", {
   image: "traefik",
   webPort: 8080,
-  mounts: [
+  volumes: [
     {
-      source: "traefik",
-      target: "/etc/traefik",
-      type: "volume",
+      volumeName: traefikVolume.name,
+      containerPath: "/etc/traefik",
     },
+  ],
+  mounts: [
     {
       source: "/var/run/docker.sock",
       target: "/var/run/docker.sock",
