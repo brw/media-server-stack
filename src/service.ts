@@ -214,7 +214,7 @@ export class ContainerService extends pulumi.ComponentResource {
       containerArgs.networksAdvanced = [
         {
           name: network.name,
-          aliases: [host],
+          // aliases: [host],
         },
       ];
     } else {
