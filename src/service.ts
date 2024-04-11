@@ -179,7 +179,6 @@ export class ContainerService extends pulumi.ComponentResource {
           args.webPort.toString(),
         [`traefik.http.routers.${name}.rule`]: `Host(\`${host}\`)`,
         [`traefik.http.routers.${name}.entrypoints`]: "https",
-        [`traefik.http.routers.${name}.tls`]: "true",
         [`traefik.http.routers.${name}.middlewares`]: [
           "cloudflarewarp",
           ...(args.middlewares || []),

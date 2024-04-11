@@ -57,6 +57,9 @@ const traefikService = await ContainerService.create("traefik", {
     "--entrypoints.http.address=:80",
     "--entrypoints.https.address=:443",
     "--entrypoints.https.http.tls=true",
+    "--entrypoints.https.http.tls.certresolver=cloudflare",
+    "--entrypoints.https.http.tls.domains[0].main=bas.sh",
+    "--entrypoints.https.http.tls.domains[0].sans=*.bas.sh",
     "--certificatesresolvers.cloudflare.acme.dnschallenge=true",
     "--certificatesresolvers.cloudflare.acme.dnschallenge.provider=cloudflare",
     "--certificatesresolvers.cloudflare.acme.dnschallenge.resolvers=1.1.1.1:53,8.8.8.8:53",
@@ -65,7 +68,6 @@ const traefikService = await ContainerService.create("traefik", {
     "--experimental.plugins.cloudflarewarp.modulename=github.com/BetterCorp/cloudflarewarp",
     "--experimental.plugins.cloudflarewarp.version=v1.3.3",
   ],
-
   labels: {
     "traefik.http.middlewares.httpsredirect.redirectscheme.scheme": "https",
     "traefik.http.middlewares.cloudflarewarp.plugin.cloudflarewarp.disableDefault":
@@ -109,9 +111,6 @@ const plexService = await ContainerService.create("plex", {
   webPort: 32400,
   envs: ["VERSION=latest"],
   mounts: [dockerConfMount("plex"), dataMount, gitMount],
-  labels: {
-    "traefik.http.routers.plex.tls.certresolver": "cloudflare",
-  },
   extraContainerOptions: {
     networkMode: pulumi.interpolate`container:${wireguardService.container.id}`,
   },
