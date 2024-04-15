@@ -312,6 +312,23 @@ const resilioSyncService = await ContainerService.create("resilio-sync", {
   ],
 });
 
+const syncthingService = await ContainerService.create("syncthing", {
+  webPort: 8384,
+  domain: "syncthing",
+  ports: [22000, 21027],
+  mounts: [
+    dockerConfMount("syncthing"),
+    {
+      source: "/home/bas/data/media/sync",
+      target: "/sync",
+      type: "bind",
+      bindOptions: {
+        propagation: "rshared",
+      },
+    },
+  ],
+});
+
 const mkvtoolnixService = await ContainerService.create("mkvtoolnix", {
   image: "jlesage/mkv-muxing-batch-gui",
   webPort: 5800,
