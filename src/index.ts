@@ -75,6 +75,12 @@ const traefikService = await ContainerService.create("traefik", {
     `--certificatesresolvers.cloudflare.acme.email=${getEnv("EMAIL")}`,
     "--experimental.plugins.cloudflarewarp.modulename=github.com/BetterCorp/cloudflarewarp",
     "--experimental.plugins.cloudflarewarp.version=v1.3.3",
+    "--metrics.prometheus=true",
+    "--metrics.prometheus.addEntryPointsLabels=true",
+    "--metrics.prometheus.addServicesLabels=true",
+    "--metrics.prometheus.addRoutersLabels=true",
+    "--metrics.prometheus.buckets=0.1,0.3,1.2,5.0",
+    "--metrics.prometheus.manualRouting=true",
   ],
   labels: {
     "traefik.http.middlewares.httpsredirect.redirectscheme.scheme": "https",
@@ -88,6 +94,11 @@ const traefikService = await ContainerService.create("traefik", {
 
     "traefik.http.routers.traefik.service": "api@internal",
     "traefik.http.routers.traefik.middlewares": "auth",
+
+    "traefik.http.routers.metrics.service": "prometheus@internal",
+    "traefik.http.routers.metrics.rule": "Host(`metrics.bas.sh`)",
+    "traefik.http.routers.metrics.entrypoints": "https",
+    "traefik.http.routers.metrics.middlewares": "auth",
   },
 });
 
@@ -312,4 +323,33 @@ const mkvtoolnixService = await ContainerService.create("mkvtoolnix", {
     "KEEP_APP_RUNNING=1",
     "ENABLE_CJK_FONT=1",
   ],
+});
+
+const prometheusService = await ContainerService.create("prometheus", {
+  image: "prom/prometheus",
+  webPort: 9090,
+  mounts: [dockerConfMount("prometheus", "/etc/prometheus")],
+  volumes: [
+    {
+      volumeName: "prometheus",
+      containerPath: "/prometheus",
+    },
+  ],
+  command: [
+    "--config.file=/etc/prometheus/prometheus.yml",
+    "--storage.tsdb.path=/prometheus",
+    "--web.console.libraries=/etc/prometheus/console_libraries",
+    "--web.console.templates=/etc/prometheus/consoles",
+  ],
+  middlewares: ["auth"],
+});
+
+const grafanaService = await ContainerService.create("grafana", {
+  image: "grafana/grafana-oss",
+  webPort: 3000,
+  mounts: [dockerConfMount("grafana", "/var/lib/grafana")],
+  envs: ["GF_INSTALL_PLUGINS=grafana-piechart-panel"],
+  extraContainerOptions: {
+    user: "1000:1000",
+  },
 });
