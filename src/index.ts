@@ -1,13 +1,21 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as docker from "@pulumi/docker";
+import { remote } from "@pulumi/command";
 import { ContainerService } from "./service";
 import { getEnv } from "./env";
 
-const dockerConfMount = (name: string) => ({
-  source: `/home/bas/docker/${name}`,
-  target: "/config",
-  type: "bind",
-});
+const dockerConfMount = (name: string, target?: string) => {
+  new remote.Command(`mkdir-${name}`, {
+    connection: { host: "haring.bas.sh", user: "bas" },
+    create: `mkdir -p /home/bas/docker/${name}`,
+  });
+
+  return {
+    source: `/home/bas/docker/${name}`,
+    target: target || "/config",
+    type: "bind",
+  };
+};
 
 const dataMount = {
   source: "/home/bas/data",
@@ -235,19 +243,12 @@ const autobrrService = await ContainerService.create("autobrr", {
 const ankiService = await ContainerService.create("anki", {
   image: "ankicommunity/anki-sync-server:latest-develop",
   webPort: 27701,
-  domain: "anki",
   envs: [
     "ANKISYNCD_AUTH_DB_PATH=/app/data/auth.db",
     "ANKISYNCD_DATA_ROOT=/app/data/collections",
     "ANKISYNCD_SESSION_DB_PATH=/app/data/session.db",
   ],
-  mounts: [
-    {
-      source: "/home/bas/docker/anki",
-      target: "/app/data",
-      type: "bind",
-    },
-  ],
+  mounts: [dockerConfMount("anki", "/app/data")],
 });
 
 const sabnzbdService = await ContainerService.create("sabnzbd", {
