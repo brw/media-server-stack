@@ -121,6 +121,7 @@ type Args = AtLeast<
     mounts: docker.types.input.ContainerMount[];
     volumes: docker.types.input.ContainerVolume[];
     ports: (`${number}:${number}` | number)[];
+    aliases: string[];
     extraContainerOptions: Partial<docker.ContainerArgs>;
   },
   "image"
@@ -198,39 +199,34 @@ export class ContainerService extends pulumi.ComponentResource {
       ...(args.envs || []),
     ];
 
-    const containerArgs = {
-      image: this.image.imageId,
+    this.container = new docker.Container(
       name,
-      command: args.command,
-      restart: "always",
-      labels: convertLabels(labels),
-      envs,
-      ports: convertPorts(args.ports),
-      mounts: args.mounts,
-      volumes: args.volumes,
-      ...args.extraContainerOptions,
-    };
-
-    if (args.webPort && host) {
-      containerArgs.networksAdvanced = [
-        {
-          name: network.name,
-          // aliases: [host],
-        },
-      ];
-    } else {
-      containerArgs.networksAdvanced = [
-        {
-          name: network.name,
-        },
-      ];
-    }
-
-    this.container = new docker.Container(name, containerArgs, {
-      parent: this,
-      deleteBeforeReplace: true,
-      replaceOnChanges: ["mounts", "volumes"],
-    });
+      {
+        image: this.image.imageId,
+        name,
+        command: args.command,
+        restart: "always",
+        labels: convertLabels(labels),
+        envs,
+        ports: convertPorts(args.ports),
+        mounts: args.mounts,
+        volumes: args.volumes,
+        networksAdvanced: [
+          {
+            name: network.name,
+            ...(args.aliases && {
+              aliases: args.aliases,
+            }),
+          },
+        ],
+        ...args.extraContainerOptions,
+      },
+      {
+        parent: this,
+        deleteBeforeReplace: true,
+        replaceOnChanges: ["mounts", "volumes"],
+      },
+    );
 
     this.registerOutputs({
       container: this.container,
