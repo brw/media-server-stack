@@ -89,8 +89,9 @@ const getLatestImageName = async (image: string) => {
   const tags = await response.json();
   const digest = (tags?.manifests ?? tags?.images)?.find(
     (image: any) =>
-      image.architecture === "amd64" ||
-      image.platform?.architecture === "amd64",
+      (image.os === "linux" || !image.os) &&
+      (image.architecture === "amd64" ||
+        image.platform?.architecture === "amd64"),
   )?.digest;
 
   if (!digest) {
@@ -111,7 +112,7 @@ type AtLeast<T, K extends keyof T> = Pick<T, K> & Partial<Omit<T, K>>;
 type Args = AtLeast<
   {
     image: string;
-    domain: string;
+    subdomain: string;
     hostRule: string;
     webPort: number;
     command: string[];
@@ -121,16 +122,17 @@ type Args = AtLeast<
     mounts: docker.types.input.ContainerMount[];
     volumes: docker.types.input.ContainerVolume[];
     ports: (`${number}:${number}` | number)[];
+    networkMode: pulumi.Input<string>;
     aliases: string[];
     extraContainerOptions: Partial<docker.ContainerArgs>;
   },
   "image"
 >;
 
-const network = new docker.Network("haring", {
-  name: "haring",
-  driver: "bridge",
-});
+// const network = new docker.Network("haring", {
+//   name: "haring",
+//   driver: "bridge",
+// });
 
 export class ContainerService extends pulumi.ComponentResource {
   public container: docker.Container;
@@ -172,7 +174,7 @@ export class ContainerService extends pulumi.ComponentResource {
     let host;
 
     if (args.webPort) {
-      host = args.hostRule || `${args.domain || name}.bas.sh`;
+      host = args.hostRule || `${args.subdomain || name}.bas.sh`;
 
       labels = {
         "traefik.enable": "true",
@@ -211,14 +213,15 @@ export class ContainerService extends pulumi.ComponentResource {
         ports: convertPorts(args.ports),
         mounts: args.mounts,
         volumes: args.volumes,
-        networksAdvanced: [
-          {
-            name: network.name,
-            ...(args.aliases && {
-              aliases: args.aliases,
-            }),
-          },
-        ],
+        networkMode: args.networkMode || "bridge",
+        // networksAdvanced: [
+        //   {
+        //     name: network.name,
+        //     ...(args.aliases && {
+        //       aliases: args.aliases,
+        //     }),
+        //   },
+        // ],
         ...args.extraContainerOptions,
       },
       {

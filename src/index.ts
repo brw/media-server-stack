@@ -130,14 +130,12 @@ const plexService = await ContainerService.create("plex", {
   webPort: 32400,
   envs: ["VERSION=latest"],
   mounts: [dockerConfMount("plex"), dataMount, gitMount],
-  extraContainerOptions: {
-    networkMode: pulumi.interpolate`container:${wireguardService.container.id}`,
-  },
+  networkMode: pulumi.interpolate`container:${wireguardService.container.id}`,
 });
 
 const overseerrService = await ContainerService.create("overseerr", {
   webPort: 5055,
-  domain: "request",
+  subdomain: "request",
   mounts: [dockerConfMount("overseerr"), dataMount],
 });
 
@@ -188,7 +186,7 @@ const qbittorrentService = await ContainerService.create("qbittorrent", {
 const librespeedService = await ContainerService.create("librespeed", {
   image: "ghcr.io/librespeed/speedtest",
   webPort: 80,
-  domain: "speedtest",
+  subdomain: "speedtest",
   envs: [
     "TITLE=Speedtest | Bas",
     "TELEMETRY=true",
@@ -204,7 +202,7 @@ const librespeedService = await ContainerService.create("librespeed", {
   await ContainerService.create(`caddy${subdomain}`, {
     image: "caddy",
     webPort: 80,
-    domain: subdomain,
+    subdomain: subdomain,
     command: [
       "caddy",
       "file-server",
@@ -241,7 +239,7 @@ const autolanguagesService = await ContainerService.create("autolanguages", {
 
 const theloungeService = await ContainerService.create("thelounge", {
   webPort: 9000,
-  domain: "irc",
+  subdomain: "irc",
   mounts: [dockerConfMount("thelounge")],
 });
 
@@ -296,7 +294,7 @@ const qbittoolsService = await ContainerService.create("qbittools", {
 });
 
 const resilioSyncService = await ContainerService.create("resilio-sync", {
-  domain: "sync",
+  subdomain: "sync",
   webPort: 8888,
   ports: [55555],
   mounts: [
@@ -314,7 +312,7 @@ const resilioSyncService = await ContainerService.create("resilio-sync", {
 
 const syncthingService = await ContainerService.create("syncthing", {
   webPort: 8384,
-  domain: "syncthing",
+  subdomain: "syncthing",
   ports: [22000, 21027],
   mounts: [
     dockerConfMount("syncthing"),
@@ -330,11 +328,25 @@ const syncthingService = await ContainerService.create("syncthing", {
 });
 
 const mkvtoolnixService = await ContainerService.create("mkvtoolnix", {
-  image: "jlesage/mkv-muxing-batch-gui",
+  image: "jlesage/mkvtoolnix",
   webPort: 5800,
   mounts: [dockerConfMount("mkvtoolnix"), dataMount],
   envs: [
-    `VNC_PASSWORD=${getEnv("MKVTOOLNIX_VNC_PASSWORD")}`,
+    `VNC_PASSWORD=${getEnv("VNC_PASSWORD")}`,
+    "DARK_MODE=true",
+    "APP_NICENESS=10",
+    "KEEP_APP_RUNNING=1",
+    "ENABLE_CJK_FONT=1",
+  ],
+});
+
+const mkvMuxingBatchService = await ContainerService.create("mkv-batch", {
+  image: "jlesage/mkv-muxing-batch-gui",
+  webPort: 5800,
+  subdomain: "mkv-batch",
+  mounts: [dockerConfMount("mkv-batch"), dataMount],
+  envs: [
+    `VNC_PASSWORD=${getEnv("VNC_PASSWORD")}`,
     "DARK_MODE=true",
     "APP_NICENESS=10",
     "KEEP_APP_RUNNING=1",
@@ -384,6 +396,7 @@ const scrutinyService = await ContainerService.create("scrutiny", {
       readOnly: true,
     },
   ],
+  envs: ["COLLECTOR_CRON_SCHEDULE=0 * * * *"],
   extraContainerOptions: {
     capabilities: {
       adds: ["SYS_RAWIO", "SYS_ADMIN"],
