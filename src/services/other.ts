@@ -9,10 +9,9 @@ import {
   nvmeMount,
   dataMount,
 } from "~lib/service/mounts";
-import { interpolate, unsecret } from "@pulumi/pulumi";
+import { interpolate } from "@pulumi/pulumi";
 import { getEnv } from "~lib/env";
 import { haringDockerProvider } from "~lib/service/providers";
-import { kaneelnasDockerProvider } from "~lib/service/providers";
 
 const traefikVolume = new docker.Volume(
   "traefik",
