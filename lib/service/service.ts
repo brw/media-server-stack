@@ -75,6 +75,12 @@ class ContainerService extends pulumi.ComponentResource {
 
     this.commandConnection = args.commandConnection;
 
+    if (!args.enabled || args.disabled) {
+      this.enabled = false;
+      this.ip = pulumi.output(undefined);
+      return;
+    }
+
     const mounts = pulumi.output(args.mounts).apply((mounts) => {
       let i = 0;
       for (const mount of mounts) {
@@ -97,12 +103,6 @@ class ContainerService extends pulumi.ComponentResource {
 
       return mounts;
     });
-
-    if (!args.enabled || args.disabled) {
-      this.enabled = false;
-      this.ip = pulumi.output(undefined);
-      return;
-    }
 
     const imageManifest = docker.getRegistryImageOutput(
       { name: args.image ?? `lscr.io/linuxserver/${name}` },
