@@ -1,3 +1,3 @@
 import "./minecraft";
-import "./other";
+import "./haring";
 import "./kaneelnas";
