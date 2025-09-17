@@ -218,30 +218,6 @@ const syncloungeService = new ContainerService("synclounge", {
   },
 });
 
-// const privatePlexService = new ContainerService("plex-private", {
-//   image: "lscr.io/linuxserver/plex",
-//   servicePort: 32401,
-//   mounts: [confMount("plex-private"), dataMount(), gitMount],
-//   networkMode: interpolate`container:${wireguardProtonService.container.id}`,
-//   envs: {
-//     PLEX_CLAIM: "claim-a_r_rc1TpEv5yzCgfy-m",
-//   },
-// });
-
-// const jellyfinService = new ContainerService("jellyfin", {
-//   servicePort: 8096,
-//   mounts: [confMount("jellyfin"), dataMount()],
-//   envs: {
-//     JELLYFIN_PublishedServerUrl: "https://jellyfin.bas.sh",
-//   },
-// });
-
-// const embyService = new ContainerService("emby", {
-//   servicePort: 8096,
-//   mounts: [confMount("emby"), dataMount()],
-//   envs: {},
-// });
-
 const overseerrService = new ContainerService("overseerr", {
   image: "lscr.io/linuxserver/overseerr:develop",
   servicePort: 5055,
