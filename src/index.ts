@@ -1,1 +1,3 @@
-import "./servers";
+import "./haring";
+import "./kaneelnas";
+import "./minecraft";
