@@ -78,7 +78,7 @@ class ContainerService extends pulumi.ComponentResource {
     const mounts = pulumi.output(args.mounts).apply((mounts) => {
       let i = 0;
       for (const mount of mounts) {
-        if (mount.type === "bind" && mount.source && mount.create) {
+        if (mount.type === "bind" && mount.source) {
           const dir =
             mount.kind === "file" ? path.dirname(mount.source) : mount.source;
           this.createRemoteDir(dir, name, i);
@@ -86,7 +86,6 @@ class ContainerService extends pulumi.ComponentResource {
         }
 
         delete mount.kind;
-        delete mount.create;
       }
 
       // mounts.push({

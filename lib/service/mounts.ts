@@ -7,7 +7,6 @@ export type MountOpts = docker.types.input.ContainerMount & CustomMountOpts;
 
 type CustomMountOpts = Partial<{
   kind: Input<"directory" | "file">;
-  create: Input<boolean>;
 }>;
 
 export function _mount({
@@ -17,7 +16,6 @@ export function _mount({
   bindOptions,
   readOnly = false,
   kind = "directory",
-  create = false,
 }: Optional<MountOpts, "target" | "type">): MountOpts {
   if (!source) {
     throw Error("mount does not have source");
@@ -35,7 +33,6 @@ export function _mount({
     type,
     bindOptions,
     kind,
-    create,
     readOnly,
   };
 }
