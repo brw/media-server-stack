@@ -2,10 +2,7 @@ name: media-server-stack
 runtime:
   name: nodejs
   options:
-    nodeargs: "--loader ts-node/esm --no-warnings --experimental-specifier-resolution=node"
+    packagemanager: bun
     typescript: true
+    nodeargs: "--import tsx/esm"
 description: Pulumi definitions for my media server
-config:
-  pulumi:tags:
-    value:
-      pulumi:template: https://www.pulumi.com/ai/api/project/836ba65a-7cc5-4519-930b-2e6ec54cc841.zip

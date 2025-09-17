@@ -1,10 +1,8 @@
-# Media Server
+# Media Server Stack
 
-My single node media server. Used to be Docker Swarm (in the jsonnet folder), now just Docker containers orchestrated using Pulumi.
+The Pulumi code I use for my single node container-based media server (among other things). Used to be Docker Swarm, generating my Docker Compose file with Jsonnet (my old setup can be found in the [jsonnet](./.old/jsonnet) folder), but I have since switched to orchestrating Docker containers with Pulumi.
 
 # Setup
-
-First change the required variables in .env, then
 
 ```bash
 bun install

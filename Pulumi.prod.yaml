@@ -1,2 +1,3 @@
 config:
-  docker:host: ssh://haring
+  pulumi:disable-default-providers:
+    - docker
