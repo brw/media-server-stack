@@ -24,7 +24,10 @@ export function _mount({
   }
 
   target ??= source;
-  bindOptions = { propagation: "rshared", ...bindOptions };
+  bindOptions = output(bindOptions).apply((bindOptions) => ({
+    propagation: "rshared",
+    ...bindOptions,
+  }));
 
   return {
     source,
