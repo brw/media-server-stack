@@ -11,11 +11,11 @@ import { getEnv } from "~lib/env";
 import { haringDockerProvider } from "./providers";
 import { MountOpts } from "./mounts";
 
-const defaultConnection: input.remote.ConnectionArgs = {
+const defaultConnection = {
   host: getEnv("CONNECTION_HOST"),
   user: getEnv("CONNECTION_USER"),
   // password: getEnv("CONNECTION.PASSWORD"),
-};
+} satisfies input.remote.ConnectionArgs;
 
 type Env = string | number | boolean;
 
@@ -284,10 +284,13 @@ class ContainerService extends pulumi.ComponentResource {
     args: command.local.RunArgs,
     opts?: pulumi.InvokeOptions,
   ): Promise<command.local.RunResult> {
-    const newArgs: command.local.RunArgs = {
+    const newArgs = {
       ...args,
-      interpreter: ["/usr/bin/ssh", getEnv("CONNECTION_HOST")],
-    };
+      interpreter: [
+        "/usr/bin/ssh",
+        `${defaultConnection.user}@${defaultConnection.host}`,
+      ],
+    } satisfies command.local.RunArgs;
 
     return command.local.run(newArgs, {
       ...opts,
